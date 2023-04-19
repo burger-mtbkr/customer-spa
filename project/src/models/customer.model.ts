@@ -1,0 +1,68 @@
+import * as yup from 'yup';
+import { SchemaOf } from 'yup';
+import { AxiosError } from 'axios';
+
+export interface ICustomer {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  email: string;
+  phoneNumber: string;
+  status: number;
+  createdDateUtc?: Date;
+}
+
+export type CustomerListItem = ICustomer & {
+  id: string;
+};
+
+export const CustomerSchema: SchemaOf<ICustomer> = yup
+  .object()
+  .shape({
+    id: yup.string(),
+    firstName: yup.string().max(25).min(3).required(),
+    lastName: yup.string().max(25).min(3).required(),
+    company: yup.string().max(25).min(3).required(),
+    email: yup.string().email().max(25).min(3).required(),
+    phoneNumber: yup.string().max(20).min(5).required(),
+    status: yup.number().required(),
+  })
+  .default({
+    id: undefined,
+    firstName: '',
+    lastName: '',
+    company: '',
+    email: '',
+    phoneNumber: '',
+    status: 0,
+  });
+
+export interface IFetchCustomersResponse {
+  customers?: CustomerListItem[];
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ICustomerResponse {
+  customer: ICustomer | undefined;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface IDeleteCustomerResponse {
+  id: string;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ICustomerState {
+  deleteModalOpen: boolean;
+  isLoading: boolean;
+  isSaving: boolean;
+  isDeleting: boolean;
+  customerListResponse?: IFetchCustomersResponse;
+  selectedCustomers: CustomerListItem[];
+  customerSaveResponse?: ICustomerResponse;
+  deleteCustomerResponse?: IDeleteCustomerResponse;
+}
