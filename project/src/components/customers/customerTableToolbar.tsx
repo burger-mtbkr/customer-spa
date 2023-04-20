@@ -2,27 +2,19 @@ import { useHistory } from 'react-router-dom';
 import { alpha } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import DeletePromptModal from './deletePromptModal';
 import { getSelectedCustomers } from '../../selectors';
-import { setDeleteModalOpenAction, setSelectedCustomersAction } from '../../actions';
+import { CustomerMenuButtons } from './customerMenuButton';
 
 const CustomerTableToolbar = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const selectedCustomers = useSelector(getSelectedCustomers);
-
   return (
     <>
       <Toolbar
         sx={{
           pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
+          pr: { xs: 2, sm: 2 },
           ...(selectedCustomers.length > 0 && {
             bgcolor: (theme: {
               palette: { primary: { main: string }; action: { activatedOpacity: number } };
@@ -40,34 +32,7 @@ const CustomerTableToolbar = () => {
           </Typography>
         )}
 
-        {selectedCustomers.length === 1 && (
-          <>
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  history.push('/editcustomer');
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete">
-              <IconButton onClick={() => dispatch(setDeleteModalOpenAction(true))}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          </>
-        )}
-        <Tooltip title="Add">
-          <IconButton
-            onClick={() => {
-              dispatch(setSelectedCustomersAction([]));
-              history.push('/addcustomer');
-            }}
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
+        <CustomerMenuButtons />
       </Toolbar>
       <DeletePromptModal />
     </>

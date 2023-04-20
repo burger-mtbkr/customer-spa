@@ -1,12 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Container } from '@material-ui/core';
+import CustomerTable from '../components/customers/customerTable';
 
-import CustomerList from '../components/customers/customerTable';
-
-const Customers = (): JSX.Element => {
+export const Customers = (): JSX.Element => {
   return (
     <Container maxWidth="lg">
-      <CustomerList />
+      <CustomerTable />
     </Container>
   );
 };

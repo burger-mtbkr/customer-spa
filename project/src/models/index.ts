@@ -1,3 +1,4 @@
+export * from './app.model';
 export * from './login.model';
 export * from './password.changerequest.model';
 export * from './lead.model';

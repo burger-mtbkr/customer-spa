@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
   },
   layout: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -36,9 +36,6 @@ const useStyles = makeStyles(theme => ({
   fieldSet: {
     marginTop: theme.spacing(3),
     paddingBottom: theme.spacing(2),
-  },
-  checkbox: {
-    margin: theme.spacing(1),
   },
   textField: {
     margin: theme.spacing(2),
@@ -132,7 +129,7 @@ export const PasswordChange = (): JSX.Element => {
         </Button>
       </Grid>
       <Grid item xs>
-        <Link to="/userSettings">
+        <Link to="/">
           <Button disabled={saving} variant="contained" color="primary" startIcon={<CancelSharp />}>
             Cancel
           </Button>

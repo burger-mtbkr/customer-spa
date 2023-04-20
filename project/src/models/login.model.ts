@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import * as yup from 'yup';
 import { SchemaOf } from 'yup';
 
@@ -32,3 +33,13 @@ export const LoginSchema: SchemaOf<ILogin> = yup
     password: '',
     rememberLogin: true,
   });
+export interface ILoginResponse {
+  isLoggedIn: boolean;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ILoginState {
+  loginInProgress: boolean;
+  loginResponse?: ILoginResponse;
+}

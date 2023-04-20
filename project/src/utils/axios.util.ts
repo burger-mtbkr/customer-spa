@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-const apiBaseEndpoint: string = `${process.env.REACT_APP_API_ENDPOINT}`;
+const apiBaseEndpoint = 'https://localhost:32802/api'; //`${process.env.REACT_APP_API_ENDPOINT}`;
 
 export const axiosApi: AxiosInstance = axios.create({
   baseURL: apiBaseEndpoint,
@@ -8,6 +8,7 @@ export const axiosApi: AxiosInstance = axios.create({
 axiosApi.interceptors.request.use(
   config => {
     config.headers['Content-Type'] = 'application/json';
+
     return config;
   },
   error => {

@@ -1,11 +1,9 @@
-import { signupInProgressAction } from './../actions/signup.actions';
-
-import { signUpAction } from './../actions';
+import { setLoginDoneAction } from './../actions';
 import { signUp } from './../api';
-import { ISignupRequest, ISignupResponse } from './../models/signup.model';
+import { ISignupRequest, ISignupResponse } from './../models';
 import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { setSignupDoneAction } from '../actions/signup.actions';
+import { signUpAction, setSignupDoneAction, signupInProgressAction } from '../actions';
 
 export function* signupAsync(action: { payload: ISignupRequest }): SagaIterator {
   try {
@@ -13,6 +11,12 @@ export function* signupAsync(action: { payload: ISignupRequest }): SagaIterator 
 
     const response: ISignupResponse = yield call(signUp, action.payload);
     yield put(setSignupDoneAction(response));
+    yield put(
+      setLoginDoneAction({
+        isLoggedIn: true,
+        isSuccessful: true,
+      }),
+    );
   } catch (error) {
     yield put(
       setSignupDoneAction({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,6 +9,9 @@ import PeopleSharp from '@material-ui/icons/PeopleSharp';
 import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { setAppDrawerOpenAction } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { appDrawerOpen, loggedIn } from '../../selectors';
 
 const drawerStyle = makeStyles(theme => ({
   drawer: {
@@ -33,48 +36,41 @@ const drawerStyle = makeStyles(theme => ({
       },
     },
   },
-  listItem: {
-    color: theme.palette.primary.main,
-  },
   iconColor: {
     color: theme.palette.primary.main,
   },
-  listTitle: {
-    color: theme.palette.primary.main,
-    textAlign: 'center',
-    paddingTop: '5px',
-    textDecoration: 'underline',
-  },
 }));
 
-export interface IMenuDrawerProps {
-  onMenuClose(): void;
-}
-
-const MenuDrawer = (props: IMenuDrawerProps) => {
-  const { onMenuClose } = props;
+const MenuDrawer = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(loggedIn);
+  const isAppDrawerOpen = useSelector(appDrawerOpen);
   const classes = drawerStyle();
   const [state, setState] = React.useState({
     left: true,
   });
 
-  const toggleDrawer = (menuState: boolean) => (event: any) => {
+  useEffect(() => {
+    if (isAppDrawerOpen) setState({ ...state, left: true });
+  }, [isAppDrawerOpen, state]);
+
+  const closeAppDrawer = () => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
 
-    setState({ ...state, left: menuState });
+    setState({ ...state, left: false });
 
-    if (!menuState) onMenuClose();
+    dispatch(setAppDrawerOpenAction(false));
   };
 
-  return (
-    <Drawer open={state.left} onClose={toggleDrawer(false)}>
+  return isLoggedIn && isAppDrawerOpen ? (
+    <Drawer open={state.left} onClose={closeAppDrawer()}>
       <div
         className={classes.drawer}
         role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
+        onClick={closeAppDrawer()}
+        onKeyDown={closeAppDrawer()}
       >
         <List aria-labelledby="list-subheader">
           <ListItem button>
@@ -115,6 +111,6 @@ const MenuDrawer = (props: IMenuDrawerProps) => {
         </List>
       </div>
     </Drawer>
-  );
+  ) : null;
 };
 export default MenuDrawer;

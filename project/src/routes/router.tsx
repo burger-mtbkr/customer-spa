@@ -1,26 +1,30 @@
 import React, { useEffect } from 'react';
-import { Login, PasswordChange, UserSettings } from '../views';
+import { Login, PasswordChange, Customers, CustomerForm, Signup } from '../views';
 import { Route, Switch } from 'react-router-dom';
 import { useHistory, useLocation } from 'react-router-dom';
 import { sessionUtil } from '../utils';
-import Customers from '../views/customers';
-import CustomerForm from '../views/customerForm';
-import SignupForm from '../views/signupForm';
+import { useDispatch } from 'react-redux';
+import { setLoginDoneAction } from '../actions';
 
 const unAuthPaths = ['/login', '/signup'];
 
 const Routes = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
     if (!unAuthPaths.includes(location.pathname)) {
-      const a: boolean = sessionUtil.isActive();
-      if (!a) {
+      const active: boolean = sessionUtil.isActive();
+
+      if (active) {
+        dispatch(setLoginDoneAction({ isLoggedIn: true, isSuccessful: true }));
+      } else {
+        dispatch(setLoginDoneAction({ isLoggedIn: false, isSuccessful: true }));
         history.replace('/login');
       }
     }
-  }, [history, location]);
+  }, [dispatch, history, location]);
 
   return (
     <Switch>
@@ -40,10 +44,7 @@ const Routes = () => {
         <CustomerForm />
       </Route>
       <Route path="/signup">
-        <SignupForm />
-      </Route>
-      <Route path="/userSettings">
-        <UserSettings />
+        <Signup />
       </Route>
       <Route path="/passwordChange">
         <PasswordChange />
