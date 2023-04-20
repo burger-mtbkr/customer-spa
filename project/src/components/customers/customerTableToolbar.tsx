@@ -9,6 +9,12 @@ import { CustomerMenuButtons } from './customerMenuButton';
 
 const CustomerTableToolbar = () => {
   const selectedCustomers = useSelector(getSelectedCustomers);
+
+  const selectedTitle =
+    selectedCustomers.length === 1
+      ? `${selectedCustomers.length} customer selected`
+      : `${selectedCustomers.length} customers selected`;
+
   return (
     <>
       <Toolbar
@@ -24,7 +30,7 @@ const CustomerTableToolbar = () => {
       >
         {selectedCustomers.length > 0 ? (
           <Typography sx={{ flex: '1 1 100%' }} color="inherit" variant="subtitle1" component="div">
-            {selectedCustomers.length} selected
+            {selectedTitle}
           </Typography>
         ) : (
           <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">

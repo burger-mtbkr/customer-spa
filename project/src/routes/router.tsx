@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Login, PasswordChange, Customers, CustomerForm, Signup } from '../views';
+import {
+  Login,
+  PasswordChange,
+  Customers,
+  CustomerDetailsForm,
+  Signup,
+  CustomerAddForm,
+} from '../views';
 import { Route, Switch } from 'react-router-dom';
 import { useHistory, useLocation } from 'react-router-dom';
 import { sessionUtil } from '../utils';
@@ -38,10 +45,10 @@ const Routes = () => {
         <Login />
       </Route>
       <Route exact path="/addcustomer">
-        <CustomerForm />
+        <CustomerAddForm />
       </Route>
-      <Route exact path="/editcustomer">
-        <CustomerForm />
+      <Route exact path="/customerdetails">
+        <CustomerDetailsForm />
       </Route>
       <Route path="/signup">
         <Signup />

@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { saveCustomerAction } from '../actions';
 import { CustomerStatusText } from '../enums';
 
-export const CustomerForm = (): JSX.Element => {
+export const CustomerAddForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
   let customerToSave = useSelector(getEditCustomer);
@@ -153,4 +153,3 @@ export const CustomerForm = (): JSX.Element => {
     </form>
   );
 };
-

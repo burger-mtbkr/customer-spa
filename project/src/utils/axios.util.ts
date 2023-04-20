@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-const apiBaseEndpoint = `${process.env.REACT_APP_API_ENDPOINT}`;
+const apiBaseEndpoint = 'https://localhost:32802/api'; //`${process.env.REACT_APP_API_ENDPOINT}`;
 
 export const axiosApi: AxiosInstance = axios.create({
   baseURL: apiBaseEndpoint,

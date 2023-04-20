@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteSharp';
+import AddIcon from '@mui/icons-material/AddSharp';
+import DetailsIcon from '@mui/icons-material/DescriptionSharp';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getSelectedCustomers } from '../../selectors';
@@ -27,20 +27,20 @@ export const CustomerMenuButtons = () => {
     <>
       {selectedCustomers.length === 1 && (
         <>
-          <Tooltip title="Edit">
+          <Tooltip title="View customer details">
             <Fab
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label="edit"
+              aria-label="view customer details"
               onClick={() => {
-                history.push('/editcustomer');
+                history.push('/customerdetails');
               }}
             >
-              <EditIcon />
+              <DetailsIcon />
             </Fab>
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title="Delete a customer">
             <Fab
               color="primary"
               className={classes.fab}
@@ -53,7 +53,7 @@ export const CustomerMenuButtons = () => {
           </Tooltip>
         </>
       )}
-      <Tooltip title="Add">
+      <Tooltip title="Add a new customer">
         <Fab
           color="primary"
           className={classes.fab}
