@@ -99,6 +99,19 @@ const MenuDrawer = (props: IMenuDrawerProps) => {
               <ListItemText>Github</ListItemText>
             </a>
           </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <LinkIcon className={classes.iconColor} />
+            </ListItemIcon>
+            <a
+              href="https://stackoverflow.com/users/3150426/tresponse"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.menuLink}
+            >
+              <ListItemText>Stack Overflow</ListItemText>
+            </a>
+          </ListItem>
         </List>
       </div>
     </Drawer>
