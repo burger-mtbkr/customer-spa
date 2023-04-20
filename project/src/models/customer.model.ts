@@ -10,7 +10,7 @@ export interface ICustomer {
   email: string;
   phoneNumber: string;
   status: number;
-  createdDateUtc?: Date;
+  createdDateUtc: Date;
 }
 
 export type CustomerListItem = ICustomer & {

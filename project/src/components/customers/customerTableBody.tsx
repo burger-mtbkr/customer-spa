@@ -11,16 +11,17 @@ import { getSelectedCustomers } from '../../selectors';
 import { setSelectedCustomersAction } from '../../actions';
 
 interface ITableBodyProps {
-  userList: CustomerListItem[];
+  customerList: CustomerListItem[];
   page: number;
   dense: boolean;
   rowsPerPage: number;
+  orderBy: keyof CustomerListItem;
 }
 
 const CustomerTableBody = (props: ITableBodyProps) => {
   const dispatch = useDispatch();
+  const { customerList, page, dense, rowsPerPage } = props;
 
-  const { userList, page, dense, rowsPerPage } = props;
   const selected = useSelector(getSelectedCustomers);
 
   const handleClick = (customer: CustomerListItem) => {
@@ -47,52 +48,49 @@ const CustomerTableBody = (props: ITableBodyProps) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = () => {
-    if (userList && userList?.length > 0) {
-      return page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
+    if (customerList && customerList?.length > 0) {
+      return page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customerList.length) : 0;
     }
     return 0;
   };
 
   return (
     <TableBody>
-      {userList
-        ?.slice()
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((item: CustomerListItem, index: number) => {
-          const isItemSelected = isSelected(item);
-          const labelId = `enhanced-table-checkbox-${index}`;
+      {customerList.map((item: CustomerListItem, index: number) => {
+        const isItemSelected = isSelected(item);
+        const labelId = `enhanced-table-checkbox-${index}`;
 
-          return (
-            <TableRow
-              hover
-              onClick={() => handleClick(item)}
-              role="checkbox"
-              aria-checked={isItemSelected}
-              tabIndex={-1}
-              key={`${item.id}_${index}`}
-              selected={isItemSelected}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={isItemSelected}
-                  inputProps={{
-                    'aria-labelledby': labelId,
-                  }}
-                />
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row" padding="none">
-                {item.id}
-              </TableCell>
-              <TableCell align="left">{item.firstName}</TableCell>
-              <TableCell align="left">{item.lastName}</TableCell>
-              <TableCell align="left">{item.company}</TableCell>
-              <TableCell align="left">{item.email}</TableCell>
-              <TableCell align="left">{item.phoneNumber}</TableCell>
-              <TableCell align="left">{CustomerStatusText(item.status)}</TableCell>
-            </TableRow>
-          );
-        })}
+        return (
+          <TableRow
+            hover
+            onClick={() => handleClick(item)}
+            role="checkbox"
+            aria-checked={isItemSelected}
+            tabIndex={-1}
+            key={`${item.id}_${index}`}
+            selected={isItemSelected}
+          >
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                checked={isItemSelected}
+                inputProps={{
+                  'aria-labelledby': labelId,
+                }}
+              />
+            </TableCell>
+            <TableCell component="th" id={labelId} scope="row" padding="none">
+              {item.id}
+            </TableCell>
+            <TableCell align="left">{item.firstName}</TableCell>
+            <TableCell align="left">{item.lastName}</TableCell>
+            <TableCell align="left">{item.company}</TableCell>
+            <TableCell align="left">{item.email}</TableCell>
+            <TableCell align="left">{item.phoneNumber}</TableCell>
+            <TableCell align="left">{CustomerStatusText(item.status)}</TableCell>
+          </TableRow>
+        );
+      })}
       {emptyRows() > 0 && (
         <TableRow
           style={{

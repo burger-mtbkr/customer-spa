@@ -6,14 +6,14 @@ export const useSearchCustomer = (data: CustomerListItem[]) => {
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
-    const filteredUsers = data.filter(c => {
+    const filtered = data.filter(c => {
       const firstName = c.firstName.toLowerCase().includes(searchString.toLowerCase());
       const lastName = c.lastName.toLowerCase().includes(searchString.toLowerCase());
       const company = c.company.toLowerCase().includes(searchString.toLowerCase());
       const emailMatch = c.email.toLowerCase().includes(searchString.toLowerCase());
       return firstName || emailMatch || lastName || company;
     });
-    setFilteredCustomers(filteredUsers);
+    setFilteredCustomers(filtered);
   }, [data, searchString]);
 
   return [filteredCustomers, setSearchString] as const;

@@ -17,12 +17,14 @@ const CustomerForm = (): JSX.Element => {
 
   if (!customerToSave) {
     customerToSave = {
+      id: '',
       firstName: '',
       lastName: '',
       phoneNumber: '',
       email: '',
       company: '',
       status: 0,
+      createdDateUtc: new Date(),
     };
   }
 

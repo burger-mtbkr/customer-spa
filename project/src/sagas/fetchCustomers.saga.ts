@@ -11,7 +11,7 @@ import {
   setSelectedCustomersAction,
 } from '../actions';
 
-export function* fetchAllCustomersAsync(): SagaIterator {
+export function* fetchAllCustomersAsync(action: { payload: string }): SagaIterator {
   try {
     yield put(isLoadingAction(true));
     yield put(setSelectedCustomersAction([]));
@@ -21,7 +21,7 @@ export function* fetchAllCustomersAsync(): SagaIterator {
       }),
     );
 
-    const response: IFetchCustomersResponse = yield call(fetchAllCustomers);
+    const response: IFetchCustomersResponse = yield call(fetchAllCustomers, action.payload);
 
     yield put(fetchAllCustomersDoneAction(response));
   } catch (error) {

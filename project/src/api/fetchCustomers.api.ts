@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { IFetchCustomersResponse, CustomerListItem } from '../models';
-import { isSuccessfulResponse, axiosApi, storageUtil } from '../utils';
+import { isSuccessfulResponse, axiosApi } from '../utils';
 import { getHeaders } from './headers';
 
-export const fetchAllCustomers = async (): Promise<IFetchCustomersResponse> => {
+export const fetchAllCustomers = async (searchText: string): Promise<IFetchCustomersResponse> => {
   try {
     const headers = getHeaders();
-    const response = await axiosApi.get(`/customer`, { headers: headers });
+    const response = await axiosApi.get(`/customer/search?searchText=${searchText}`, {
+      headers: headers,
+    });
 
     if (isSuccessfulResponse(response)) {
       return {

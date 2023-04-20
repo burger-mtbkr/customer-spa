@@ -16,7 +16,7 @@ export function* deleteCustomerAsync(action: { payload: string }): SagaIterator 
 
     const response: IDeleteCustomerResponse = yield call(deleteCustomer, action.payload);
 
-    yield put(fetchAllCustomersAction());
+    yield put(fetchAllCustomersAction(''));
 
     yield put(setSelectedCustomersAction([]));
 

@@ -5,9 +5,10 @@ import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
 import Switch from '@mui/material/Switch';
-import { CustomerListItem } from '../../models';
-import { useEffect, useState } from 'react';
+import { CustomerListItem, Order } from '../../models';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomerTableToolbar from './customerTableToolbar';
 import CustomerTableHead from './customerTableHead';
@@ -15,11 +16,17 @@ import { getAllCustomers, getCustomersLoadingState, getSelectedCustomers } from 
 import { fetchAllCustomersAction, setSelectedCustomersAction } from '../../actions';
 import LoadingSkeleton from './loadingSkeleton';
 import { IconButton, TextField, Tooltip } from '@material-ui/core';
-import { useSearchCustomer } from '../../hooks/useSearchCustomers';
 import CustomerTableBody from './customerTableBody';
+import { getComparator, stableSort } from '../../utils';
+
+const DEFAULT_ORDER = 'asc';
+const DEFAULT_ORDER_BY = 'firstName';
+const DEFAULT_ROWS_PER_PAGE = 10;
 
 const CustomerTable = () => {
   const dispatch = useDispatch();
+  const [order, setOrder] = useState<Order>(DEFAULT_ORDER);
+  const [orderBy, setOrderBy] = useState<keyof CustomerListItem>(DEFAULT_ORDER_BY);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -27,16 +34,41 @@ const CustomerTable = () => {
   const data = useSelector(getAllCustomers);
   const selected = useSelector(getSelectedCustomers);
   const isLoading = useSelector(getCustomersLoadingState);
-  const [customerListList, setSearchString] = useSearchCustomer(data);
+  const [visibleRows, setVisibleRows] = useState(data);
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    dispatch(fetchAllCustomersAction());
-  }, [dispatch]);
+    dispatch(fetchAllCustomersAction(''));
+  }, []);
+
+  useEffect(() => {
+    let rowsOnMount = stableSort(data, getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY));
+    rowsOnMount = rowsOnMount.slice(
+      0 * DEFAULT_ROWS_PER_PAGE,
+      0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
+    );
+
+    setVisibleRows(rowsOnMount);
+  }, [data]);
+
+  const handleRequestSort = useCallback(
+    (event: React.MouseEvent<unknown>, newOrderBy: keyof CustomerListItem) => {
+      const isAsc = orderBy === newOrderBy && order === 'asc';
+      const toggledOrder = isAsc ? 'desc' : 'asc';
+      setOrder(toggledOrder);
+      setOrderBy(newOrderBy);
+
+      const sortedRows = stableSort(data, getComparator(toggledOrder, newOrderBy));
+      const updatedRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
+      setVisibleRows(updatedRows);
+    },
+    [orderBy, order, data, page, rowsPerPage],
+  );
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newlySelected = customerListList?.map((n: CustomerListItem) => n);
+      const newlySelected = data?.map((n: CustomerListItem) => n);
       if (newlySelected) {
         dispatch(setSelectedCustomersAction(newlySelected));
       }
@@ -50,17 +82,13 @@ const CustomerTable = () => {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, DEFAULT_ROWS_PER_PAGE));
     setPage(0);
   };
 
   const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDense(event.target.checked);
   };
-
-  useEffect(() => {
-    setSearchString(searchText);
-  }, [searchText, setSearchString]);
 
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -80,10 +108,20 @@ const CustomerTable = () => {
           variant="outlined"
           onChange={onSearchChange}
         />
+        <Tooltip title="Search">
+          <IconButton
+            onClick={() => {
+              dispatch(fetchAllCustomersAction(searchText));
+            }}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Add">
           <IconButton
             onClick={() => {
               setSearchText('');
+              dispatch(fetchAllCustomersAction(''));
             }}
           >
             <ClearIcon />
@@ -97,21 +135,25 @@ const CustomerTable = () => {
           >
             <CustomerTableHead
               numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
-              rowCount={customerListList?.length || 0}
+              onRequestSort={handleRequestSort}
+              rowCount={data?.length || 0}
             />
             <CustomerTableBody
               page={page}
-              userList={customerListList}
+              customerList={visibleRows}
               dense={dense}
               rowsPerPage={rowsPerPage}
+              orderBy={orderBy}
             />
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50]}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={customerListList?.length || 0}
+          count={data?.length || 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={(_e, n) => handleChangePage(n)}

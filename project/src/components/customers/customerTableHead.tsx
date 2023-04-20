@@ -2,17 +2,22 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
-import { ICustomer } from '../../models';
+import { CustomerListItem, Order } from '../../models';
+import { TableSortLabel } from '@material-ui/core';
+import Box from '@mui/material/Box';
 
 interface CustomerTableHeadProps {
   numSelected: number;
+  onRequestSort: (event: React.MouseEvent<unknown>, newOrderBy: keyof CustomerListItem) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  order: Order;
+  orderBy: string;
   rowCount: number;
 }
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof ICustomer;
+  id: keyof CustomerListItem;
   label: string;
   numeric: boolean;
 }
@@ -28,13 +33,13 @@ const headCells: readonly HeadCell[] = [
     id: 'firstName',
     numeric: false,
     disablePadding: true,
-    label: 'Name',
+    label: 'First name',
   },
   {
     id: 'lastName',
     numeric: false,
     disablePadding: false,
-    label: 'Lastname',
+    label: 'Last name',
   },
   {
     id: 'company',
@@ -62,7 +67,14 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-const CustomerTableHead = ({ onSelectAllClick, numSelected, rowCount }: CustomerTableHeadProps) => {
+const CustomerTableHead = (props: CustomerTableHeadProps) => {
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+
+  const createSortHandler =
+    (newOrderBy: keyof CustomerListItem) => (event: React.MouseEvent<unknown>) => {
+      onRequestSort(event, newOrderBy);
+    };
+
   return (
     <TableHead>
       <TableRow>
@@ -82,9 +94,20 @@ const CustomerTableHead = ({ onSelectAllClick, numSelected, rowCount }: Customer
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={'asc'}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
-            <strong>{headCell.label}</strong>
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              <strong>{headCell.label}</strong>
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={{ display: 'none' }}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>

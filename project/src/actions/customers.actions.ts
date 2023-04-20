@@ -28,7 +28,9 @@ export const fetchCustomerDoneAction = createAction<ICustomerResponse>(
 );
 
 /* LOAD ALL CUSTOMERS */
-export const fetchAllCustomersAction = createAction(`${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS`);
+export const fetchAllCustomersAction = createAction<string>(
+  `${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS`,
+);
 
 export const fetchAllCustomersDoneAction = createAction<IFetchCustomersResponse>(
   `${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS_DONE`,
