@@ -8,6 +8,7 @@ import {
   setDeleteCustomerDoneAction,
   setSaveCustomerDoneAction,
   setSelectedCustomersAction,
+  setCustomerSearchRequestAction,
 } from '../actions';
 import { ICustomerState } from '../models';
 
@@ -17,6 +18,10 @@ export const customerInitialState: ICustomerState = {
   isSaving: false,
   isDeleting: false,
   selectedCustomers: [],
+  customerSearchRequest: {
+    sortBy: 'firstName',
+    sortDirection: 'asc',
+  },
 };
 
 export default createReducer(customerInitialState, builder =>
@@ -41,6 +46,10 @@ export default createReducer(customerInitialState, builder =>
       actionTriggerRefetching: undefined,
       ...state,
       selectedCustomers: payload,
+    }))
+    .addCase(setCustomerSearchRequestAction, (state, { payload }) => ({
+      ...state,
+      customerSearchRequest: payload,
     }))
     .addCase(fetchAllCustomersDoneAction, (state, { payload }) => ({
       ...state,

@@ -1,3 +1,4 @@
+import { ICustomerSearchRequest } from './../models/customer.model';
 import { IDeleteCustomerResponse, ICustomerResponse, ICustomer, CustomerListItem } from '../models';
 import { TStoreState } from '../reducers';
 
@@ -22,3 +23,6 @@ export const getDeleteModalOpen = (state: TStoreState): boolean => state.custome
 export const getDeleteCustomerResponse = (
   state: TStoreState,
 ): IDeleteCustomerResponse | undefined => state.customers.deleteCustomerResponse;
+
+export const getCustomersSearchParams = (state: TStoreState): ICustomerSearchRequest =>
+  state.customers.customerSearchRequest;

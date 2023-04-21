@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import { SchemaOf } from 'yup';
 import { AxiosError } from 'axios';
+import { Order } from './order.model';
 
 export interface ICustomer {
   id?: string;
@@ -61,8 +62,16 @@ export interface ICustomerState {
   isLoading: boolean;
   isSaving: boolean;
   isDeleting: boolean;
+  customerSearchRequest: ICustomerSearchRequest;
   customerListResponse?: IFetchCustomersResponse;
   selectedCustomers: CustomerListItem[];
   customerSaveResponse?: ICustomerResponse;
   deleteCustomerResponse?: IDeleteCustomerResponse;
+}
+
+export interface ICustomerSearchRequest {
+  sortBy: string;
+  sortDirection: Order;
+  searchText?: string;
+  statusFilter?: number;
 }

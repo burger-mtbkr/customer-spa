@@ -1,4 +1,4 @@
-import { CustomerListItem } from './../models/customer.model';
+import { CustomerListItem, ICustomerSearchRequest } from './../models/customer.model';
 import {
   ICustomer,
   ICustomerResponse,
@@ -21,6 +21,7 @@ export const setSelectedCustomersAction = createAction<CustomerListItem[]>(
 export const isLoadingAction = createAction<boolean>(`${CUSTOMER_PREFIX}/API/CUSTOMERS_IS_LOADING`);
 
 /* LOAD CUSTOMER */
+
 export const fetchCustomerAction = createAction<string>(`${CUSTOMER_PREFIX}/API/FETCH_CUSTOMER`);
 
 export const fetchCustomerDoneAction = createAction<ICustomerResponse>(
@@ -28,9 +29,13 @@ export const fetchCustomerDoneAction = createAction<ICustomerResponse>(
 );
 
 /* LOAD ALL CUSTOMERS */
-export const fetchAllCustomersAction = createAction<string>(
-  `${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS`,
+
+/* LOAD ALL CUSTOMERS */
+export const setCustomerSearchRequestAction = createAction<ICustomerSearchRequest>(
+  `${CUSTOMER_PREFIX}/API/SET_CUSTOMER_SEARCH_REQUEST_ACTION`,
 );
+
+export const fetchAllCustomersAction = createAction(`${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS`);
 
 export const fetchAllCustomersDoneAction = createAction<IFetchCustomersResponse>(
   `${CUSTOMER_PREFIX}/API/FETCH_ALL_CUSTOMERS_DONE`,
