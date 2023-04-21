@@ -4,7 +4,6 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import { CustomerListItem, Order } from '../../models';
 import { TableSortLabel } from '@material-ui/core';
-import Box from '@mui/material/Box';
 
 interface CustomerTableHeadProps {
   numSelected: number;
@@ -68,6 +67,7 @@ const headCells: readonly HeadCell[] = [
 ];
 
 const CustomerTableHead = (props: CustomerTableHeadProps) => {
+
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
   const createSortHandler =
@@ -92,7 +92,6 @@ const CustomerTableHead = (props: CustomerTableHeadProps) => {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -102,11 +101,6 @@ const CustomerTableHead = (props: CustomerTableHeadProps) => {
               onClick={createSortHandler(headCell.id)}
             >
               <strong>{headCell.label}</strong>
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={{ display: 'none' }}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}

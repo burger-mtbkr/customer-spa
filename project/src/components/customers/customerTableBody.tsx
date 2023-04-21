@@ -3,12 +3,10 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import { CustomerListItem } from '../../models';
-
 import { useDispatch, useSelector } from 'react-redux';
-
-import { CustomerStatusText } from '../../enums';
 import { getSelectedCustomers } from '../../selectors';
 import { setSelectedCustomersAction } from '../../actions';
+import { customerStatusDictionary } from './customerStatus';
 
 interface ITableBodyProps {
   customerList: CustomerListItem[];
@@ -23,7 +21,6 @@ const CustomerTableBody = (props: ITableBodyProps) => {
   const { customerList, page, dense, rowsPerPage } = props;
 
   const selected = useSelector(getSelectedCustomers);
-
   const handleClick = (customer: CustomerListItem) => {
     const selectedIndex = selected.indexOf(customer);
     let newSelected: CustomerListItem[] = [];
@@ -87,7 +84,7 @@ const CustomerTableBody = (props: ITableBodyProps) => {
             <TableCell align="left">{item.company}</TableCell>
             <TableCell align="left">{item.email}</TableCell>
             <TableCell align="left">{item.phoneNumber}</TableCell>
-            <TableCell align="left">{CustomerStatusText(item.status)}</TableCell>
+            <TableCell align="left">{customerStatusDictionary[item.status].value}</TableCell>
           </TableRow>
         );
       })}

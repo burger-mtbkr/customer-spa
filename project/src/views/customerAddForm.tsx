@@ -1,4 +1,4 @@
-import { TextField, Button, Grid, Select, MenuItem, InputLabel } from '@mui/material';
+import { TextField, Grid } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,8 @@ import { getCustomerSaveResponse, getEditCustomer } from '../selectors';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { saveCustomerAction } from '../actions';
-import { CustomerStatusText } from '../enums';
+import { CustomerStatusSelect } from '../components/customers/customerStatusSelect';
+import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 
 export const CustomerAddForm = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -115,40 +116,9 @@ export const CustomerAddForm = (): JSX.Element => {
           />
         </Grid>
         <Grid item xs={6} marginY={1}>
-          <InputLabel id="status-label">Status</InputLabel>
-          <Select
-            defaultValue={customerToSave.status}
-            labelId="status-label"
-            {...register('status', { required: true })}
-          >
-            <MenuItem value={0}>{CustomerStatusText(0)}</MenuItem>
-            <MenuItem value={1}>{CustomerStatusText(1)}</MenuItem>
-            <MenuItem value={2}>{CustomerStatusText(2)}</MenuItem>
-          </Select>
+          <CustomerStatusSelect model={customerToSave} register={register} />
         </Grid>
-
-        <Grid container xs={12} spacing={2} marginY={2} direction="row" justifyContent="center">
-          <Grid item>
-            <Button variant="contained" type="submit">
-              Submit
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" type="reset">
-              Reset
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              onClick={() => {
-                history.replace('/');
-              }}
-            >
-              Cancel
-            </Button>
-          </Grid>
-        </Grid>
+        <CustomerFormButtons />
       </Grid>
     </form>
   );

@@ -1,7 +1,6 @@
-import { TextField, Button, Grid } from '@mui/material';
+import { TextField, Grid } from '@mui/material';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { ISignup } from '../../models';
-import { useHistory } from 'react-router-dom';
 
 interface ISignupFormProps {
   model: ISignup;
@@ -10,7 +9,6 @@ interface ISignupFormProps {
 }
 
 const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element => {
-  const history = useHistory();
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={1}>

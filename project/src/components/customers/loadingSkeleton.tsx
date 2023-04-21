@@ -6,10 +6,6 @@ const LoadingSkeleton = () => (
     <Skeleton height="80px" width="100%" />
     <Skeleton height="50px" width="100%" variant="rectangular" />
     <Skeleton height="80px" width="100%" />
-    <Skeleton height="50px" width="100%" variant="rectangular" />
-    <Skeleton height="80px" width="100%" />
-    <Skeleton height="50px" width="100%" variant="rectangular" />
-    <Skeleton height="80px" width="100%" />
   </Stack>
 );
 export default LoadingSkeleton;

@@ -4,20 +4,26 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import ClearIcon from '@mui/icons-material/Clear';
-import SearchIcon from '@mui/icons-material/Search';
 import Switch from '@mui/material/Switch';
 import { CustomerListItem, Order } from '../../models';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomerTableToolbar from './customerTableToolbar';
 import CustomerTableHead from './customerTableHead';
-import { getAllCustomers, getCustomersLoadingState, getSelectedCustomers } from '../../selectors';
-import { fetchAllCustomersAction, setSelectedCustomersAction } from '../../actions';
+import {
+  getAllCustomers,
+  getCustomersLoadingState,
+  getCustomersSearchParams,
+  getSelectedCustomers,
+} from '../../selectors';
+import {
+  fetchAllCustomersAction,
+  setCustomerSearchRequestAction,
+  setSelectedCustomersAction,
+} from '../../actions';
 import LoadingSkeleton from './loadingSkeleton';
-import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import CustomerTableBody from './customerTableBody';
-import { getComparator, stableSort } from '../../utils';
+import { CustomerSearchBar } from './searchBar';
 
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = 'firstName';
@@ -30,40 +36,36 @@ const CustomerTable = () => {
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-
   const data = useSelector(getAllCustomers);
   const selected = useSelector(getSelectedCustomers);
   const isLoading = useSelector(getCustomersLoadingState);
-  const [visibleRows, setVisibleRows] = useState(data);
-  const [searchText, setSearchText] = useState('');
+  const searchParams = useSelector(getCustomersSearchParams);
+
+  const fetchCustomers = useCallback(() => {
+    dispatch(fetchAllCustomersAction());
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchAllCustomersAction(''));
-  }, []);
-
-  useEffect(() => {
-    let rowsOnMount = stableSort(data, getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY));
-    rowsOnMount = rowsOnMount.slice(
-      0 * DEFAULT_ROWS_PER_PAGE,
-      0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
+    dispatch(
+      setCustomerSearchRequestAction({
+        sortBy: orderBy,
+        sortDirection: order,
+        searchText: searchParams.searchText,
+      }),
     );
+  }, [dispatch, order, orderBy, searchParams.searchText]);
 
-    setVisibleRows(rowsOnMount);
-  }, [data]);
+  useEffect(() => {
+    fetchCustomers();
+  }, [fetchCustomers, searchParams]);
 
   const handleRequestSort = useCallback(
-    (event: React.MouseEvent<unknown>, newOrderBy: keyof CustomerListItem) => {
-      const isAsc = orderBy === newOrderBy && order === 'asc';
-      const toggledOrder = isAsc ? 'desc' : 'asc';
-      setOrder(toggledOrder);
-      setOrderBy(newOrderBy);
-
-      const sortedRows = stableSort(data, getComparator(toggledOrder, newOrderBy));
-      const updatedRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-
-      setVisibleRows(updatedRows);
+    (property: keyof CustomerListItem) => {
+      const isAsc = orderBy === property && order === 'asc';
+      setOrder(isAsc ? 'desc' : 'asc');
+      setOrderBy(property);
     },
-    [orderBy, order, data, page, rowsPerPage],
+    [orderBy, order],
   );
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,75 +92,49 @@ const CustomerTable = () => {
     setDense(event.target.checked);
   };
 
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
-
-  return isLoading ? (
-    <LoadingSkeleton />
-  ) : (
+  return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <CustomerTableToolbar />
-        <TextField
-          value={searchText}
-          type="text"
-          label="Search customers"
-          placeholder="Search..."
-          variant="outlined"
-          onChange={onSearchChange}
-        />
-        <Tooltip title="Search">
-          <IconButton
-            onClick={() => {
-              dispatch(fetchAllCustomersAction(searchText));
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Add">
-          <IconButton
-            onClick={() => {
-              setSearchText('');
-              dispatch(fetchAllCustomersAction(''));
-            }}
-          >
-            <ClearIcon />
-          </IconButton>
-        </Tooltip>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 600 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <CustomerTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={data?.length || 0}
-            />
-            <CustomerTableBody
-              page={page}
-              customerList={visibleRows}
-              dense={dense}
+        <CustomerSearchBar />
+        {isLoading ? (
+          <LoadingSkeleton />
+        ) : (
+          <>
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 600 }}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+              >
+                <CustomerTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={(_e, property) => handleRequestSort(property)}
+                  rowCount={data?.length || 0}
+                />
+                <CustomerTableBody
+                  page={page}
+                  customerList={data}
+                  dense={dense}
+                  rowsPerPage={rowsPerPage}
+                  orderBy={orderBy}
+                />
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={data?.length || 0}
               rowsPerPage={rowsPerPage}
-              orderBy={orderBy}
+              page={page}
+              onPageChange={(_e, n) => handleChangePage(n)}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data?.length || 0}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={(_e, n) => handleChangePage(n)}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+          </>
+        )}
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
