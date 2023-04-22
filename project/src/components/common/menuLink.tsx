@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CUSTOMER_LIST } from '../../routes/paths';
+import { FormattedMessage } from 'react-intl';
 
 const drawerStyle = makeStyles(theme => ({
   menuLink: {
@@ -43,7 +44,9 @@ export const MenuLinks = () => {
           <PeopleSharp className={classes.iconColor} />
         </ListItemIcon>
         <Link to={CUSTOMER_LIST} className={classes.menuLink}>
-          <ListItemText>Customers</ListItemText>
+          <ListItemText>
+            <FormattedMessage id={'CUSTOMER_LIST_TITLE'} defaultMessage={'Customers'} />
+          </ListItemText>
         </Link>
       </ListItem>
       <Divider />
@@ -57,7 +60,9 @@ export const MenuLinks = () => {
           rel="noopener noreferrer"
           className={classes.menuLink}
         >
-          <ListItemText>Github</ListItemText>
+          <ListItemText>
+            <FormattedMessage id={'MENU_GITHUB_LINK_LABEL'} defaultMessage={'Github'} />
+          </ListItemText>
         </a>
       </ListItem>
       <ListItem button>
@@ -70,7 +75,12 @@ export const MenuLinks = () => {
           rel="noopener noreferrer"
           className={classes.menuLink}
         >
-          <ListItemText>Stack Overflow</ListItemText>
+          <ListItemText>
+            <FormattedMessage
+              id={'MENU_STACKOVERFLOW_LINK_LABEL'}
+              defaultMessage={'Stack Overflow'}
+            />
+          </ListItemText>
         </a>
       </ListItem>
       <ListItem button>
@@ -83,7 +93,9 @@ export const MenuLinks = () => {
           rel="noopener noreferrer"
           className={classes.menuLink}
         >
-          <ListItemText>Customer service</ListItemText>
+          <ListItemText>
+            <FormattedMessage id={'MENU_API_LINK_LABEL'} defaultMessage={'Customer service'} />
+          </ListItemText>
         </a>
       </ListItem>
     </>

@@ -2,6 +2,7 @@ import { TextField, Grid } from '@mui/material';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { ICustomer } from '../../models';
 import { CustomerStatusSelect } from './customerStatusSelect';
+import { useIntl } from 'react-intl';
 
 interface ICustomerFormProps {
   customerToSave: ICustomer;
@@ -14,13 +15,18 @@ export const CustomerForm = ({
   register,
   errors,
 }: ICustomerFormProps): JSX.Element => {
+  const intl = useIntl();
+
   return (
     <>
       {customerToSave.id && <input type="hidden" value={customerToSave.id} {...register('id')} />}
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="First name"
+          label={intl.formatMessage({
+            id: 'CUSTOMER_FIRST_NAME_LABEL',
+            defaultMessage: 'First name',
+          })}
           variant="outlined"
           defaultValue={customerToSave.firstName}
           InputLabelProps={{ shrink: true }}
@@ -32,7 +38,10 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Last name"
+          label={intl.formatMessage({
+            id: 'CUSTOMER_LAST_NAME_LABEL',
+            defaultMessage: 'Last name',
+          })}
           variant="outlined"
           defaultValue={customerToSave.lastName}
           InputLabelProps={{ shrink: true }}
@@ -44,7 +53,10 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Email"
+          label={intl.formatMessage({
+            id: 'CUSTOMER_EMAIL_LABEL',
+            defaultMessage: 'Last name',
+          })}
           variant="outlined"
           defaultValue={customerToSave.email}
           InputLabelProps={{ shrink: true }}
@@ -56,7 +68,10 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Company"
+          label={intl.formatMessage({
+            id: 'CUSTOMER_COMPANY_LABEL',
+            defaultMessage: 'Company',
+          })}
           variant="outlined"
           defaultValue={customerToSave.company}
           InputLabelProps={{ shrink: true }}
@@ -68,7 +83,10 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Phone"
+          label={intl.formatMessage({
+            id: 'CUSTOMER_PHONE_LABEL',
+            defaultMessage: 'Phone',
+          })}
           variant="outlined"
           defaultValue={customerToSave.phoneNumber}
           InputLabelProps={{ shrink: true }}

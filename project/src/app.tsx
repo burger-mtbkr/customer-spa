@@ -7,6 +7,8 @@ import { themeUtil } from './utils';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from '../src/redux/store';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
+import { messages } from './language';
 
 const App = () => {
   const theme = themeUtil.getTheme();
@@ -14,12 +16,14 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-          <div className="App">
-            <CssBaseline />
-            <HeaderBar />
-            <Routes />
-            <Footer />
-          </div>
+          <IntlProvider messages={messages} locale="en-nz" defaultLocale="en">
+            <div className="App">
+              <CssBaseline />
+              <HeaderBar />
+              <Routes />
+              <Footer />
+            </div>
+          </IntlProvider>
         </MuiThemeProvider>
       </BrowserRouter>
     </Provider>

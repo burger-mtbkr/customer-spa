@@ -1,5 +1,5 @@
 import { ILead } from '../../models';
-import { HeadCell } from '../common/tableHeadCell';
+import { HeadCell } from '../../models/tableHeadCell';
 
 type LeadHeadCell = HeadCell & {
   id: keyof ILead;

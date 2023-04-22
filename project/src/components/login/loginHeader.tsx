@@ -3,6 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -19,7 +20,7 @@ export const LoginHeader = () => {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Welcome please login
+        <FormattedMessage id={'LOGIN_TITLE'} defaultMessage={'Welcome please login'} />
       </Typography>
     </>
   );

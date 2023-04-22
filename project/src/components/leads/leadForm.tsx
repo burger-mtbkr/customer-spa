@@ -1,5 +1,6 @@
 import { TextField, Grid } from '@mui/material';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 import { ILead } from '../../models';
 import { LeadStatusSelect } from './leadsStatusSelect';
 
@@ -10,6 +11,7 @@ interface ILeadsFormProps {
 }
 
 export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX.Element => {
+  const intl = useIntl();
   return (
     <>
       {leadToSave.id && <input type="hidden" value={leadToSave.id} {...register('id')} />}
@@ -19,8 +21,14 @@ export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Name"
-          aria-label="Name"
+          label={intl.formatMessage({
+            id: 'LEAD_NAME_LABEL',
+            defaultMessage: 'Name',
+          })}
+          aria-label={intl.formatMessage({
+            id: 'LEAD_NAME_LABEL',
+            defaultMessage: 'Name',
+          })}
           variant="outlined"
           defaultValue={leadToSave.name}
           InputLabelProps={{ shrink: true }}
@@ -32,8 +40,14 @@ export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label="Source"
-          aria-label="Source"
+          label={intl.formatMessage({
+            id: 'LEAD_SOURCE_LABEL',
+            defaultMessage: 'Source',
+          })}
+          aria-label={intl.formatMessage({
+            id: 'LEAD_SOURCE_LABEL',
+            defaultMessage: 'Source',
+          })}
           variant="outlined"
           defaultValue={leadToSave.source}
           InputLabelProps={{ shrink: true }}

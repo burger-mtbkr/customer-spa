@@ -4,8 +4,11 @@ import { Grid, TextField } from '@mui/material';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { ILoginRequest } from '../../models';
+import { useIntl } from 'react-intl';
 
 export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<ILoginRequest>) => {
+  const intl = useIntl();
+
   const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue('rememberLogin', event.target.checked);
   };
@@ -21,7 +24,10 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={intl.formatMessage({
+            id: 'LOGIN_EMAIL_LABEL',
+            defaultMessage: 'Email Address',
+          })}
           name="email"
           autoComplete="email"
           autoFocus
@@ -36,7 +42,10 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           required
           fullWidth
           name={'password'}
-          label="Password"
+          label={intl.formatMessage({
+            id: 'PASSWORD_LABEL',
+            defaultMessage: 'Password',
+          })}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -52,7 +61,10 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
               onChange={handleCheckChange}
             />
           }
-          label="Remember me"
+          label={intl.formatMessage({
+            id: 'LOGIN_REMEMBER_ME_LABEL',
+            defaultMessage: 'Remember me',
+          })}
         />
       </Grid>
     </Grid>

@@ -14,6 +14,7 @@ import { Avatar, Container, Paper, Typography } from '@material-ui/core';
 import { ROOT } from './../routes/paths';
 import { Alert, Stack } from '@mui/material';
 import { getSignupError } from '../errors';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -72,7 +73,7 @@ export const Signup = (): JSX.Element => {
           <PersonAddIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Welcome please signup
+          <FormattedMessage id={'SIGN_UP_TITLE'} defaultMessage={'  Welcome please signup'} />
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack direction="column" spacing={2} marginBottom={2}>

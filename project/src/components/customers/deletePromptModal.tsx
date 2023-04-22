@@ -6,6 +6,7 @@ import { SxProps, Theme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCustomerAction, setDeleteModalOpenAction } from '../../actions';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import {
   getDeleteCustomerResponse,
   getSelectedCustomers,
@@ -58,14 +59,28 @@ const DeletePromptModal = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Delete customers?
+            <FormattedMessage id={'CUSTOMER_DELETE_TITLE'} defaultMessage={'Delete customer?'} />
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Are you sure you wish to delete the selected customer and their related leads?
+            <FormattedMessage
+              id={'CUSTOMER_DELETE_MESSAGE_LINE_ONE'}
+              defaultMessage={
+                'Are you sure you wish to delete the selected customer and their related leads?'
+              }
+            />
           </Typography>
-          <Typography style={{ color: 'red' }}>This cannot be undone.</Typography>
-          <Button onClick={onDeleteCustomers}>Delete</Button>
-          <Button onClick={handleClose}>Close</Button>
+          <Typography style={{ color: 'red' }}>
+            <FormattedMessage
+              id={'CUSTOMER_DELETE_MESSAGE_LINE_TWO'}
+              defaultMessage={'This cannot be undone.'}
+            />
+          </Typography>
+          <Button onClick={onDeleteCustomers}>
+            <FormattedMessage id={'BUTTON_DELETE'} defaultMessage={'Delete'} />
+          </Button>
+          <Button onClick={handleClose}>
+            <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
+          </Button>
         </Box>
       </Modal>
     </div>

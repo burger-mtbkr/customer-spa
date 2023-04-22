@@ -13,6 +13,7 @@ import { saveCustomerAction } from '../actions';
 import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import { CustomerForm } from '../components/customers/customerForm';
 import { ROOT } from '../routes/paths';
+import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -32,6 +33,7 @@ export const CustomerEditForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const intl = useIntl();
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const customerToSave = useSelector(getEditCustomer);
   const saveResponse = useSelector(getCustomerSaveResponse);
@@ -54,9 +56,14 @@ export const CustomerEditForm = (): JSX.Element => {
     if (saveResponse?.isSuccessful === true) {
       history.replace(ROOT);
     } else if (saveResponse?.isSuccessful === false) {
-      setError('Failed to save.  Please try again');
+      setError(
+        intl.formatMessage({
+          id: 'CUSTOMER_LIST_TITLE',
+          defaultMessage: 'Failed to save. Please try again.',
+        }),
+      );
     }
-  }, [saveResponse, history]);
+  }, [saveResponse, history, intl]);
 
   return (
     <Container maxWidth="sm">
@@ -65,7 +72,7 @@ export const CustomerEditForm = (): JSX.Element => {
           <EditIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add new customer
+          Edit customer
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>

@@ -15,6 +15,7 @@ import { LoginForm } from '../components/login/loginForm';
 import { LoginButtons } from '../components/login/loginButtons';
 import { getLoginError } from '../utils';
 import { ROOT } from './../routes/paths';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 export const Login = () => {
   const dispatch = useDispatch();
   let history = useHistory();
+  const intl = useIntl();
   const classes = useStyles();
   const loginResponse = useSelector(getLoginResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
@@ -42,9 +44,9 @@ export const Login = () => {
     if (loginResponse?.isLoggedIn) {
       history.replace(ROOT);
     } else {
-      setError(getLoginError(loginResponse));
+      setError(getLoginError(loginResponse, intl));
     }
-  }, [loginResponse, history]);
+  }, [loginResponse, history, intl]);
 
   const [loginDetail, setLoginDetail] = useState<ILoginRequest>(
     LoginSchema.default({}) as ILoginRequest,
@@ -63,7 +65,7 @@ export const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Welcome please login
+          <FormattedMessage id={'LOGIN_TITLE'} defaultMessage={'Welcome please login'} />
         </Typography>
         <Formik<ILoginRequest>
           onSubmit={onSubmit}

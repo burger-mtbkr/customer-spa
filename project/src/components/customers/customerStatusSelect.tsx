@@ -3,6 +3,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { ICustomer } from '../../models';
 import React from 'react';
 import { customerStatusDictionary } from './customerStatus';
+import { FormattedMessage } from 'react-intl';
 
 interface ICustomerStatusSelectProps {
   model: ICustomer;
@@ -15,7 +16,9 @@ export const CustomerStatusSelect = ({
 }: ICustomerStatusSelectProps): JSX.Element => {
   return (
     <>
-      <InputLabel id="status-label">Status</InputLabel>
+      <InputLabel id="status-label">
+        <FormattedMessage id={'CUSTOMER_STATUS_LABEL'} defaultMessage={'Status'} />
+      </InputLabel>
       <Select
         defaultValue={model.status}
         labelId="status-label"

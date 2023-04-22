@@ -14,6 +14,7 @@ import { LeadFormButtons } from '../components/leads/leadFormButtons';
 import { ROOT } from '../routes/paths';
 import { getEditCustomer } from './../selectors/customer.selectors';
 import { LEAD_LIST } from './../routes/paths';
+import { useIntl, FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -33,6 +34,7 @@ export const LeadAddForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
+  const intl = useIntl();
   const saveResponse = useSelector(getLeadSaveResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const selectedCustomer = useSelector(getEditCustomer);
@@ -73,9 +75,14 @@ export const LeadAddForm = (): JSX.Element => {
     if (saveResponse?.isSuccessful === true) {
       history.push(LEAD_LIST);
     } else if (saveResponse?.isSuccessful === false) {
-      setError('Failed to save.  Please try again');
+      setError(
+        intl.formatMessage({
+          id: 'CUSTOMER_LIST_TITLE',
+          defaultMessage: 'Failed to save. Please try again.',
+        }),
+      );
     }
-  }, [saveResponse, history]);
+  }, [saveResponse, history, intl]);
 
   return selectedCustomer ? (
     <Container maxWidth="sm">
@@ -84,7 +91,11 @@ export const LeadAddForm = (): JSX.Element => {
           <AddLeadIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add customer lead {`for ${selectedCustomer?.firstName} ${selectedCustomer?.lastName}`}
+          <FormattedMessage
+            id={'LEAD_EDIT_TITLE'}
+            defaultMessage={'Edit customer lead for {customer}'}
+            values={{ customer: `${selectedCustomer?.firstName} ${selectedCustomer?.lastName}` }}
+          />
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>

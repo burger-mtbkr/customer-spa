@@ -14,11 +14,13 @@ import { fetchAllLeadsAction } from './../../actions/leads.actions';
 import LeadsTableHead from './LeadsTableHead';
 import LeadsTableToolbar from './leadsTableToolbar';
 import { getAllCustomerLeads, getLeadsLoadingState } from '../../selectors';
+import { useIntl } from 'react-intl';
 
 const DEFAULT_ROWS_PER_PAGE = 10;
 
 const LeadsTable = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -79,7 +81,10 @@ const LeadsTable = () => {
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label={intl.formatMessage({
+          id: 'DENSITY_PADDING_LABEL',
+          defaultMessage: 'Dense padding',
+        })}
       />
     </Box>
   );

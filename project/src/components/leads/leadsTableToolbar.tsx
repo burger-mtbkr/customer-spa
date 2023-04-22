@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { LeadsMenuButtons } from './leadsMenuButton';
 import { getSelectedLead } from './../../selectors/leads.selectors';
 import { getEditCustomer } from '../../selectors';
+import { FormattedMessage } from 'react-intl';
 
 const LeadsTableToolbar = () => {
   const selectedLead = useSelector(getSelectedLead);
@@ -29,7 +30,11 @@ const LeadsTableToolbar = () => {
           </Typography>
         ) : (
           <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
-            Sales leads {`for ${selected?.firstName} ${selected?.lastName}`}
+            <FormattedMessage
+              id="LEAD_LIST_TITLE"
+              defaultMessage="Leads for {customer}"
+              values={{ customer: `${selected?.firstName} ${selected?.lastName}` }}
+            />
           </Typography>
         )}
         <LeadsMenuButtons />

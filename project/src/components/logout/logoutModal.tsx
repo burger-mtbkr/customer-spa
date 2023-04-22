@@ -11,6 +11,7 @@ import { logoutRequest } from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutModalOpen } from '../../selectors';
 import { setLogoutModalOpenAction } from '../../actions';
+import { FormattedMessage } from 'react-intl';
 
 const LogoutModal = (): JSX.Element => {
   const history = useHistory();
@@ -43,15 +44,18 @@ const LogoutModal = (): JSX.Element => {
       <DialogTitle id="alert-dialog-title">{'Logout?'}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to logout?
+          <FormattedMessage
+            id={'USER_LOGOUT_MESSAGE'}
+            defaultMessage={'Are you sure you want to logout?'}
+          />
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={doLogout} color="primary">
-          Yes, logout
+          <FormattedMessage id={'BUTTON_LOGOUT'} defaultMessage={'Logout'} />
         </Button>
         <Button onClick={closeDeletePrompt} color="primary" autoFocus>
-          Cancel
+          <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
         </Button>
       </DialogActions>
     </Dialog>

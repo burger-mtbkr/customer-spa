@@ -1,6 +1,7 @@
 import { TextField, Grid } from '@mui/material';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { ISignup } from '../../models';
+import { useIntl } from 'react-intl';
 
 interface ISignupFormProps {
   model: ISignup;
@@ -9,13 +10,18 @@ interface ISignupFormProps {
 }
 
 const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element => {
+  const intl = useIntl();
+
   return (
     <Grid container direction="column" justifyContent="center" spacing={1}>
       <Grid item xs={6} marginY={2}>
         <TextField
           required
           type="text"
-          label="First name"
+          label={intl.formatMessage({
+            id: 'SIGNUP_FIRST_NAME_LABEL',
+            defaultMessage: 'First name',
+          })}
           variant="outlined"
           defaultValue={model.firstName}
           InputLabelProps={{ shrink: true }}
@@ -28,7 +34,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
         <TextField
           required
           type="text"
-          label="Last name"
+          label={intl.formatMessage({
+            id: 'SIGNUP_LAST_NAME_LABEL',
+            defaultMessage: 'Last name',
+          })}
           variant="outlined"
           defaultValue={model.lastName}
           InputLabelProps={{ shrink: true }}
@@ -41,7 +50,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
         <TextField
           required
           type="text"
-          label="Email"
+          label={intl.formatMessage({
+            id: 'SIGNUP_EMAIL_NAME_LABEL',
+            defaultMessage: 'Email',
+          })}
           variant="outlined"
           defaultValue={model.email}
           InputLabelProps={{ shrink: true }}
@@ -53,7 +65,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
       <Grid item xs={6} marginY={2}>
         <TextField
           type="password"
-          label="Password"
+          label={intl.formatMessage({
+            id: 'PASSWORD_LABEL',
+            defaultMessage: 'Password',
+          })}
           variant="outlined"
           defaultValue={model.password}
           InputLabelProps={{ shrink: true }}
@@ -64,7 +79,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
       </Grid>
       <Grid item xs={6} marginY={2}>
         <TextField
-          label="Confirm password"
+          label={intl.formatMessage({
+            id: 'PASSWORD_CONFIRM_LABEL',
+            defaultMessage: 'Confirm password',
+          })}
           variant="outlined"
           type="password"
           defaultValue={model.confirmPassword}

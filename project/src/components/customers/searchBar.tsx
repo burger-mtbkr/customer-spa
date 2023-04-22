@@ -7,11 +7,12 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Grid } from '@mui/material';
 import React from 'react';
 import { customerStatusDictionary } from './customerStatus';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export const CustomerSearchBar = () => {
   const dispatch = useDispatch();
   const searchRef = createRef<HTMLDivElement>();
-
+  const intl = useIntl();
   const [searchText, setSearchText] = useState<string | undefined>(undefined);
   const [filter, setFilter] = useState<number>(-1);
   const searchParams = useSelector(getCustomersSearchParams);
@@ -59,8 +60,14 @@ export const CustomerSearchBar = () => {
               ref={searchRef}
               value={searchText}
               type="text"
-              label="Search customers"
-              placeholder="Search..."
+              label={intl.formatMessage({
+                id: 'CUSTOMER_SEARCH_LABEL',
+                defaultMessage: 'Search customers',
+              })}
+              placeholder={intl.formatMessage({
+                id: 'CUSTOMER_SEARCH_PLACEHOLDER',
+                defaultMessage: 'Search...',
+              })}
               variant="outlined"
               onChange={onSearchChange}
             />
@@ -74,7 +81,12 @@ export const CustomerSearchBar = () => {
         <Grid item margin={2}>
           <Grid container direction={'row'}>
             <Grid item paddingTop={2.5}>
-              <InputLabel>Filter status</InputLabel>
+              <InputLabel>
+                <FormattedMessage
+                  id={'CUSTOMER_SEARCH_FILTER_STATUS_LABEL'}
+                  defaultMessage={'Filter status'}
+                />
+              </InputLabel>
             </Grid>
             <Grid item marginLeft={2}>
               <Select variant="outlined" fullWidth defaultValue={filter} onChange={onFilterChange}>

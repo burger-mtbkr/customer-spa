@@ -12,6 +12,7 @@ import { saveCustomerAction } from '../actions';
 import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import { CustomerForm } from '../components/customers/customerForm';
 import { ROOT } from '../routes/paths';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 export const CustomerAddForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const intl = useIntl();
   const classes = useStyles();
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const saveResponse = useSelector(getCustomerSaveResponse);
@@ -63,9 +65,14 @@ export const CustomerAddForm = (): JSX.Element => {
     if (saveResponse?.isSuccessful === true) {
       history.replace(ROOT);
     } else if (saveResponse?.isSuccessful === false) {
-      setError('Failed to save.  Please try again');
+      setError(
+        intl.formatMessage({
+          id: 'CUSTOMER_LIST_TITLE',
+          defaultMessage: 'Failed to save. Please try again.',
+        }),
+      );
     }
-  }, [saveResponse, history]);
+  }, [saveResponse, history, intl]);
 
   return (
     <Container maxWidth="sm">
@@ -74,7 +81,7 @@ export const CustomerAddForm = (): JSX.Element => {
           <PersonAddIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add new customer
+          <FormattedMessage id="CUSTOMER_ADD_TITLE" defaultMessage="Add customer" />
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>

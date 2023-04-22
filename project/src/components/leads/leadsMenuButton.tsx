@@ -8,6 +8,9 @@ import { setSelectedLeadAction } from '../../actions';
 import { Fab, makeStyles } from '@material-ui/core';
 import BackIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import { CUSTOMER_LIST, LEAD_ADD, LEAD_EDIT } from '../../routes/paths';
+
+import { useIntl } from 'react-intl';
+
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1),
@@ -21,17 +24,26 @@ export const LeadsMenuButtons = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const selectedLead = useSelector(getSelectedLead);
+  const intl = useIntl();
 
   return (
     <>
       {selectedLead && (
         <>
-          <Tooltip title="Edit lead details">
+          <Tooltip
+            title={intl.formatMessage({
+              id: 'LEAD_EDIT_LABEL',
+              defaultMessage: 'Edit lead details',
+            })}
+          >
             <Fab
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label="Edit customer lead"
+              aria-label={intl.formatMessage({
+                id: 'LEAD_EDIT_LABEL',
+                defaultMessage: 'Edit lead details',
+              })}
               onClick={() => {
                 history.push(LEAD_EDIT);
               }}
@@ -41,12 +53,20 @@ export const LeadsMenuButtons = () => {
           </Tooltip>
         </>
       )}
-      <Tooltip title="Add a new lead">
+      <Tooltip
+        title={intl.formatMessage({
+          id: 'LEAD_ADD_LABEL',
+          defaultMessage: 'Add a new lea',
+        })}
+      >
         <Fab
           color="primary"
           className={classes.fab}
           size="medium"
-          aria-label="add"
+          aria-label={intl.formatMessage({
+            id: 'LEAD_ADD_LABEL',
+            defaultMessage: 'Add a new lead',
+          })}
           onClick={() => {
             dispatch(setSelectedLeadAction(undefined));
             history.push(LEAD_ADD);
@@ -55,12 +75,20 @@ export const LeadsMenuButtons = () => {
           <AddLeadIcon />
         </Fab>
       </Tooltip>
-      <Tooltip title="Back to customers">
+      <Tooltip
+        title={intl.formatMessage({
+          id: 'LEAD_BACK_LABEL',
+          defaultMessage: 'Back to customers',
+        })}
+      >
         <Fab
           color="primary"
           className={classes.fab}
           size="medium"
-          aria-label="back"
+          aria-label={intl.formatMessage({
+            id: 'LEAD_BACK_LABEL',
+            defaultMessage: 'Back to customers',
+          })}
           onClick={() => {
             dispatch(setSelectedLeadAction(undefined));
             history.push(CUSTOMER_LIST);
