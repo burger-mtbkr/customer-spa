@@ -11,8 +11,9 @@ import { ILead, LeadSchema } from './../models/lead.model';
 import { saveLeadAction } from '../actions';
 import { LeadForm } from '../components/leads/leadForm';
 import { LeadFormButtons } from '../components/leads/leadFormButtons';
-import { LEAD_LIST } from '../routes/paths';
+import { LEAD_LIST, ROOT } from '../routes/paths';
 import { useIntl, FormattedMessage } from 'react-intl';
+import { getEditCustomer } from '../selectors';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -33,9 +34,20 @@ export const LeadEditForm = (): JSX.Element => {
   const history = useHistory();
   const classes = useStyles();
   const intl = useIntl();
+  const selectedCustomer = useSelector(getEditCustomer);
   const saveResponse = useSelector(getLeadSaveResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const leadToSave = useSelector(getSelectedLead);
+
+  useEffect(() => {
+    if (!leadToSave) {
+      if (selectedCustomer) {
+        history.replace(LEAD_LIST);
+      } else {
+        history.replace(ROOT);
+      }
+    }
+  }, [leadToSave, history, selectedCustomer]);
 
   const {
     register,
@@ -72,13 +84,15 @@ export const LeadEditForm = (): JSX.Element => {
         <Typography component="h1" variant="h5">
           <FormattedMessage id="LEAD_EDIT_TITLE" defaultMessage="Edit customer lead" />
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container direction="column" justifyContent="center" spacing={1}>
-            <LeadForm leadToSave={leadToSave!} register={register} errors={errors} />
-            <LeadFormButtons />
-            {error && <Alert severity="error">{error}</Alert>}
-          </Grid>
-        </form>
+        {leadToSave ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" justifyContent="center" spacing={1}>
+              <LeadForm leadToSave={leadToSave!} register={register} errors={errors} />
+              <LeadFormButtons />
+              {error && <Alert severity="error">{error}</Alert>}
+            </Grid>
+          </form>
+        ) : null}
       </Paper>
     </Container>
   );

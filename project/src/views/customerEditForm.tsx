@@ -38,6 +38,10 @@ export const CustomerEditForm = (): JSX.Element => {
   const customerToSave = useSelector(getEditCustomer);
   const saveResponse = useSelector(getCustomerSaveResponse);
 
+  useEffect(() => {
+    if (!customerToSave) history.replace(ROOT);
+  }, [customerToSave, history]);
+
   const {
     register,
     handleSubmit,
@@ -74,13 +78,15 @@ export const CustomerEditForm = (): JSX.Element => {
         <Typography component="h1" variant="h5">
           Edit customer
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container direction="column" justifyContent="center" spacing={1}>
-            <CustomerForm customerToSave={customerToSave!} register={register} errors={errors} />
-            <CustomerFormButtons />
-            {error && <Alert severity="error">{error}</Alert>}
-          </Grid>
-        </form>
+        {customerToSave ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" justifyContent="center" spacing={1}>
+              <CustomerForm customerToSave={customerToSave!} register={register} errors={errors} />
+              <CustomerFormButtons />
+              {error && <Alert severity="error">{error}</Alert>}
+            </Grid>
+          </form>
+        ) : null}
       </Paper>
     </Container>
   );

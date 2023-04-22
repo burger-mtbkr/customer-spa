@@ -12,6 +12,11 @@ interface ILeadsFormProps {
 
 export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX.Element => {
   const intl = useIntl();
+
+
+
+
+
   return (
     <>
       {leadToSave.id && <input type="hidden" value={leadToSave.id} {...register('id')} />}
