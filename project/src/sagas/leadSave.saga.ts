@@ -6,19 +6,13 @@ import { isLeadsSavingAction, setSaveLeadDoneAction } from '../actions';
 import { saveLeadAction } from './../actions/leads.actions';
 
 export function* saveLeadAsync(action: { payload: ILead }): SagaIterator {
+  let response: ILeadResponse = {};
   try {
     yield put(isLeadsSavingAction(true));
-
-    const response: ILeadResponse = yield call(saveLead, action.payload);
+    response = yield call(saveLead, action.payload);
     yield put(setSaveLeadDoneAction(response));
   } catch (error) {
-    yield put(
-      setSaveLeadDoneAction({
-        lead: action.payload,
-        error: error as Error,
-        isSuccessful: false,
-      }),
-    );
+    yield put(setSaveLeadDoneAction({ ...response, error: response.error }));
   } finally {
     yield put(isLeadsSavingAction(false));
   }

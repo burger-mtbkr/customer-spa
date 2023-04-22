@@ -9,6 +9,7 @@ export interface ILead {
   status: LeadStatus;
   name: string;
   source: string;
+  createdDateUtc: Date;
 }
 
 export type ILeadListItem = ILead & {

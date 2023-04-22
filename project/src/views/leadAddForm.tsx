@@ -3,20 +3,22 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
-import { ICustomer, CustomerSchema } from '../models';
-import { getCustomerSaveResponse } from '../selectors';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { saveCustomerAction } from '../actions';
-import { CustomerFormButtons } from '../components/customers/customerFormButtons';
-import { CustomerForm } from '../components/customers/customerForm';
+import AddLeadIcon from '@mui/icons-material/AddIcCallSharp';
+import { getLeadSaveResponse } from './../selectors/leads.selectors';
+import { ILead, LeadSchema } from './../models/lead.model';
+import { saveLeadAction } from '../actions';
+import { LeadForm } from '../components/leads/leadForm';
+import { LeadFormButtons } from '../components/leads/leadFormButtons';
 import { ROOT } from '../routes/paths';
+import { getEditCustomer } from './../selectors/customer.selectors';
+import { LEAD_LIST } from './../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.secondary.main,
   },
   layout: {
     padding: theme.spacing(1),
@@ -27,20 +29,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const CustomerAddForm = (): JSX.Element => {
+export const LeadAddForm = (): JSX.Element => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const classes = useStyles();
+  const history = useHistory();
+  const saveResponse = useSelector(getLeadSaveResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
-  const saveResponse = useSelector(getCustomerSaveResponse);
+  const selectedCustomer = useSelector(getEditCustomer);
+  const [customerId, setCustomerId] = useState<string>('');
 
-  const customerToSave = {
+  useEffect(() => {
+    if (!selectedCustomer || !selectedCustomer.id) {
+      history.push(ROOT);
+    } else {
+      setCustomerId(selectedCustomer.id);
+    }
+  }, [history, selectedCustomer]);
+
+  const leadModel = {
     id: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    company: '',
+    customerId: customerId,
+    name: '',
+    source: '',
     status: 0,
     createdDateUtc: new Date(),
   };
@@ -49,41 +59,43 @@ export const CustomerAddForm = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ICustomer>({
+  } = useForm<ILead>({
     mode: 'all',
     reValidateMode: 'onChange',
-    resolver: yupResolver(CustomerSchema),
+    resolver: yupResolver(LeadSchema),
   });
 
-  const onSubmit: SubmitHandler<ICustomer> = (c: ICustomer) => {
-    dispatch(saveCustomerAction(c));
+  const onSubmit: SubmitHandler<ILead> = (lead: ILead) => {
+    dispatch(saveLeadAction(lead));
   };
 
   useEffect(() => {
     if (saveResponse?.isSuccessful === true) {
-      history.replace(ROOT);
+      history.push(LEAD_LIST);
     } else if (saveResponse?.isSuccessful === false) {
       setError('Failed to save.  Please try again');
     }
   }, [saveResponse, history]);
 
-  return (
+  return selectedCustomer ? (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
         <Avatar className={classes.avatar}>
-          <PersonAddIcon />
+          <AddLeadIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add new customer
+          Add customer lead {`for ${selectedCustomer?.firstName} ${selectedCustomer?.lastName}`}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>
-            <CustomerForm customerToSave={customerToSave} register={register} errors={errors} />
-            <CustomerFormButtons />
+            <LeadForm leadToSave={leadModel} register={register} errors={errors} />
+            <LeadFormButtons />
             {error && <Alert severity="error">{error}</Alert>}
           </Grid>
         </form>
       </Paper>
     </Container>
+  ) : (
+    <Alert severity="error">{'No customer is selected. Please retry'}</Alert>
   );
 };

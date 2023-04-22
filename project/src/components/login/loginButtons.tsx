@@ -7,6 +7,7 @@ import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
 import { useSelector } from 'react-redux';
 import { loginInProgress } from '../../selectors';
 import { Item } from '../common/stackItem';
+import { SIGNUP } from './../../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   submit: {
@@ -39,7 +40,7 @@ export const LoginButtons = () => {
           <Button
             variant="contained"
             onClick={() => {
-              history.replace('/signup');
+              history.push(SIGNUP);
             }}
           >
             Sign up!

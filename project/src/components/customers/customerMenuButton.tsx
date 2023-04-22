@@ -8,6 +8,7 @@ import { getSelectedCustomers } from '../../selectors';
 import { setDeleteModalOpenAction, setSelectedCustomersAction } from '../../actions';
 import { Fab, makeStyles } from '@material-ui/core';
 import { LeadsListButton } from '../leads/leadsListButton';
+import { CUSTOMER_ADD, CUSTOMER_EDIT } from '../../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -33,9 +34,9 @@ export const CustomerMenuButtons = () => {
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label="view customer details"
+              aria-label="Edit customer details"
               onClick={() => {
-                history.push('/editcustomer');
+                history.push(CUSTOMER_EDIT);
               }}
             >
               <EditIcon />
@@ -62,7 +63,7 @@ export const CustomerMenuButtons = () => {
           aria-label="add"
           onClick={() => {
             dispatch(setSelectedCustomersAction([]));
-            history.push('/addcustomer');
+            history.push(CUSTOMER_ADD);
           }}
         >
           <PersonAddIcon />

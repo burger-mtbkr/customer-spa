@@ -31,10 +31,10 @@ export default createReducer(leadInitialState, builder =>
     }))
     .addCase(fetchAllLeadsDoneAction, (state, { payload }) => ({
       ...state,
-      customerListResponse: payload,
+      leadsListResponse: payload,
     }))
     .addCase(setSaveLeadDoneAction, (state, { payload }) => ({
       ...state,
-      customerSaveResponse: payload,
+      leadSaveResponse: payload,
     })),
 );

@@ -10,10 +10,11 @@ import {
   setSaveLeadDoneAction,
   setSelectedLeadAction,
 } from '../actions/leads.actions';
-import { getSelectedCustomers } from '../selectors';
 import { ICustomer } from './../models/customer.model';
+import { getEditCustomer } from './../selectors/customer.selectors';
 
 export function* fetchCustomerLeadsAsync(): SagaIterator {
+  let response: IFetchLeadsResponse = {};
   try {
     yield put(isLoadingAction(true));
     yield put(setSelectedLeadAction(undefined));
@@ -23,22 +24,17 @@ export function* fetchCustomerLeadsAsync(): SagaIterator {
       }),
     );
 
-    const customers: ICustomer[] = yield select(getSelectedCustomers);
-    if (!customers || !customers[0].id) {
-      throw new Error('Please selet a customer');
+    const customer: ICustomer = yield select(getEditCustomer);
+
+    if (!customer || !customer?.id) {
+      throw new Error('Please select a customer');
     }
 
-    const response: IFetchLeadsResponse = yield call(fetchCustomerLeads, customers[0].id);
+    response = yield call(fetchCustomerLeads, customer.id);
 
     yield put(fetchAllLeadsDoneAction(response));
   } catch (error) {
-    yield put(
-      fetchAllLeadsDoneAction({
-        leads: [],
-        error: error as Error,
-        isSuccessful: false,
-      }),
-    );
+    yield put(fetchAllLeadsDoneAction({ ...response, error: response.error }));
   } finally {
     yield put(isLoadingAction(false));
   }

@@ -29,7 +29,7 @@ export const LoginSchema: SchemaOf<ILoginRequest> = yup
     rememberLogin: true,
   });
 export interface ILoginResponse {
-  isLoggedIn: boolean;
+  isLoggedIn?: boolean;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
 }

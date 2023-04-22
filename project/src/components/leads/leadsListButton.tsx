@@ -1,6 +1,7 @@
 import { Fab, Tooltip, makeStyles } from '@material-ui/core';
-import LeadsIcon from '@mui/icons-material/AddBusiness';
+import LeadsIcon from '@mui/icons-material/AddIcCallSharp';
 import { useHistory } from 'react-router-dom';
+import { LEAD_LIST } from '../../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -22,7 +23,7 @@ export const LeadsListButton = () => {
         size="medium"
         aria-label="view customer leads"
         onClick={() => {
-          history.push('/leads');
+          history.push(LEAD_LIST);
         }}
       >
         <LeadsIcon />

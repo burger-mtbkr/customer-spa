@@ -14,6 +14,7 @@ import { getLoginResponse } from '../selectors/session.selectors';
 import { LoginForm } from '../components/login/loginForm';
 import { LoginButtons } from '../components/login/loginButtons';
 import { getLoginError } from '../utils';
+import { ROOT } from './../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -38,7 +39,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (loginResponse?.isLoggedIn) {
-      history.push('/');
+      history.replace(ROOT);
     } else {
       setError(getLoginError(loginResponse));
     }

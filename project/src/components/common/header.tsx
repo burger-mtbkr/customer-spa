@@ -13,11 +13,32 @@ import UserMenu from './userMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedIn } from '../../selectors';
 import { setAppDrawerOpenAction } from '../../actions';
+import { CUSTOMER_LIST } from '../../routes/paths';
+import { Link } from 'react-router-dom';
 
 const headerStyle = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing(10),
+  },
+  menuLink: {
+    color: '#FFF',
+    textDecoration: 'none',
+    display: 'block',
+    '&:focus': {
+      color: '#FFF',
+      textDecoration: 'none',
+      '& $primary, & $icon': {
+        color: '#FFF',
+      },
+    },
+    '&:hover': {
+      color: '#FFF',
+      textDecoration: 'underline',
+      '& $primary, & $icon': {
+        color: '#FFF',
+      },
+    },
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -53,9 +74,11 @@ const HeaderBar = (): JSX.Element => {
             </IconButton>
           )}
           <img src={burgerIcon} alt="logo" width={48} height={48} />
-          <Typography variant="h5" className={classes.title}>
-            Customer Leads CRM
-          </Typography>
+          <Link to={CUSTOMER_LIST} className={classes.menuLink}>
+            <Typography variant="h5" className={classes.title}>
+              Spidertracks Customers CRM
+            </Typography>
+          </Link>
           <UserMenu />
         </Toolbar>
       </AppBar>

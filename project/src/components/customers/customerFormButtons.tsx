@@ -1,30 +1,34 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import { ROOT } from '../../routes/paths';
+import { Item } from '../common/stackItem';
 
 export const CustomerFormButtons = (): JSX.Element => {
   const history = useHistory();
   return (
-    <Grid container xs={12} spacing={2} marginY={2} direction="row" justifyContent="center">
-      <Grid item>
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button variant="contained" type="reset">
-          Reset
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.replace('/');
-          }}
-        >
-          Cancel
-        </Button>
-      </Grid>
-    </Grid>
+    <>
+      <Stack direction="row" spacing={3} marginTop={2}>
+        <Item>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+        </Item>
+        <Item>
+          <Button variant="contained" type="reset">
+            Reset
+          </Button>
+        </Item>
+        <Item>
+          <Button
+            variant="contained"
+            onClick={() => {
+              history.replace(ROOT);
+            }}
+          >
+            Cancel
+          </Button>
+        </Item>
+      </Stack>
+    </>
   );
 };

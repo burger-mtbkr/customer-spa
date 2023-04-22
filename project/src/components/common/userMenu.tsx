@@ -10,7 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggedIn } from '../../selectors';
 import { Typography } from '@material-ui/core';
 
-const headerStyle = makeStyles(theme => ({
+const userMenuStyle = makeStyles(theme => ({
+  iconButton: {
+    position: 'absolute',
+    right: theme.spacing(2),
+  },
   title: {
     textAlign: 'left',
     flexGrow: 1,
@@ -39,7 +43,7 @@ const headerStyle = makeStyles(theme => ({
 
 const UserMenu = () => {
   const dispatch = useDispatch();
-  const classes = headerStyle();
+  const classes = userMenuStyle();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const profileOpen = Boolean(anchorEl);
   const isLoggedIn = useSelector(loggedIn);
@@ -62,6 +66,7 @@ const UserMenu = () => {
   return isLoggedIn ? (
     <>
       <IconButton
+        className={classes.iconButton}
         title="Account"
         aria-label="account of current user"
         aria-controls="menu-appbar"
