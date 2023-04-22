@@ -61,8 +61,9 @@ const DeletePromptModal = () => {
             Delete customers?
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Are you sure you wish to delete the selected customers?
+            Are you sure you wish to delete the selected customer and their related leads?
           </Typography>
+          <Typography style={{ color: 'red' }}>This cannot be undone.</Typography>
           <Button onClick={onDeleteCustomers}>Delete</Button>
           <Button onClick={handleClose}>Close</Button>
         </Box>

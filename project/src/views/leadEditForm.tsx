@@ -11,7 +11,7 @@ import { ILead, LeadSchema } from './../models/lead.model';
 import { saveLeadAction } from '../actions';
 import { LeadForm } from '../components/leads/leadForm';
 import { LeadFormButtons } from '../components/leads/leadFormButtons';
-import { LEAD_LIST, ROOT } from '../routes/paths';
+import { LEAD_LIST } from '../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

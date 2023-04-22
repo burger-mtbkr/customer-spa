@@ -6,6 +6,9 @@
     "name": "Lóan Burger",
     "url": "https://github.com/burger-mtbkr"
   },
+  "engines": {
+    "node": ">=16.0.0 <17.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
