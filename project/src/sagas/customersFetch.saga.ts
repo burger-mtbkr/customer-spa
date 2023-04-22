@@ -1,4 +1,4 @@
-import { IFetchCustomersResponse } from './../models/customer.model';
+import { IFetchCustomersResponse } from '../models';
 import { SagaIterator } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
@@ -13,6 +13,8 @@ import {
 import { getCustomersSearchParams } from '../selectors';
 
 export function* fetchAllCustomersAsync(): SagaIterator {
+  let response: IFetchCustomersResponse = {};
+
   try {
     yield put(isLoadingAction(true));
     yield put(setSelectedCustomersAction([]));
@@ -23,18 +25,10 @@ export function* fetchAllCustomersAsync(): SagaIterator {
     );
 
     const params = yield select(getCustomersSearchParams);
-
-    const response: IFetchCustomersResponse = yield call(fetchAllCustomers, params);
-
+    response = yield call(fetchAllCustomers, params);
     yield put(fetchAllCustomersDoneAction(response));
   } catch (error) {
-    yield put(
-      fetchAllCustomersDoneAction({
-        customers: [],
-        error: error as Error,
-        isSuccessful: false,
-      }),
-    );
+    yield put(fetchAllCustomersDoneAction({ ...response, error: response.error }));
   } finally {
     yield put(isLoadingAction(false));
   }

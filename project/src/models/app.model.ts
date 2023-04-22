@@ -3,3 +3,9 @@ export interface IAppState {
   appDrawerOpen: boolean;
   userMenuOpen: boolean;
 }
+
+export type StatusGroup = {
+  key: number;
+  value: string;
+  colour?: string;
+};

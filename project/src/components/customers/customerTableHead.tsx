@@ -4,6 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import { CustomerListItem, Order } from '../../models';
 import { TableSortLabel } from '@material-ui/core';
+import { customerHeadCells } from './customersHeadCells';
 
 interface CustomerTableHeadProps {
   numSelected: number;
@@ -14,60 +15,7 @@ interface CustomerTableHeadProps {
   rowCount: number;
 }
 
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof CustomerListItem;
-  label: string;
-  numeric: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'id',
-    numeric: false,
-    disablePadding: false,
-    label: 'Id',
-  },
-  {
-    id: 'firstName',
-    numeric: false,
-    disablePadding: true,
-    label: 'First name',
-  },
-  {
-    id: 'lastName',
-    numeric: false,
-    disablePadding: false,
-    label: 'Last name',
-  },
-  {
-    id: 'company',
-    numeric: false,
-    disablePadding: false,
-    label: 'Company',
-  },
-  {
-    id: 'email',
-    numeric: false,
-    disablePadding: false,
-    label: 'Email',
-  },
-  {
-    id: 'phoneNumber',
-    numeric: false,
-    disablePadding: false,
-    label: 'Phone',
-  },
-  {
-    id: 'status',
-    numeric: false,
-    disablePadding: false,
-    label: 'Status',
-  },
-];
-
 const CustomerTableHead = (props: CustomerTableHeadProps) => {
-
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
   const createSortHandler =
@@ -89,7 +37,7 @@ const CustomerTableHead = (props: CustomerTableHeadProps) => {
             }}
           />
         </TableCell>
-        {headCells.map(headCell => (
+        {customerHeadCells.map(headCell => (
           <TableCell
             key={headCell.id}
             padding={headCell.disablePadding ? 'none' : 'normal'}

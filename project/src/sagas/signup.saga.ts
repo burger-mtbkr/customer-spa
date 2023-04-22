@@ -6,10 +6,10 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { signUpAction, setSignupDoneAction, signupInProgressAction } from '../actions';
 
 export function* signupAsync(action: { payload: ISignupRequest }): SagaIterator {
+  let response: ISignupResponse = {};
   try {
     yield put(signupInProgressAction(true));
-
-    const response: ISignupResponse = yield call(signUp, action.payload);
+    response = yield call(signUp, action.payload);
     yield put(setSignupDoneAction(response));
     yield put(
       setLoginDoneAction({
@@ -18,12 +18,7 @@ export function* signupAsync(action: { payload: ISignupRequest }): SagaIterator 
       }),
     );
   } catch (error) {
-    yield put(
-      setSignupDoneAction({
-        error: error as Error,
-        isSuccessful: false,
-      }),
-    );
+    yield put(setSignupDoneAction({ ...response, error: response.error }));
   } finally {
     yield put(signupInProgressAction(false));
   }

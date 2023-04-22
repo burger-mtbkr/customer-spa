@@ -11,6 +11,7 @@ import { getSignupResponse } from '../selectors/signup.selectors';
 import SignupForm from '../components/signup/signupForm';
 import SignupButtons from '../components/signup/signUpButtons';
 import { Avatar, Container, Paper, Typography } from '@material-ui/core';
+import { ROOT } from './../routes/paths';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -56,7 +57,7 @@ export const Signup = (): JSX.Element => {
 
   useEffect(() => {
     if (signupResponse?.isSuccessful === true) {
-      history.push('/');
+      history.replace(ROOT);
     } else if (signupResponse?.isSuccessful === false) {
       alert(`Failed to save`);
     }

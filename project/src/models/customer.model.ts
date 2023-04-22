@@ -27,7 +27,7 @@ export const CustomerSchema: SchemaOf<ICustomer> = yup
     company: yup.string().max(25).min(3).required(),
     email: yup.string().email().max(25).min(3).required(),
     phoneNumber: yup.string().max(20).min(5).required(),
-    status: yup.number().oneOf([0, 1, 2],'Please select a valid status').required(),
+    status: yup.number().oneOf([0, 1, 2], 'Please select a valid status').required(),
   })
   .default({
     id: undefined,
@@ -46,13 +46,13 @@ export interface IFetchCustomersResponse {
 }
 
 export interface ICustomerResponse {
-  customer: ICustomer | undefined;
+  customer?: ICustomer | undefined;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
 }
 
 export interface IDeleteCustomerResponse {
-  id: string;
+  id?: string;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
 }

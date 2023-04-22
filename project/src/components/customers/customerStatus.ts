@@ -1,10 +1,25 @@
-type KeyValuePair = {
-  key: number;
-  value: string;
-};
+import { CustomerListItem, StatusGroup } from '../../models';
 
-export const customerStatusDictionary: KeyValuePair[] = [
-  { key: 0, value: 'Active' },
-  { key: 1, value: 'Lead' },
-  { key: 2, value: 'Non active' },
+export const customerStatusDictionary: StatusGroup[] = [
+  {
+    key: 0,
+    value: 'Active',
+    colour: '#ff6f69',
+  },
+  {
+    key: 1,
+    value: 'Lead',
+    colour: '#88d8b0',
+  },
+  {
+    key: 2,
+    value: 'Non active',
+  },
 ];
+
+export const getCustomerStyle = (item: CustomerListItem) => {
+  return {
+    fontWeight: item.status === 2 ? 'normal' : '600',
+    color: customerStatusDictionary[item.status].colour,
+  };
+};

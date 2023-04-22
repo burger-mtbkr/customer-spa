@@ -6,7 +6,8 @@ import { CustomerListItem } from '../../models';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedCustomers } from '../../selectors';
 import { setSelectedCustomersAction } from '../../actions';
-import { customerStatusDictionary } from './customerStatus';
+import { customerStatusDictionary, getCustomerStyle } from './customerStatus';
+import { Typography } from '@material-ui/core';
 
 interface ITableBodyProps {
   customerList: CustomerListItem[];
@@ -76,15 +77,26 @@ const CustomerTableBody = (props: ITableBodyProps) => {
                 }}
               />
             </TableCell>
-            <TableCell component="th" id={labelId} scope="row" padding="none">
-              {item.id}
+            <TableCell align="left">
+              <Typography>{item.firstName}</Typography>
             </TableCell>
-            <TableCell align="left">{item.firstName}</TableCell>
-            <TableCell align="left">{item.lastName}</TableCell>
-            <TableCell align="left">{item.company}</TableCell>
-            <TableCell align="left">{item.email}</TableCell>
-            <TableCell align="left">{item.phoneNumber}</TableCell>
-            <TableCell align="left">{customerStatusDictionary[item.status].value}</TableCell>
+            <TableCell align="left">
+              <Typography>{item.lastName}</Typography>
+            </TableCell>
+            <TableCell align="left">
+              <Typography>{item.company}</Typography>
+            </TableCell>
+            <TableCell align="left">
+              <Typography>{item.email}</Typography>
+            </TableCell>
+            <TableCell align="left">
+              <Typography>{item.phoneNumber}</Typography>
+            </TableCell>
+            <TableCell align="left">
+              <Typography style={getCustomerStyle(item)}>
+                {customerStatusDictionary[item.status].value}
+              </Typography>
+            </TableCell>
           </TableRow>
         );
       })}

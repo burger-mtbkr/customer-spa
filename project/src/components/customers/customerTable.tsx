@@ -21,7 +21,7 @@ import {
   setCustomerSearchRequestAction,
   setSelectedCustomersAction,
 } from '../../actions';
-import LoadingSkeleton from './loadingSkeleton';
+import LoadingSkeleton from '../common/loadingSkeleton';
 import CustomerTableBody from './customerTableBody';
 import { CustomerSearchBar } from './searchBar';
 

@@ -22,8 +22,6 @@ export const isLoadingAction = createAction<boolean>(`${CUSTOMER_PREFIX}/API/CUS
 
 /* LOAD CUSTOMER */
 
-export const fetchCustomerAction = createAction<string>(`${CUSTOMER_PREFIX}/API/FETCH_CUSTOMER`);
-
 export const fetchCustomerDoneAction = createAction<ICustomerResponse>(
   `${CUSTOMER_PREFIX}/API/FETCH_CUSTOMER_DONE`,
 );

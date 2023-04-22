@@ -1,29 +1,28 @@
-import { ICustomer, ICustomerResponse } from './../models/';
 import axios from 'axios';
 import { isSuccessfulResponse, axiosApi } from '../utils';
 import { getHeaders } from './headers';
+import { ILead, ILeadResponse } from '../models/lead.model';
+import { leadsEndpoint } from './endpoints';
 
-export const saveCustomer = async (customer: ICustomer): Promise<ICustomerResponse> => {
+export const saveLead = async (lead: ILead): Promise<ILeadResponse> => {
   try {
     const headers = getHeaders();
-    const response = customer.id
-      ? await axiosApi.put(`/customer/${customer.id}`, customer, { headers: headers })
-      : await axiosApi.post(`/customer`, customer, { headers: headers });
+    const response = lead.id
+      ? await axiosApi.put(`${leadsEndpoint}/${lead.id}`, lead, { headers: headers })
+      : await axiosApi.post(leadsEndpoint, lead, { headers: headers });
 
     if (isSuccessfulResponse(response)) {
       return {
-        customer: response.data as ICustomer,
+        lead: response.data as ILead,
         isSuccessful: true,
       };
     }
     return {
-      customer,
       isSuccessful: false,
       error: new Error('An error has occured'),
     };
   } catch (error) {
     return {
-      customer,
       isSuccessful: false,
       error: axios.isAxiosError(error) ? error : new Error('An error has occured'),
     };

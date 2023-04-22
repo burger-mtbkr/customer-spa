@@ -6,6 +6,7 @@ import PeopleSharp from '@material-ui/icons/PeopleSharp';
 import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CUSTOMER_LIST } from '../../routes/paths';
 
 const drawerStyle = makeStyles(theme => ({
   menuLink: {
@@ -41,7 +42,7 @@ export const MenuLinks = () => {
         <ListItemIcon>
           <PeopleSharp className={classes.iconColor} />
         </ListItemIcon>
-        <Link to="/customers" className={classes.menuLink}>
+        <Link to={CUSTOMER_LIST} className={classes.menuLink}>
           <ListItemText>Customers</ListItemText>
         </Link>
       </ListItem>

@@ -6,19 +6,15 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { ILoginRequest } from '../models';
 
 export function* loginAsync(action: { payload: ILoginRequest }): SagaIterator {
+  let response: ILoginResponse = {
+  };
   try {
     yield put(loginInProgressAction(true));
 
-    const response: ILoginResponse = yield call(loginRequest, action.payload);
+    response = yield call(loginRequest, action.payload);
     yield put(setLoginDoneAction(response));
   } catch (error) {
-    yield put(
-      setLoginDoneAction({
-        error: error as Error,
-        isLoggedIn: false,
-        isSuccessful: false,
-      }),
-    );
+    yield put(setLoginDoneAction({ ...response, error: response.error }));
   } finally {
     yield put(loginInProgressAction(false));
   }

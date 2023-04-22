@@ -1,14 +1,16 @@
 import { StateFromReducersMapObject } from '@reduxjs/toolkit';
-import customers, { customerInitialState } from './customer.reducer';
+import app, { appInitialState } from './app.reducer';
 import signup, { signupInitialState } from './signup.reducer';
 import session, { sessionInitialState } from './session.reducer';
-import app, { appInitialState } from './app.reducer';
+import customers, { customerInitialState } from './customer.reducer';
+import leads, { leadInitialState } from './leads.reducer';
 
 export const reducer = {
   app,
   signup,
   session,
   customers,
+  leads,
 };
 
 export type TAppState = StateFromReducersMapObject<typeof reducer>;
@@ -19,4 +21,5 @@ export const rootInitialState: TStoreState = {
   signup: signupInitialState,
   session: sessionInitialState,
   customers: customerInitialState,
+  leads: leadInitialState,
 };
