@@ -5,13 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { ISignup, SignupSchema } from '../models';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { signUpAction } from '../actions';
 import { getSignupResponse } from '../selectors/signup.selectors';
 import SignupForm from '../components/signup/signupForm';
 import SignupButtons from '../components/signup/signUpButtons';
 import { Avatar, Container, Paper, Typography } from '@material-ui/core';
 import { ROOT } from './../routes/paths';
+import { Alert, Stack } from '@mui/material';
+import { getSignupError } from '../errors';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -32,7 +34,7 @@ export const Signup = (): JSX.Element => {
   const history = useHistory();
   const classes = useStyles();
   const signupResponse = useSelector(getSignupResponse);
-
+  const [error, setError] = useState<string | Error | undefined>(undefined);
   const signupModel: ISignup = {
     firstName: '',
     lastName: '',
@@ -58,8 +60,8 @@ export const Signup = (): JSX.Element => {
   useEffect(() => {
     if (signupResponse?.isSuccessful === true) {
       history.replace(ROOT);
-    } else if (signupResponse?.isSuccessful === false) {
-      alert(`Failed to save`);
+    } else {
+      setError(getSignupError(signupResponse));
     }
   }, [signupResponse, history]);
 
@@ -73,9 +75,12 @@ export const Signup = (): JSX.Element => {
           Welcome please signup
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <SignupForm errors={errors} register={register} model={signupModel} />
-          <SignupButtons />
+          <Stack direction="column" spacing={2} marginBottom={2}>
+            <SignupForm errors={errors} register={register} model={signupModel} />
+            <SignupButtons />
+          </Stack>
         </form>
+        {error && <Alert severity="error">{error}</Alert>}
       </Paper>
     </Container>
   );

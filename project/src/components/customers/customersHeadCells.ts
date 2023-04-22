@@ -42,4 +42,10 @@ export const customerHeadCells: readonly CustomerHeadCell[] = [
     disablePadding: false,
     label: 'Status',
   },
+  {
+    id: 'leadCount',
+    numeric: true,
+    disablePadding: false,
+    label: 'Nr of Leads',
+  },
 ];

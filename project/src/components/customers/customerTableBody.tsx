@@ -77,25 +77,28 @@ const CustomerTableBody = (props: ITableBodyProps) => {
                 }}
               />
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography>{item.firstName}</Typography>
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography>{item.lastName}</Typography>
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography>{item.company}</Typography>
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography>{item.email}</Typography>
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography>{item.phoneNumber}</Typography>
             </TableCell>
-            <TableCell align="left">
+            <TableCell align={'left'}>
               <Typography style={getCustomerStyle(item)}>
                 {customerStatusDictionary[item.status].value}
               </Typography>
+            </TableCell>
+            <TableCell align={'left'}>
+              <Typography>{item.leadCount}</Typography>
             </TableCell>
           </TableRow>
         );

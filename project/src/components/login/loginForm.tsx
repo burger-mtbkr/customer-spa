@@ -12,7 +12,7 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
 
   return (
     <Grid container direction="column" justifyContent="center" spacing={0}>
-      <Grid item xs={6} marginY={2}>
+      <Grid item xs={6} marginY={1}>
         <TextField
           onChange={handleChange}
           error={errors.email != null}
@@ -27,7 +27,7 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           autoFocus
         />
       </Grid>
-      <Grid item xs={6} marginY={2}>
+      <Grid item xs={6} marginY={1} spacing={0}>
         <TextField
           onChange={handleChange}
           error={errors.password != null}
@@ -42,7 +42,7 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           autoComplete="current-password"
         />
       </Grid>
-      <Grid item xs={6} marginY={2}>
+      <Grid item xs={6} marginY={1}>
         <FormControlLabel
           control={
             <Checkbox

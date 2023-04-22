@@ -12,6 +12,7 @@ export interface ICustomer {
   phoneNumber: string;
   status: number;
   createdDateUtc: Date;
+  leadCount?: number;
 }
 
 export type CustomerListItem = ICustomer & {
