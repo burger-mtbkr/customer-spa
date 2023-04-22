@@ -3,7 +3,7 @@ import {
   Login,
   PasswordChange,
   Customers,
-  CustomerDetailsForm,
+  CustomerEditForm,
   Signup,
   CustomerAddForm,
 } from '../views';
@@ -12,6 +12,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { sessionUtil } from '../utils';
 import { useDispatch } from 'react-redux';
 import { setLoginDoneAction } from '../actions';
+import Leads from '../views/leads';
 
 const unAuthPaths = ['/login', '/signup'];
 
@@ -38,23 +39,26 @@ const Routes = () => {
       <Route exact path="/">
         <Customers />
       </Route>
-      <Route path="/customers">
-        <Customers />
+      <Route path="/signup">
+        <Signup />
       </Route>
       <Route path="/login">
         <Login />
       </Route>
+      <Route path="/passwordChange">
+        <PasswordChange />
+      </Route>
+      <Route path="/customers">
+        <Customers />
+      </Route>
       <Route exact path="/addcustomer">
         <CustomerAddForm />
       </Route>
-      <Route exact path="/customerdetails">
-        <CustomerDetailsForm />
+      <Route exact path="/editcustomer">
+        <CustomerEditForm />
       </Route>
-      <Route path="/signup">
-        <Signup />
-      </Route>
-      <Route path="/passwordChange">
-        <PasswordChange />
+      <Route exact path="/leads">
+        <Leads />
       </Route>
     </Switch>
   );

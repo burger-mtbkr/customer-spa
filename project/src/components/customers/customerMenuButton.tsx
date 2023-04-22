@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/DeleteSharp';
-import AddIcon from '@mui/icons-material/AddSharp';
-import DetailsIcon from '@mui/icons-material/DescriptionSharp';
+import PersonPersonSharp from '@mui/icons-material/PersonRemoveSharp';
+import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
+import EditIcon from '@mui/icons-material/EditSharp';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { getSelectedCustomers } from '../../selectors';
 import { setDeleteModalOpenAction, setSelectedCustomersAction } from '../../actions';
 import { Fab, makeStyles } from '@material-ui/core';
+import { LeadsListButton } from '../leads/leadsListButton';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -27,6 +27,7 @@ export const CustomerMenuButtons = () => {
     <>
       {selectedCustomers.length === 1 && (
         <>
+          <LeadsListButton />
           <Tooltip title="View customer details">
             <Fab
               color="primary"
@@ -34,10 +35,10 @@ export const CustomerMenuButtons = () => {
               size="medium"
               aria-label="view customer details"
               onClick={() => {
-                history.push('/customerdetails');
+                history.push('/editcustomer');
               }}
             >
-              <DetailsIcon />
+              <EditIcon />
             </Fab>
           </Tooltip>
           <Tooltip title="Delete a customer">
@@ -48,7 +49,7 @@ export const CustomerMenuButtons = () => {
               aria-label="delete"
               onClick={() => dispatch(setDeleteModalOpenAction(true))}
             >
-              <DeleteIcon />
+              <PersonPersonSharp />
             </Fab>
           </Tooltip>
         </>
@@ -64,7 +65,7 @@ export const CustomerMenuButtons = () => {
             history.push('/addcustomer');
           }}
         >
-          <AddIcon />
+          <PersonAddIcon />
         </Fab>
       </Tooltip>
     </>

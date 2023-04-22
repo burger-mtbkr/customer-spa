@@ -1,6 +1,6 @@
 import Footer from './components/common/footer';
 import HeaderBar from './components/common/header';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import Routes from './routes/router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { themeUtil } from './utils';

@@ -1,6 +1,7 @@
 import { LeadStatus } from './../enums/leadStatus.enum';
 import * as yup from 'yup';
 import { SchemaOf } from 'yup';
+import { AxiosError } from 'axios';
 
 export interface ILead {
   id?: string;
@@ -9,11 +10,10 @@ export interface ILead {
   name: string;
   source: string;
 }
-export interface ICalculateRates {
-  taxRate: number;
-  accLevy: number;
-  kiwi: number;
-}
+
+export type ILeadListItem = ILead & {
+  id: string;
+};
 
 export const LeadSchema: SchemaOf<ILead> = yup
   .object()
@@ -22,15 +22,35 @@ export const LeadSchema: SchemaOf<ILead> = yup
     customerId: yup.string().required('Please select a customer'),
     name: yup.string().max(25).min(3).required(),
     source: yup.string().max(25).min(3).required(),
-    status: yup
-      .mixed<LeadStatus>()
-      .oneOf([LeadStatus.NEW, LeadStatus.CLOSED_LOST, LeadStatus.CLOSED_WON])
-      .required(),
+    status: yup.number().oneOf([0, 1, 2]).required(),
   })
   .default({
     id: undefined,
     customerId: '',
-    status: LeadStatus.NEW,
     name: '',
     source: '',
+    status: 0,
   });
+
+export interface IFetchLeadsResponse {
+  leads?: ILeadListItem[];
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ILeadResponse {
+  lead: ILead | undefined;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ICustomerState {
+  deleteModalOpen: boolean;
+  isLoading: boolean;
+  isSaving: boolean;
+  isDeleting: boolean;
+
+  leadsListResponse?: IFetchLeadsResponse;
+  selectedLeadsCustomers: ILeadListItem[];
+  leadSaveResponse?: ILeadResponse;
+}

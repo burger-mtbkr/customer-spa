@@ -5,15 +5,10 @@ import { SchemaOf } from 'yup';
 export interface ILoginRequest {
   email: String;
   password: String;
-}
-
-export interface ILogin {
-  email: String;
-  password: String;
   rememberLogin: boolean;
 }
 
-export const LoginSchema: SchemaOf<ILogin> = yup
+export const LoginSchema: SchemaOf<ILoginRequest> = yup
   .object()
   .shape({
     email: yup
