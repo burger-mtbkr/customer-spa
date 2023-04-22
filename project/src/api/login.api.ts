@@ -11,7 +11,7 @@ export const loginRequest = async (request: ILoginRequest): Promise<ILoginRespon
     if (isSuccessfulResponse(response)) {
       const token = response.data as string;
       if (token) {
-        storageUtil.setItem('t', `Bearer ${token}`, true);
+        storageUtil.setItem('t', `Bearer ${token}`, request.rememberLogin);
       }
 
       return {

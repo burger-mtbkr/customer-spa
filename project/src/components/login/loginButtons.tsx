@@ -1,10 +1,12 @@
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
+import Stack from '@mui/joy/Stack';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
 import { useSelector } from 'react-redux';
 import { loginInProgress } from '../../selectors';
+import { Item } from '../common/stackItem';
 
 const useStyles = makeStyles(theme => ({
   submit: {
@@ -19,8 +21,8 @@ export const LoginButtons = () => {
 
   return (
     <>
-      <Grid container xs={12} spacing={2} marginY={2} direction="row" justifyContent="center">
-        <Grid item>
+      <Stack direction="row" spacing={3}>
+        <Item>
           <Button
             disabled={inProgress}
             startIcon={<LockOpenSharp />}
@@ -32,8 +34,8 @@ export const LoginButtons = () => {
           >
             Login
           </Button>
-        </Grid>
-        <Grid item>
+        </Item>
+        <Item>
           <Button
             variant="contained"
             onClick={() => {
@@ -42,8 +44,8 @@ export const LoginButtons = () => {
           >
             Sign up!
           </Button>
-        </Grid>
-      </Grid>
+        </Item>
+      </Stack>
       {inProgress && <CircularProgress size={24} />}
     </>
   );

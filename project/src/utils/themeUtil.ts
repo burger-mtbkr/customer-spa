@@ -1,4 +1,4 @@
-import { createMuiTheme, Theme } from '@material-ui/core/styles';
+import { createTheme, Theme } from '@material-ui/core/styles';
 
 export const themeUtil = {
   getTheme(): Theme {
@@ -15,7 +15,7 @@ export const themeUtil = {
 
     const contrastText = '#FFF';
 
-    return createMuiTheme({
+    return createTheme({
       palette: {
         type: palletType,
         primary: {

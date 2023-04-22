@@ -3,28 +3,19 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { ICustomer, CustomerSchema } from '../models';
-import { getCustomerSaveResponse } from '../selectors';
+import { getCustomerSaveResponse, getEditCustomer } from '../selectors';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { saveCustomerAction } from '../actions';
+
 import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import { CustomerForm } from '../components/customers/customerForm';
 
-export const CustomerAddForm = (): JSX.Element => {
+export const CustomerEditForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const customerToSave = useSelector(getEditCustomer);
   const saveResponse = useSelector(getCustomerSaveResponse);
-
-  const customerToSave = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    company: '',
-    status: 0,
-    createdDateUtc: new Date(),
-  };
 
   const {
     register,
@@ -51,7 +42,7 @@ export const CustomerAddForm = (): JSX.Element => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container direction="column" justifyContent="center" spacing={1}>
-        <CustomerForm customerToSave={customerToSave} register={register} errors={errors} />
+        <CustomerForm customerToSave={customerToSave!} register={register} errors={errors} />
         <CustomerFormButtons />
       </Grid>
     </form>

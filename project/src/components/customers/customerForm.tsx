@@ -1,23 +1,28 @@
 import { TextField, Grid } from '@mui/material';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { ISignup } from '../../models';
+import { ICustomer } from '../../models';
+import { CustomerStatusSelect } from './customerStatusSelect';
 
-interface ISignupFormProps {
-  model: ISignup;
-  register: UseFormRegister<ISignup>;
-  errors: FieldErrors<ISignup>;
+interface ICustomerFormProps {
+  customerToSave: ICustomer;
+  register: UseFormRegister<ICustomer>;
+  errors: FieldErrors<ICustomer>;
 }
 
-const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element => {
+export const CustomerForm = ({
+  customerToSave,
+  register,
+  errors,
+}: ICustomerFormProps): JSX.Element => {
   return (
-    <Grid container direction="column" justifyContent="center" spacing={1}>
+    <>
+      {customerToSave.id && <input type="hidden" value={customerToSave.id} {...register('id')} />}
       <Grid item xs={6} marginY={2}>
         <TextField
-          required
           type="text"
           label="First name"
           variant="outlined"
-          defaultValue={model.firstName}
+          defaultValue={customerToSave.firstName}
           InputLabelProps={{ shrink: true }}
           error={errors.firstName !== undefined}
           helperText={errors.firstName?.message}
@@ -26,11 +31,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
       </Grid>
       <Grid item xs={6} marginY={2}>
         <TextField
-          required
           type="text"
           label="Last name"
           variant="outlined"
-          defaultValue={model.lastName}
+          defaultValue={customerToSave.lastName}
           InputLabelProps={{ shrink: true }}
           error={errors.lastName !== undefined}
           helperText={errors.lastName?.message}
@@ -39,11 +43,10 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
       </Grid>
       <Grid item xs={6} marginY={2}>
         <TextField
-          required
           type="text"
           label="Email"
           variant="outlined"
-          defaultValue={model.email}
+          defaultValue={customerToSave.email}
           InputLabelProps={{ shrink: true }}
           error={errors.email !== undefined}
           helperText={errors.email?.message}
@@ -52,29 +55,31 @@ const SignupForm = ({ model, register, errors }: ISignupFormProps): JSX.Element 
       </Grid>
       <Grid item xs={6} marginY={2}>
         <TextField
-          type="password"
-          label="Password"
+          type="text"
+          label="Company"
           variant="outlined"
-          defaultValue={model.password}
+          defaultValue={customerToSave.company}
           InputLabelProps={{ shrink: true }}
-          error={errors.password !== undefined}
-          helperText={errors.password?.message}
-          {...register('password', { required: true, maxLength: 25 })}
+          error={errors.company !== undefined}
+          helperText={errors.company?.message}
+          {...register('company', { required: true, maxLength: 25 })}
         />
       </Grid>
       <Grid item xs={6} marginY={2}>
         <TextField
-          label="Confirm password"
+          type="text"
+          label="Phone"
           variant="outlined"
-          type="password"
-          defaultValue={model.confirmPassword}
+          defaultValue={customerToSave.phoneNumber}
           InputLabelProps={{ shrink: true }}
-          error={errors.confirmPassword !== undefined}
-          helperText={errors.confirmPassword?.message}
-          {...register('confirmPassword', { required: true, maxLength: 25 })}
+          error={errors.phoneNumber !== undefined}
+          helperText={errors.phoneNumber?.message}
+          {...register('phoneNumber', { required: true, maxLength: 20 })}
         />
       </Grid>
-    </Grid>
+      <Grid item xs={6} marginY={1}>
+        <CustomerStatusSelect model={customerToSave} register={register} />
+      </Grid>
+    </>
   );
 };
-export default SignupForm;
