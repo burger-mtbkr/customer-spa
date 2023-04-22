@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, FormikProps } from 'formik';
-import { Typography, Container, Paper, Alert } from '@mui/material';
+import { Typography, Container, Paper, Alert, Stack } from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    alignContent: 'center',
   },
 }));
 
@@ -73,15 +74,12 @@ export const Login = () => {
           {(props: FormikProps<ILoginRequest>): JSX.Element => (
             <>
               <form onSubmit={props.handleSubmit} onReset={props.handleReset}>
-                <LoginForm {...props} />
-                <LoginButtons />
-                {error && <Alert severity="error">{error}</Alert>}
+                <Stack direction="column" spacing={2} marginBottom={2}>
+                  <LoginForm {...props} />
+                  <LoginButtons />
+                </Stack>
               </form>
-              <div>
-                {props.errors?.email}
-                {props.errors?.password}
-                {props.errors?.rememberLogin}
-              </div>
+              {error && <Alert severity="error">{error}</Alert>}
             </>
           )}
         </Formik>
