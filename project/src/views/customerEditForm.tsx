@@ -65,7 +65,7 @@ export const CustomerEditForm = (): JSX.Element => {
           <EditIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Add new customer
+          Edit customer
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>

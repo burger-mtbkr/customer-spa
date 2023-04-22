@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import DeletePromptModal from './deletePromptModal';
 import { getSelectedCustomers } from '../../selectors';
 import { CustomerMenuButtons } from './customerMenuButton';
+import { FormattedMessage } from 'react-intl';
 
 const CustomerTableToolbar = () => {
   const selectedCustomers = useSelector(getSelectedCustomers);
@@ -33,7 +34,7 @@ const CustomerTableToolbar = () => {
           </Typography>
         ) : (
           <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
-            Customers
+            <FormattedMessage id="CUSTOMER_LIST_TITLE" defaultMessage="Customers" />
           </Typography>
         )}
 

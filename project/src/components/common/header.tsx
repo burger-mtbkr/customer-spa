@@ -15,6 +15,7 @@ import { loggedIn } from '../../selectors';
 import { setAppDrawerOpenAction } from '../../actions';
 import { CUSTOMER_LIST } from '../../routes/paths';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 const headerStyle = makeStyles(theme => ({
   root: {
@@ -76,7 +77,7 @@ const HeaderBar = (): JSX.Element => {
           <img src={burgerIcon} alt="logo" width={48} height={48} />
           <Link to={CUSTOMER_LIST} className={classes.menuLink}>
             <Typography variant="h5" className={classes.title}>
-              Spidertracks Customers CRM
+              <FormattedMessage id="APP_HEADER_TITLE" defaultMessage="Customer CRM" />
             </Typography>
           </Link>
           <UserMenu />
