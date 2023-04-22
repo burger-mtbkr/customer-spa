@@ -39,18 +39,15 @@ export interface IFetchLeadsResponse {
 }
 
 export interface ILeadResponse {
-  lead: ILead | undefined;
+  lead?: ILead | undefined;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
 }
 
-export interface ICustomerState {
-  deleteModalOpen: boolean;
+export interface ILeadsState {
   isLoading: boolean;
   isSaving: boolean;
-  isDeleting: boolean;
-
   leadsListResponse?: IFetchLeadsResponse;
-  selectedLeadsCustomers: ILeadListItem[];
+  selectedLead?: ILeadListItem;
   leadSaveResponse?: ILeadResponse;
 }

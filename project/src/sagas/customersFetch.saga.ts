@@ -1,4 +1,4 @@
-import { IFetchCustomersResponse } from './../models/customer.model';
+import { IFetchCustomersResponse } from '../models';
 import { SagaIterator } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 

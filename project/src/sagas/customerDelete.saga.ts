@@ -3,7 +3,7 @@ import {
   setSelectedCustomersAction,
   setDeleteCustomerDoneAction,
   deleteCustomerAction,
-} from './../actions/customers.actions';
+} from '../actions/customers.actions';
 import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { isDeletingAction } from '../actions';
