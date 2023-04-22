@@ -31,7 +31,7 @@ const LeadsTableToolbar = () => {
         ) : (
           <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
             <FormattedMessage
-              id="LEADS_LIST_TITLE"
+              id="LEAD_LIST_TITLE"
               defaultMessage="Leads for {customer}"
               values={{ customer: `${selected?.firstName} ${selected?.lastName}` }}
             />

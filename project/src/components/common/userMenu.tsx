@@ -9,6 +9,7 @@ import { setLogoutModalOpenAction, setUserMenuOpenAction } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { loggedIn } from '../../selectors';
 import { Typography } from '@material-ui/core';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const userMenuStyle = makeStyles(theme => ({
   iconButton: {
@@ -47,6 +48,7 @@ const UserMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const profileOpen = Boolean(anchorEl);
   const isLoggedIn = useSelector(loggedIn);
+  const intl = useIntl();
 
   const openUserMenu = (event: any): void => {
     setAnchorEl(event.currentTarget);
@@ -67,8 +69,14 @@ const UserMenu = () => {
     <>
       <IconButton
         className={classes.iconButton}
-        title="Account"
-        aria-label="account of current user"
+        title={intl.formatMessage({
+          id: 'USER_MENU_ICON_TITLE',
+          defaultMessage: 'User menu of current user',
+        })}
+        aria-label={intl.formatMessage({
+          id: 'USER_MENU_ICON_TITLE',
+          defaultMessage: 'User menu of current user',
+        })}
         aria-controls="menu-appbar"
         aria-haspopup="true"
         onClick={openUserMenu}
@@ -94,13 +102,16 @@ const UserMenu = () => {
         <Link to="/passwordChange" className={classes.menuLink}>
           <MenuItem onClick={handleClose}>
             <Typography gutterBottom variant="subtitle1">
-              Change password
+              <FormattedMessage
+                id={'CHANGE_PASSWORD_TITLE'}
+                defaultMessage={'Change your password'}
+              />
             </Typography>
           </MenuItem>
         </Link>
         <MenuItem className={classes.menuLink} onClick={openDeletePrompt}>
           <Typography gutterBottom variant="subtitle1">
-            Logout
+            <FormattedMessage id={'BUTTON_LOGOUT'} defaultMessage={'Yes, logout'} />
           </Typography>
         </MenuItem>
       </Menu>

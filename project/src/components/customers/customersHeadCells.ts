@@ -1,5 +1,5 @@
 import { CustomerListItem } from '../../models';
-import { HeadCell } from '../common/tableHeadCell';
+import { HeadCell } from '../../models/tableHeadCell';
 
 type CustomerHeadCell = HeadCell & {
   id: keyof CustomerListItem;

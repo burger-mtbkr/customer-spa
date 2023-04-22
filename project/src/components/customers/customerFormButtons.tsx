@@ -1,4 +1,5 @@
 import { Button, Stack } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { ROOT } from '../../routes/paths';
 import { Item } from '../common/stackItem';
@@ -10,12 +11,12 @@ export const CustomerFormButtons = (): JSX.Element => {
       <Stack direction="row" spacing={3} marginTop={2}>
         <Item>
           <Button variant="contained" type="submit">
-            Submit
+            <FormattedMessage id={'BUTTON_SUBMIT'} defaultMessage={'Submit'} />
           </Button>
         </Item>
         <Item>
           <Button variant="contained" type="reset">
-            Reset
+            <FormattedMessage id={'BUTTON_RESET'} defaultMessage={'Reset'} />
           </Button>
         </Item>
         <Item>
@@ -25,7 +26,7 @@ export const CustomerFormButtons = (): JSX.Element => {
               history.replace(ROOT);
             }}
           >
-            Cancel
+            <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
           </Button>
         </Item>
       </Stack>

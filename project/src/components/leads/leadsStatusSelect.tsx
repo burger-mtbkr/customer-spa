@@ -3,6 +3,7 @@ import { UseFormRegister } from 'react-hook-form';
 import { ILead } from '../../models';
 import React from 'react';
 import { leadsStatusDictionary } from './leadStatus';
+import { FormattedMessage } from 'react-intl';
 
 interface ILeadStatusSelectProps {
   model: ILead;
@@ -12,7 +13,9 @@ interface ILeadStatusSelectProps {
 export const LeadStatusSelect = ({ model, register }: ILeadStatusSelectProps): JSX.Element => {
   return (
     <>
-      <InputLabel id="status-label">Status</InputLabel>
+      <InputLabel id="status-label">
+        <FormattedMessage id={'LEAD_STATUS_LABEL'} defaultMessage={'Status'} />
+      </InputLabel>
       <Select
         defaultValue={model.status}
         labelId="status-label"

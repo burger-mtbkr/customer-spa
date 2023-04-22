@@ -24,6 +24,7 @@ import {
 import LoadingSkeleton from '../common/loadingSkeleton';
 import CustomerTableBody from './customerTableBody';
 import { CustomerSearchBar } from './searchBar';
+import { useIntl } from 'react-intl';
 
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = 'firstName';
@@ -31,6 +32,7 @@ const DEFAULT_ROWS_PER_PAGE = 10;
 
 const CustomerTable = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const [order, setOrder] = useState<Order>(DEFAULT_ORDER);
   const [orderBy, setOrderBy] = useState<keyof CustomerListItem>(DEFAULT_ORDER_BY);
   const [page, setPage] = useState(0);
@@ -138,7 +140,10 @@ const CustomerTable = () => {
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label={intl.formatMessage({
+          id: 'DENSITY_PADDING_LABEL',
+          defaultMessage: 'Dense padding',
+        })}
       />
     </Box>
   );

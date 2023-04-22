@@ -13,6 +13,7 @@ import CancelSharp from '@material-ui/icons/CancelSharp';
 import { IPasswordChangeRequest, PasswordChangeSchema } from '../models';
 import { sessionUtil } from '../utils';
 import { changePassword } from '../api';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -90,7 +91,7 @@ export const PasswordChange = (): JSX.Element => {
           helperText={props.errors.newPassword}
           name="newPassword"
           id="newPassword"
-          label="New passowrd"
+          label="New password"
           variant="outlined"
           type="password"
           value={props.values.newPassword}
@@ -103,7 +104,7 @@ export const PasswordChange = (): JSX.Element => {
           helperText={props.errors.confirmNewPassword}
           name="confirmNewPassword"
           id="confirmNewPassword"
-          label="Confirm passowrd"
+          label="Confirm password"
           variant="outlined"
           type="password"
           value={props.values.confirmNewPassword}
@@ -124,14 +125,14 @@ export const PasswordChange = (): JSX.Element => {
           startIcon={<SaveIcon />}
           disabled={saving}
         >
-          Submit
+          <FormattedMessage id={'BUTTON_SUBMIT'} defaultMessage={'Submit'} />
           {saving && <CircularProgress size={24} />}
         </Button>
       </Grid>
       <Grid item xs>
         <Link to="/">
           <Button disabled={saving} variant="contained" color="primary" startIcon={<CancelSharp />}>
-            Cancel
+            <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
           </Button>
         </Link>
       </Grid>
@@ -144,7 +145,10 @@ export const PasswordChange = (): JSX.Element => {
       <Paper className={classes.paper}>
         <div className={classes.layout}>
           <Typography component="h5" variant="h5">
-            Change your password
+            <FormattedMessage
+              id={'CHANGE_PASSWORD_TITLE'}
+              defaultMessage={'Change your password'}
+            />
           </Typography>
           <Avatar className={classes.avatar}>
             <Tune />
