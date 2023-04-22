@@ -1,11 +1,11 @@
-import { alpha } from '@mui/material/styles';
+import { CustomerMenuButtons } from './customerMenuButton';
+import DeletePromptModal from './deletePromptModal';
+import { FormattedMessage } from 'react-intl';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
-import DeletePromptModal from './deletePromptModal';
+import { alpha } from '@mui/material/styles';
 import { getSelectedCustomers } from '../../selectors';
-import { CustomerMenuButtons } from './customerMenuButton';
-import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 
 const CustomerTableToolbar = () => {
   const selectedCustomers = useSelector(getSelectedCustomers);

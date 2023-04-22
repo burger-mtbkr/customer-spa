@@ -1,7 +1,8 @@
-import { TextField, Grid } from '@mui/material';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { ICustomer } from '../../models';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Grid, TextField } from '@mui/material';
+
 import { CustomerStatusSelect } from './customerStatusSelect';
+import { ICustomer } from '../../models';
 import { useIntl } from 'react-intl';
 
 interface ICustomerFormProps {

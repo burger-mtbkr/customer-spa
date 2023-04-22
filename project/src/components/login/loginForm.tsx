@@ -1,8 +1,8 @@
-import { FormikProps } from 'formik';
 import { Grid, TextField } from '@mui/material';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { FormikProps } from 'formik';
 import { ILoginRequest } from '../../models';
 import { useIntl } from 'react-intl';
 

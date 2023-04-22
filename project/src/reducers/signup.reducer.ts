@@ -1,6 +1,7 @@
-import { createReducer } from '@reduxjs/toolkit';
 import { setSignupDoneAction, signupInProgressAction } from '../actions';
+
 import { ISignupState } from '../models';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const signupInitialState: ISignupState = {
   signupInProgress: false,

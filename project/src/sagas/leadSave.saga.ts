@@ -1,8 +1,9 @@
-import { SagaIterator } from 'redux-saga';
+import { ILead, ILeadResponse } from '../models';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ILeadResponse, ILead } from '../models';
-import { saveLead } from '../api';
 import { isLeadsSavingAction, setSaveLeadDoneAction } from '../actions';
+
+import { SagaIterator } from 'redux-saga';
+import { saveLead } from '../api';
 import { saveLeadAction } from './../actions/leads.actions';
 
 export function* saveLeadAsync(action: { payload: ILead }): SagaIterator {

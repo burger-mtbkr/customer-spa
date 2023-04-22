@@ -1,15 +1,16 @@
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import { CustomerListItem, Order } from '../../models';
+import { fetchAllCustomersAction, setCustomerSearchRequestAction } from '../../actions';
+import { getCustomersLoadingState, getCustomersSearchParams } from '../../selectors';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CustomerTableToolbar from './customerTableToolbar';
-import { getCustomersLoadingState, getCustomersSearchParams } from '../../selectors';
-import { fetchAllCustomersAction, setCustomerSearchRequestAction } from '../../actions';
-import LoadingSkeleton from '../common/loadingSkeleton';
+
+import Box from '@mui/material/Box';
 import { CustomerSearchBar } from './searchBar';
-import { DensityControl } from './../common/densityControl';
 import { CustomerTableContainer } from './customerTableContainer';
+import CustomerTableToolbar from './customerTableToolbar';
+import { DensityControl } from './../common/densityControl';
+import LoadingSkeleton from '../common/loadingSkeleton';
+import Paper from '@mui/material/Paper';
 
 const DEFAULT_ORDER = 'asc';
 const DEFAULT_ORDER_BY = 'firstName';

@@ -1,6 +1,7 @@
 import { ICustomer, ICustomerResponse } from '../models';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
 import axios from 'axios';
-import { isSuccessfulResponse, axiosApi } from '../utils';
 import { getHeaders } from './headers';
 
 export const saveCustomer = async (customer: ICustomer): Promise<ICustomerResponse> => {

@@ -1,13 +1,13 @@
+import { CUSTOMER_LIST } from '../../routes/paths';
+import { Divider } from '@material-ui/core';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+import LinkIcon from '@material-ui/icons/Link';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import LinkIcon from '@material-ui/icons/Link';
 import PeopleSharp from '@material-ui/icons/PeopleSharp';
-import { Link } from 'react-router-dom';
-import { Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { CUSTOMER_LIST } from '../../routes/paths';
-import { FormattedMessage } from 'react-intl';
 
 const drawerStyle = makeStyles(theme => ({
   menuLink: {

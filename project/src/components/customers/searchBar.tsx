@@ -1,13 +1,14 @@
+import { FormattedMessage, useIntl } from 'react-intl';
+import { IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
 import { createRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomersSearchParams } from '../../selectors';
-import { setCustomerSearchRequestAction } from '../../actions';
-import { IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
+
 import ClearIcon from '@mui/icons-material/Clear';
 import { Grid } from '@mui/material';
 import React from 'react';
 import { customerStatusDictionary } from './customerStatus';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { getCustomersSearchParams } from '../../selectors';
+import { setCustomerSearchRequestAction } from '../../actions';
 
 export const CustomerSearchBar = () => {
   const dispatch = useDispatch();

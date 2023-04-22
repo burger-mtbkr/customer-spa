@@ -1,9 +1,8 @@
-import { Typography } from '@mui/material';
 import Avatar from '@material-ui/core/Avatar';
-
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

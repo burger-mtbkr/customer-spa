@@ -1,8 +1,9 @@
-import { TextField, Grid } from '@mui/material';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Grid, TextField } from '@mui/material';
+
 import { ILead } from '../../models';
 import { LeadStatusSelect } from './leadsStatusSelect';
+import { useIntl } from 'react-intl';
 
 interface ILeadsFormProps {
   leadToSave: ILead;
@@ -12,11 +13,6 @@ interface ILeadsFormProps {
 
 export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX.Element => {
   const intl = useIntl();
-
-
-
-
-
   return (
     <>
       {leadToSave.id && <input type="hidden" value={leadToSave.id} {...register('id')} />}

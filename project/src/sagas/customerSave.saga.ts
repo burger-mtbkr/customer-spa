@@ -1,11 +1,12 @@
+import { ICustomer, ICustomerResponse } from '../models';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   isSavingAction,
   saveCustomerAction,
   setSaveCustomerDoneAction,
 } from '../actions/customers.actions';
+
 import { SagaIterator } from 'redux-saga';
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { ICustomerResponse, ICustomer } from '../models';
 import { saveCustomer } from '../api';
 
 export function* saveCustomerAsync(action: { payload: ICustomer }): SagaIterator {

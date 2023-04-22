@@ -1,7 +1,8 @@
+import { CustomerListItem, IFetchCustomersResponse } from '../models';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
 import { ICustomerSearchRequest } from '../models/customer.model';
 import axios from 'axios';
-import { IFetchCustomersResponse, CustomerListItem } from '../models';
-import { isSuccessfulResponse, axiosApi } from '../utils';
 import { getHeaders } from './headers';
 
 const buildQueryUrl = (searchRequest: ICustomerSearchRequest) => {

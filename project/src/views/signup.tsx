@@ -1,20 +1,21 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { ISignup, SignupSchema } from '../models';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { signUpAction } from '../actions';
-import { getSignupResponse } from '../selectors/signup.selectors';
-import SignupForm from '../components/signup/signupForm';
-import SignupButtons from '../components/signup/signUpButtons';
-import { Avatar, Container, Paper, Typography } from '@material-ui/core';
-import { ROOT } from './../routes/paths';
 import { Alert, Stack } from '@mui/material';
-import { getSignupError } from '../errors';
+import { Avatar, Container, Paper, Typography } from '@material-ui/core';
+import { ISignup, SignupSchema } from '../models';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
 import { FormattedMessage } from 'react-intl';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { ROOT } from './../routes/paths';
+import SignupButtons from '../components/signup/signUpButtons';
+import SignupForm from '../components/signup/signupForm';
+import { getSignupError } from '../errors';
+import { getSignupResponse } from '../selectors/signup.selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { signUpAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

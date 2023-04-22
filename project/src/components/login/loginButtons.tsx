@@ -1,14 +1,15 @@
+import { FormattedMessage, useIntl } from 'react-intl';
+
 import { Button } from '@mui/material';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Item } from '../common/stackItem';
+import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
+import { SIGNUP } from './../../routes/paths';
 import Stack from '@mui/joy/Stack';
+import { loginInProgress } from '../../selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
 import { useSelector } from 'react-redux';
-import { loginInProgress } from '../../selectors';
-import { Item } from '../common/stackItem';
-import { SIGNUP } from './../../routes/paths';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   submit: {

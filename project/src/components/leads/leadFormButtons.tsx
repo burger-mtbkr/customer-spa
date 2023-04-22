@@ -1,8 +1,9 @@
 import { Button, Stack } from '@mui/material';
+
 import { FormattedMessage } from 'react-intl';
-import { useHistory } from 'react-router-dom';
 import { Item } from '../common/stackItem';
 import { LEAD_LIST } from './../../routes/paths';
+import { useHistory } from 'react-router-dom';
 
 export const LeadFormButtons = (): JSX.Element => {
   const history = useHistory();

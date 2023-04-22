@@ -1,13 +1,14 @@
+import { getLeadStatusStyle, leadsStatusDictionary } from './leadStatus';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Checkbox from '@mui/material/Checkbox';
+import { ILeadListItem } from '../../models';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedLeadAction } from '../../actions';
-import { getLeadStatusStyle, leadsStatusDictionary } from './leadStatus';
-import { ILeadListItem } from '../../models';
-import { getSelectedLead } from './../../selectors/leads.selectors';
 import { Typography } from '@material-ui/core';
+import { getSelectedLead } from './../../selectors/leads.selectors';
+import { setSelectedLeadAction } from '../../actions';
 
 interface ITableBodyProps {
   leadsList: ILeadListItem[];

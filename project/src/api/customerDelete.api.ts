@@ -1,6 +1,7 @@
-import axios from 'axios';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
 import { IDeleteCustomerResponse } from '../models';
-import { isSuccessfulResponse, axiosApi } from '../utils';
+import axios from 'axios';
 import { getHeaders } from './headers';
 
 export const deleteCustomer = async (id: string): Promise<IDeleteCustomerResponse> => {

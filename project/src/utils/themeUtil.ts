@@ -1,4 +1,4 @@
-import { createTheme, Theme } from '@material-ui/core/styles';
+import { Theme, createTheme } from '@material-ui/core/styles';
 
 export const primaryMainColor = '#114ebd';
 export const secondaryMainColor = '#114ebd';

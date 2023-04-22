@@ -1,7 +1,8 @@
-import axios from 'axios';
-import { isSuccessfulResponse, axiosApi } from '../utils';
-import { getHeaders } from './headers';
 import { ILead, ILeadResponse } from '../models/lead.model';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
+import axios from 'axios';
+import { getHeaders } from './headers';
 import { leadsEndpoint } from './endpoints';
 
 export const saveLead = async (lead: ILead): Promise<ILeadResponse> => {

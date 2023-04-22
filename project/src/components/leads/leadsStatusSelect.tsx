@@ -1,9 +1,10 @@
-import { Select, MenuItem, InputLabel } from '@mui/material';
-import { UseFormRegister } from 'react-hook-form';
+import { InputLabel, MenuItem, Select } from '@mui/material';
+
+import { FormattedMessage } from 'react-intl';
 import { ILead } from '../../models';
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import { leadsStatusDictionary } from './leadStatus';
-import { FormattedMessage } from 'react-intl';
 
 interface ILeadStatusSelectProps {
   model: ILead;

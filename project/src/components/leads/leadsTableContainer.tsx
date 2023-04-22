@@ -1,14 +1,15 @@
+import { getAllCustomerLeads, getEditCustomer } from '../../selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import LeadsTableBody from './leadsTableBody';
+import LeadsTableHead from './LeadsTableHead';
+import { ROOT } from '../../routes/paths';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import LeadsTableBody from './leadsTableBody';
 import { fetchAllLeadsAction } from './../../actions/leads.actions';
-import LeadsTableHead from './LeadsTableHead';
-import { getAllCustomerLeads, getEditCustomer } from '../../selectors';
 import { useHistory } from 'react-router-dom';
-import { ROOT } from '../../routes/paths';
 
 const DEFAULT_ROWS_PER_PAGE = 10;
 

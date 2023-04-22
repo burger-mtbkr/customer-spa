@@ -1,16 +1,16 @@
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import LoadingSkeleton from '../common/loadingSkeleton';
-import { fetchAllLeadsAction } from './../../actions/leads.actions';
-import LeadsTableToolbar from './leadsTableToolbar';
 import { getEditCustomer, getLeadsLoadingState } from '../../selectors';
-import { useHistory } from 'react-router-dom';
-import { ROOT } from '../../routes/paths';
-import LeadsTableContainer from './leadsTableContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import Box from '@mui/material/Box';
 import { DensityControl } from '../common/densityControl';
+import LeadsTableContainer from './leadsTableContainer';
+import LeadsTableToolbar from './leadsTableToolbar';
+import LoadingSkeleton from '../common/loadingSkeleton';
+import Paper from '@mui/material/Paper';
+import { ROOT } from '../../routes/paths';
+import { fetchAllLeadsAction } from './../../actions/leads.actions';
+import { useHistory } from 'react-router-dom';
 
 const LeadsTable = () => {
   const dispatch = useDispatch();

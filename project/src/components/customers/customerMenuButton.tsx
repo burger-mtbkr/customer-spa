@@ -1,14 +1,15 @@
-import { useHistory } from 'react-router-dom';
-import Tooltip from '@mui/material/Tooltip';
-import PersonPersonSharp from '@mui/icons-material/PersonRemoveSharp';
-import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
-import EditIcon from '@mui/icons-material/EditSharp';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedCustomers } from '../../selectors';
-import { setDeleteModalOpenAction, setSelectedCustomersAction } from '../../actions';
-import { Fab, makeStyles } from '@material-ui/core';
-import { LeadsListButton } from '../leads/leadsListButton';
 import { CUSTOMER_ADD, CUSTOMER_EDIT } from '../../routes/paths';
+import { Fab, makeStyles } from '@material-ui/core';
+import { setDeleteModalOpenAction, setSelectedCustomersAction } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+
+import EditIcon from '@mui/icons-material/EditSharp';
+import { LeadsListButton } from '../leads/leadsListButton';
+import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
+import PersonPersonSharp from '@mui/icons-material/PersonRemoveSharp';
+import Tooltip from '@mui/material/Tooltip';
+import { getSelectedCustomers } from '../../selectors';
+import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({

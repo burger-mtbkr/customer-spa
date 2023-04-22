@@ -1,17 +1,18 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import { SxProps, Theme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import { deleteCustomerAction, setDeleteModalOpenAction } from '../../actions';
-import { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
 import {
   getDeleteCustomerResponse,
-  getSelectedCustomers,
   getDeleteModalOpen,
+  getSelectedCustomers,
 } from '../../selectors';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { FormattedMessage } from 'react-intl';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
 
 const style: SxProps<Theme> = {
   position: 'absolute',

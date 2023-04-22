@@ -1,8 +1,4 @@
-import { IFetchCustomersResponse } from '../models';
-import { SagaIterator } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-
-import { fetchAllCustomers } from '../api';
 import {
   fetchAllCustomersAction,
   fetchAllCustomersDoneAction,
@@ -10,6 +6,10 @@ import {
   setSaveCustomerDoneAction,
   setSelectedCustomersAction,
 } from '../actions';
+
+import { IFetchCustomersResponse } from '../models';
+import { SagaIterator } from 'redux-saga';
+import { fetchAllCustomers } from '../api';
 import { getCustomersSearchParams } from '../selectors';
 
 export function* fetchAllCustomersAsync(): SagaIterator {

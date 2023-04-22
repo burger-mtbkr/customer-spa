@@ -1,5 +1,6 @@
-import { TStoreState } from '../reducers';
 import { ILeadListItem, ILeadResponse } from './../models/lead.model';
+
+import { TStoreState } from '../reducers';
 
 export const getLeadsLoadingState = (state: TStoreState): boolean => state.leads.isLoading;
 

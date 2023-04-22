@@ -1,9 +1,10 @@
-import { Select, MenuItem, InputLabel } from '@mui/material';
-import { UseFormRegister } from 'react-hook-form';
+import { InputLabel, MenuItem, Select } from '@mui/material';
+
+import { FormattedMessage } from 'react-intl';
 import { ICustomer } from '../../models';
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import { customerStatusDictionary } from './customerStatus';
-import { FormattedMessage } from 'react-intl';
 
 interface ICustomerStatusSelectProps {
   model: ICustomer;

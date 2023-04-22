@@ -1,5 +1,6 @@
-import { AxiosError } from 'axios';
 import * as yup from 'yup';
+
+import { AxiosError } from 'axios';
 import { SchemaOf } from 'yup';
 
 export interface ILoginRequest {

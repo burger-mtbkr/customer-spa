@@ -1,4 +1,5 @@
 import { FormControlLabel, Switch } from '@material-ui/core';
+
 import { useIntl } from 'react-intl';
 
 interface IDensityControl {

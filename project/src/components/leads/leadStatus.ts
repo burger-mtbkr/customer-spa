@@ -1,5 +1,5 @@
-import { StatusGroup } from '../../models';
 import { ILeadListItem } from './../../models/lead.model';
+import { StatusGroup } from '../../models';
 
 export const leadsStatusDictionary: StatusGroup[] = [
   {
@@ -7,7 +7,11 @@ export const leadsStatusDictionary: StatusGroup[] = [
     value: 'New',
     colour: '#ff6f69',
   },
-  { key: 1, value: 'Closed Won', colour: '#88d8b0' },
+  {
+    key: 1,
+    value: 'Closed Won',
+    colour: '#88d8b0',
+  },
   {
     key: 2,
     value: 'Closed Lost',

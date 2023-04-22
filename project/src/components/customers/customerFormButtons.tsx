@@ -1,8 +1,9 @@
 import { Button, Stack } from '@mui/material';
+
 import { FormattedMessage } from 'react-intl';
-import { useHistory } from 'react-router-dom';
-import { ROOT } from '../../routes/paths';
 import { Item } from '../common/stackItem';
+import { ROOT } from '../../routes/paths';
+import { useHistory } from 'react-router-dom';
 
 export const CustomerFormButtons = (): JSX.Element => {
   const history = useHistory();

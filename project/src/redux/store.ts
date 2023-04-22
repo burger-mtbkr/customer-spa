@@ -1,7 +1,3 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import storage from 'redux-persist/lib/storage';
-// import storageSession from 'redux-persist/lib/storage/session'
 import {
   FLUSH,
   PAUSE,
@@ -9,12 +5,18 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistStore,
   persistReducer,
+  persistStore,
 } from 'redux-persist';
-import { reducer } from '../reducers';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
 import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+import { reducer } from '../reducers';
 import rootSaga from '../sagas/root.saga';
+import storage from 'redux-persist/lib/storage';
+
+// import storageSession from 'redux-persist/lib/storage/session'
 
 const persistConfig = {
   key: 'root',

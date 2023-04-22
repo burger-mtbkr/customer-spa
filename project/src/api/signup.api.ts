@@ -1,6 +1,7 @@
 import { ISignupRequest, ISignupResponse } from './../models';
+import { axiosApi, isSuccessfulResponse, storageUtil } from '../utils';
+
 import axios from 'axios';
-import { isSuccessfulResponse, axiosApi, storageUtil } from '../utils';
 import { getHeaders } from './headers';
 
 export const signUp = async (request: ISignupRequest): Promise<ISignupResponse> => {

@@ -1,4 +1,5 @@
 import { Box, Link, Typography } from '@mui/material';
+
 import { FormattedMessage } from 'react-intl';
 
 const Copyright = () => {

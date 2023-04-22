@@ -1,6 +1,6 @@
-import { axiosApi } from '../utils';
 import { AxiosResponse } from 'axios';
 import { IPasswordChangeRequest } from '../models/password.changerequest.model';
+import { axiosApi } from '../utils';
 import { getHeaders } from './headers';
 import { userEndpoint } from './endpoints';
 

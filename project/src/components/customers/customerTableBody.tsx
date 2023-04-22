@@ -1,13 +1,14 @@
+import { customerStatusDictionary, getCustomerStyle } from './customerStatus';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Checkbox from '@mui/material/Checkbox';
+import { CustomerListItem } from '../../models';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { CustomerListItem } from '../../models';
-import { useDispatch, useSelector } from 'react-redux';
+import { Typography } from '@material-ui/core';
 import { getSelectedCustomers } from '../../selectors';
 import { setSelectedCustomersAction } from '../../actions';
-import { customerStatusDictionary, getCustomerStyle } from './customerStatus';
-import { Typography } from '@material-ui/core';
 
 interface ITableBodyProps {
   customerList: CustomerListItem[];

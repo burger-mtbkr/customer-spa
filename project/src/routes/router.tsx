@@ -1,32 +1,33 @@
-import React, { useEffect } from 'react';
 import {
-  Login,
-  PasswordChange,
-  Customers,
-  CustomerEditForm,
-  Signup,
-  LeadAddForm,
-  CustomerAddForm,
-} from '../views';
-import { Route, Switch } from 'react-router-dom';
-import { useHistory, useLocation } from 'react-router-dom';
-import { sessionUtil } from '../utils';
-import { useDispatch } from 'react-redux';
-import { setLoginDoneAction } from '../actions';
-import Leads from '../views/leads';
-import { LeadEditForm } from '../views/leadEditForm';
-import {
-  LOGIN,
-  SIGNUP,
-  PASSWORD_CHANGE,
-  CUSTOMER_LIST,
   CUSTOMER_ADD,
   CUSTOMER_EDIT,
-  LEAD_LIST,
+  CUSTOMER_LIST,
   LEAD_ADD,
   LEAD_EDIT,
+  LEAD_LIST,
+  LOGIN,
+  PASSWORD_CHANGE,
   ROOT,
+  SIGNUP,
 } from './paths';
+import {
+  CustomerAddForm,
+  CustomerEditForm,
+  Customers,
+  LeadAddForm,
+  Login,
+  PasswordChange,
+  Signup,
+} from '../views';
+import React, { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+
+import { LeadEditForm } from '../views/leadEditForm';
+import Leads from '../views/leads';
+import { sessionUtil } from '../utils';
+import { setLoginDoneAction } from '../actions';
+import { useDispatch } from 'react-redux';
 
 const unAuthPaths = [LOGIN, SIGNUP];
 

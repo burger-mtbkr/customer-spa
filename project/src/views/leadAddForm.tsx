@@ -1,20 +1,21 @@
 import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import AddLeadIcon from '@mui/icons-material/AddIcCallSharp';
-import { getLeadSaveResponse } from './../selectors/leads.selectors';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ILead, LeadSchema } from './../models/lead.model';
-import { saveLeadAction } from '../actions';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import AddLeadIcon from '@mui/icons-material/AddIcCallSharp';
+import { LEAD_LIST } from './../routes/paths';
 import { LeadForm } from '../components/leads/leadForm';
 import { LeadFormButtons } from '../components/leads/leadFormButtons';
 import { ROOT } from '../routes/paths';
 import { getEditCustomer } from './../selectors/customer.selectors';
-import { LEAD_LIST } from './../routes/paths';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { getLeadSaveResponse } from './../selectors/leads.selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { saveLeadAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

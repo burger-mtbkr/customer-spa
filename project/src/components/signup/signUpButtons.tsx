@@ -1,10 +1,11 @@
 import { Button, CircularProgress, Stack } from '@mui/material';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { LOGIN } from '../../routes/paths';
+
 import { Item } from '../common/stackItem';
+import { LOGIN } from '../../routes/paths';
 import { signupInProgress } from './../../selectors';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SignupButtons = (): JSX.Element => {
   const history = useHistory();

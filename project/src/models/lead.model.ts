@@ -1,7 +1,8 @@
-import { LeadStatus } from './../enums/leadStatus.enum';
 import * as yup from 'yup';
-import { SchemaOf } from 'yup';
+
 import { AxiosError } from 'axios';
+import { LeadStatus } from './../enums/leadStatus.enum';
+import { SchemaOf } from 'yup';
 
 export interface ILead {
   id?: string;

@@ -1,21 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import AppBar from '@material-ui/core/AppBar';
+import { CUSTOMER_LIST } from '../../routes/paths';
+import { FormattedMessage } from 'react-intl';
+import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
+import LogoutModal from '../logout/logoutModal';
+import MenuDrawer from './menuDrawer';
+import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuDrawer from './menuDrawer';
-import burgerIcon from '../../assets/common/icon_64.png';
-import { makeStyles } from '@material-ui/core/styles';
-
-import LogoutModal from '../logout/logoutModal';
-
 import UserMenu from './userMenu';
-import { useDispatch, useSelector } from 'react-redux';
+import burgerIcon from '../../assets/common/icon_64.png';
 import { loggedIn } from '../../selectors';
+import { makeStyles } from '@material-ui/core/styles';
 import { setAppDrawerOpenAction } from '../../actions';
-import { CUSTOMER_LIST } from '../../routes/paths';
-import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
 
 const headerStyle = makeStyles(theme => ({
   root: {

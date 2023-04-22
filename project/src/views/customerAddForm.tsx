@@ -1,18 +1,19 @@
 import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
-import { ICustomer, CustomerSchema } from '../models';
-import { getCustomerSaveResponse } from '../selectors';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { saveCustomerAction } from '../actions';
-import { CustomerFormButtons } from '../components/customers/customerFormButtons';
-import { CustomerForm } from '../components/customers/customerForm';
-import { ROOT } from '../routes/paths';
+import { CustomerSchema, ICustomer } from '../models';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import { CustomerForm } from '../components/customers/customerForm';
+import { CustomerFormButtons } from '../components/customers/customerFormButtons';
+import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
+import { ROOT } from '../routes/paths';
+import { getCustomerSaveResponse } from '../selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { saveCustomerAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

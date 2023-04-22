@@ -1,6 +1,6 @@
+import { dateUtil } from './dateUtil';
 import jwt_decode from 'jwt-decode';
 import { storageUtil } from './storageUtil';
-import { dateUtil } from './dateUtil';
 
 interface IJwt {
   USER_EMAIL: string;

@@ -1,14 +1,14 @@
-import { useHistory } from 'react-router-dom';
-import Tooltip from '@mui/material/Tooltip';
-import AddLeadIcon from '@mui/icons-material/AddSharp';
-import EditIcon from '@mui/icons-material/EditSharp';
+import { CUSTOMER_LIST, LEAD_ADD, LEAD_EDIT } from '../../routes/paths';
+import { Fab, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+
+import AddLeadIcon from '@mui/icons-material/AddSharp';
+import BackIcon from '@mui/icons-material/ArrowBackIosNewSharp';
+import EditIcon from '@mui/icons-material/EditSharp';
+import Tooltip from '@mui/material/Tooltip';
 import { getSelectedLead } from '../../selectors';
 import { setSelectedLeadAction } from '../../actions';
-import { Fab, makeStyles } from '@material-ui/core';
-import BackIcon from '@mui/icons-material/ArrowBackIosNewSharp';
-import { CUSTOMER_LIST, LEAD_ADD, LEAD_EDIT } from '../../routes/paths';
-
+import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({

@@ -1,19 +1,19 @@
 import { Alert, Grid } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Container, makeStyles, Paper, Typography } from '@material-ui/core';
-import EditIcon from '@mui/icons-material/EditSharp';
-import { ICustomer, CustomerSchema } from '../models';
+import { Avatar, Container, Paper, Typography, makeStyles } from '@material-ui/core';
+import { CustomerSchema, ICustomer } from '../models';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { getCustomerSaveResponse, getEditCustomer } from '../selectors';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { saveCustomerAction } from '../actions';
 
-import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import { CustomerForm } from '../components/customers/customerForm';
+import { CustomerFormButtons } from '../components/customers/customerFormButtons';
+import EditIcon from '@mui/icons-material/EditSharp';
 import { ROOT } from '../routes/paths';
+import { saveCustomerAction } from '../actions';
+import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {

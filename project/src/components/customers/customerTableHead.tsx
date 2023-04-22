@@ -1,8 +1,9 @@
+import { CustomerListItem, Order } from '../../models';
+
+import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { CustomerListItem, Order } from '../../models';
 import { TableSortLabel } from '@material-ui/core';
 import { customerHeadCells } from './customersHeadCells';
 

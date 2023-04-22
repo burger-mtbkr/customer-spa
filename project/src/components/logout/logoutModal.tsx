@@ -1,17 +1,18 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { sessionUtil } from '../../utils';
-import { logoutRequest } from '../../api';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutModalOpen } from '../../selectors';
-import { setLogoutModalOpenAction } from '../../actions';
 import { FormattedMessage } from 'react-intl';
+import React from 'react';
+import { logoutModalOpen } from '../../selectors';
+import { logoutRequest } from '../../api';
+import { sessionUtil } from '../../utils';
+import { setLogoutModalOpenAction } from '../../actions';
+import { useHistory } from 'react-router-dom';
 
 const LogoutModal = (): JSX.Element => {
   const history = useHistory();
