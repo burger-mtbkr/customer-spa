@@ -1,8 +1,8 @@
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
 import { CUSTOMER_LIST } from '../../routes/paths';
-import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import LogoutModal from '../logout/logoutModal';
@@ -11,8 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import UserMenu from './userMenu';
-import burgerIcon from '../../assets/common/icon_64.png';
 import { loggedIn } from '../../selectors';
+import logoIcon from '../../assets/common/logo.svg';
 import { makeStyles } from '@material-ui/core/styles';
 import { setAppDrawerOpenAction } from '../../actions';
 
@@ -54,10 +54,17 @@ const HeaderBar = (): JSX.Element => {
   const dispatch = useDispatch();
   const classes = headerStyle();
   const isLoggedIn = useSelector(loggedIn);
+  const intl = useIntl();
 
   const toggleDrawer = (e: any) => {
     dispatch(setAppDrawerOpenAction(true));
   };
+
+  const menuTitle = intl.formatMessage({
+    id: 'USER_MENU_ICON_TITLE',
+    defaultMessage: 'User menu',
+  });
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -68,12 +75,13 @@ const HeaderBar = (): JSX.Element => {
               edge="start"
               className={classes.menuButton}
               color="inherit"
-              aria-label="menu"
+              title={menuTitle}
+              aria-label={menuTitle}
             >
               <MenuIcon />
             </IconButton>
           )}
-          <img src={burgerIcon} alt="logo" width={48} height={48} />
+          <img src={logoIcon} alt="logo" width={48} height={48} />
           <Link to={CUSTOMER_LIST} className={classes.menuLink}>
             <Typography variant="h5" className={classes.title}>
               <FormattedMessage id="APP_HEADER_TITLE" defaultMessage="Customer CRM" />

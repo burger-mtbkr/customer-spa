@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects';
+import { changePasswordSaga } from './changePassword.saga';
 import { deleteCustomerSaga } from './customerDelete.saga';
 import { fetchAllCustomersSaga } from './customersFetch.saga';
 import { fetchCustomerLeadsSaga } from './leadFetch.saga';
@@ -16,5 +17,6 @@ export default function* rootSaga() {
     deleteCustomerSaga(),
     fetchCustomerLeadsSaga(),
     saveLeadSaga(),
+    changePasswordSaga(),
   ]);
 }

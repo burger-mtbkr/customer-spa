@@ -27,25 +27,32 @@ export const CustomerMenuButtons = () => {
   const intl = useIntl();
   const selectedCustomers = useSelector(getSelectedCustomers);
 
+  const editLabel = intl.formatMessage({
+    id: 'CUSTOMER_EDIT_LABEL',
+    defaultMessage: 'Edit customer details',
+  });
+
+  const deleteLabel = intl.formatMessage({
+    id: 'CUSTOMER_DELETE_LABEL',
+    defaultMessage: 'Delete a details',
+  });
+
+  const addLabel = intl.formatMessage({
+    id: 'CUSTOMER_ADD_LABEL',
+    defaultMessage: 'Add a details',
+  });
+
   return (
     <>
       {selectedCustomers.length === 1 && (
         <>
           <LeadsListButton />
-          <Tooltip
-            title={intl.formatMessage({
-              id: 'CUSTOMER_EDIT_LABEL',
-              defaultMessage: 'Edit customer details',
-            })}
-          >
+          <Tooltip title={editLabel}>
             <Fab
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label={intl.formatMessage({
-                id: 'CUSTOMER_EDIT_LABEL',
-                defaultMessage: 'Edit customer details',
-              })}
+              aria-label={editLabel}
               onClick={() => {
                 history.push(CUSTOMER_EDIT);
               }}
@@ -53,20 +60,12 @@ export const CustomerMenuButtons = () => {
               <EditIcon />
             </Fab>
           </Tooltip>
-          <Tooltip
-            title={intl.formatMessage({
-              id: 'CUSTOMER_DELETE_LABEL',
-              defaultMessage: 'Delete a details',
-            })}
-          >
+          <Tooltip title={deleteLabel}>
             <Fab
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label={intl.formatMessage({
-                id: 'CUSTOMER_DELETE_LABEL',
-                defaultMessage: 'Delete a details',
-              })}
+              aria-label={deleteLabel}
               onClick={() => dispatch(setDeleteModalOpenAction(true))}
             >
               <PersonPersonSharp />
@@ -74,20 +73,12 @@ export const CustomerMenuButtons = () => {
           </Tooltip>
         </>
       )}
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'CUSTOMER_ADD_LABEL',
-          defaultMessage: 'Add a details',
-        })}
-      >
+      <Tooltip title={addLabel}>
         <Fab
           color="primary"
           className={classes.fab}
           size="medium"
-          aria-label={intl.formatMessage({
-            id: 'CUSTOMER_ADD_LABEL',
-            defaultMessage: 'Add a details',
-          })}
+          aria-label={addLabel}
           onClick={() => {
             dispatch(setSelectedCustomersAction([]));
             history.push(CUSTOMER_ADD);

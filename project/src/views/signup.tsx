@@ -1,11 +1,11 @@
 import { Alert, Stack } from '@mui/material';
-import { Avatar, Container, Paper, Typography } from '@material-ui/core';
+import { Container, Paper } from '@material-ui/core';
 import { ISignup, SignupSchema } from '../models';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormTitle } from '../components/common/formTitle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { ROOT } from './../routes/paths';
 import SignupButtons from '../components/signup/signUpButtons';
@@ -70,12 +70,11 @@ export const Signup = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <PersonAddIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id={'SIGN_UP_TITLE'} defaultMessage={'  Welcome please signup'} />
-        </Typography>
+        <FormTitle
+          icon={<PersonAddIcon />}
+          titleId={'SIGN_UP_TITLE'}
+          defaultMessage="Welcome please signup"
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack direction="column" spacing={2} marginBottom={2}>
             <SignupForm errors={errors} register={register} model={signupModel} />

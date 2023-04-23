@@ -1,11 +1,11 @@
+import { Checkbox, TableSortLabel } from '@material-ui/core';
 import { CustomerListItem, Order } from '../../models';
 
-import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { TableSortLabel } from '@material-ui/core';
 import { customerHeadCells } from './customersHeadCells';
+import { useIntl } from 'react-intl';
 
 interface CustomerTableHeadProps {
   numSelected: number;
@@ -17,12 +17,18 @@ interface CustomerTableHeadProps {
 }
 
 const CustomerTableHead = (props: CustomerTableHeadProps) => {
+  const intl = useIntl();
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
   const createSortHandler =
     (newOrderBy: keyof CustomerListItem) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, newOrderBy);
     };
+
+  const selectAllTooltip = intl.formatMessage({
+    id: 'SELECT_ALL_TOOLTIP',
+    defaultMessage: 'Select all',
+  });
 
   return (
     <TableHead>
@@ -33,8 +39,9 @@ const CustomerTableHead = (props: CustomerTableHeadProps) => {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
+            title={selectAllTooltip}
             inputProps={{
-              'aria-label': 'select all desserts',
+              'aria-label': selectAllTooltip,
             }}
           />
         </TableCell>

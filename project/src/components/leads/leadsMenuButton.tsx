@@ -26,24 +26,31 @@ export const LeadsMenuButtons = () => {
   const selectedLead = useSelector(getSelectedLead);
   const intl = useIntl();
 
+  const editLabel = intl.formatMessage({
+    id: 'LEAD_EDIT_BUTTON_LABEL',
+    defaultMessage: 'Edit lead details',
+  });
+
+  const addLabel = intl.formatMessage({
+    id: 'LEAD_ADD_LABEL',
+    defaultMessage: 'Add a new lead',
+  });
+
+  const backLabel = intl.formatMessage({
+    id: 'LEAD_BACK_LABEL',
+    defaultMessage: 'Back to customers',
+  });
+
   return (
     <>
       {selectedLead && (
         <>
-          <Tooltip
-            title={intl.formatMessage({
-              id: 'LEAD_EDIT_LABEL',
-              defaultMessage: 'Edit lead details',
-            })}
-          >
+          <Tooltip title={editLabel}>
             <Fab
               color="primary"
               className={classes.fab}
               size="medium"
-              aria-label={intl.formatMessage({
-                id: 'LEAD_EDIT_LABEL',
-                defaultMessage: 'Edit lead details',
-              })}
+              aria-label={editLabel}
               onClick={() => {
                 history.push(LEAD_EDIT);
               }}
@@ -53,20 +60,12 @@ export const LeadsMenuButtons = () => {
           </Tooltip>
         </>
       )}
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'LEAD_ADD_LABEL',
-          defaultMessage: 'Add a new lea',
-        })}
-      >
+      <Tooltip title={addLabel}>
         <Fab
           color="primary"
           className={classes.fab}
           size="medium"
-          aria-label={intl.formatMessage({
-            id: 'LEAD_ADD_LABEL',
-            defaultMessage: 'Add a new lead',
-          })}
+          aria-label={addLabel}
           onClick={() => {
             dispatch(setSelectedLeadAction(undefined));
             history.push(LEAD_ADD);
@@ -75,20 +74,12 @@ export const LeadsMenuButtons = () => {
           <AddLeadIcon />
         </Fab>
       </Tooltip>
-      <Tooltip
-        title={intl.formatMessage({
-          id: 'LEAD_BACK_LABEL',
-          defaultMessage: 'Back to customers',
-        })}
-      >
+      <Tooltip title={backLabel}>
         <Fab
           color="primary"
           className={classes.fab}
           size="medium"
-          aria-label={intl.formatMessage({
-            id: 'LEAD_BACK_LABEL',
-            defaultMessage: 'Back to customers',
-          })}
+          aria-label={backLabel}
           onClick={() => {
             dispatch(setSelectedLeadAction(undefined));
             history.push(CUSTOMER_LIST);

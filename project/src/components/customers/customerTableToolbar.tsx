@@ -3,8 +3,8 @@ import DeletePromptModal from './deletePromptModal';
 import { FormattedMessage } from 'react-intl';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { alpha } from '@mui/material/styles';
 import { getSelectedCustomers } from '../../selectors';
+import { selectionColor } from '../../theme';
 import { useSelector } from 'react-redux';
 
 const CustomerTableToolbar = () => {
@@ -22,9 +22,7 @@ const CustomerTableToolbar = () => {
           pl: { sm: 2 },
           pr: { xs: 2, sm: 2 },
           ...(selectedCustomers.length > 0 && {
-            bgcolor: (theme: {
-              palette: { primary: { main: string }; action: { activatedOpacity: number } };
-            }) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            bgcolor: selectionColor,
           }),
         }}
       >

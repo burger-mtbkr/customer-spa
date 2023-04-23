@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { Alert, Container, Paper, Stack } from '@mui/material';
 import { Formik, FormikProps } from 'formik';
-import { Typography, Container, Paper, Alert, Stack } from '@mui/material';
-import Avatar from '@material-ui/core/Avatar';
-
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { makeStyles } from '@material-ui/core/styles';
 import { ILoginRequest, LoginSchema } from '../models/login.model';
-import { useHistory } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../actions';
-import { getLoginResponse } from '../selectors/session.selectors';
-import { LoginForm } from '../components/login/loginForm';
+
+import { FormTitle } from '../components/common/formTitle';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { LoginButtons } from '../components/login/loginButtons';
-import { getLoginError } from '../utils';
+import { LoginForm } from '../components/login/loginForm';
 import { ROOT } from './../routes/paths';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { getLoginError } from '../utils';
+import { getLoginResponse } from '../selectors/session.selectors';
+import { loginAction } from '../actions';
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -61,12 +60,11 @@ export const Login = () => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id={'LOGIN_TITLE'} defaultMessage={'Welcome please login'} />
-        </Typography>
+        <FormTitle
+          icon={<LockOutlinedIcon />}
+          titleId={'LOGIN_TITLE'}
+          defaultMessage="Welcome please login"
+        />
         <Formik<ILoginRequest>
           onSubmit={onSubmit}
           onReset={onReset}

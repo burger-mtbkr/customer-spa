@@ -1,7 +1,8 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Grid, TextField } from '@mui/material';
 
+import { Grid } from '@mui/material';
 import { ISignup } from '../../models';
+import { TextField } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 
 interface ISignupFormProps {

@@ -1,14 +1,15 @@
+import { Checkbox, Typography } from '@material-ui/core';
 import { customerStatusDictionary, getCustomerStyle } from './customerStatus';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Checkbox from '@mui/material/Checkbox';
 import { CustomerListItem } from '../../models';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import { Typography } from '@material-ui/core';
 import { getSelectedCustomers } from '../../selectors';
+import { selectionColor } from '../../theme';
 import { setSelectedCustomersAction } from '../../actions';
+import { useIntl } from 'react-intl';
 
 interface ITableBodyProps {
   customerList: CustomerListItem[];
@@ -20,6 +21,7 @@ interface ITableBodyProps {
 
 const CustomerTableBody = (props: ITableBodyProps) => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const { customerList, page, dense, rowsPerPage } = props;
 
   const selected = useSelector(getSelectedCustomers);
@@ -57,11 +59,20 @@ const CustomerTableBody = (props: ITableBodyProps) => {
     <TableBody>
       {customerList.map((item: CustomerListItem, index: number) => {
         const isItemSelected = isSelected(item);
-        const labelId = `enhanced-table-checkbox-${index}`;
+        const selectLabel = intl.formatMessage(
+          {
+            id: 'SELECT_ROW_TOOLTIP',
+            defaultMessage: 'Select the {index} row',
+          },
+          { index: index },
+        );
 
         return (
           <TableRow
             hover
+            style={{
+              backgroundColor: isItemSelected ? selectionColor : '#FFF',
+            }}
             onClick={() => handleClick(item)}
             role="checkbox"
             aria-checked={isItemSelected}
@@ -73,8 +84,9 @@ const CustomerTableBody = (props: ITableBodyProps) => {
               <Checkbox
                 color="primary"
                 checked={isItemSelected}
+                title={selectLabel}
                 inputProps={{
-                  'aria-labelledby': labelId,
+                  'aria-labelledby': selectLabel,
                 }}
               />
             </TableCell>

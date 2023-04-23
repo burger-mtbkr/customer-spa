@@ -1,8 +1,9 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Grid, TextField } from '@mui/material';
 
 import { CustomerStatusSelect } from './customerStatusSelect';
+import { Grid } from '@mui/material';
 import { ICustomer } from '../../models';
+import { TextField } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 
 interface ICustomerFormProps {
@@ -18,16 +19,40 @@ export const CustomerForm = ({
 }: ICustomerFormProps): JSX.Element => {
   const intl = useIntl();
 
+  const firstNameLabel = intl.formatMessage({
+    id: 'CUSTOMER_FIRST_NAME_LABEL',
+    defaultMessage: 'First name',
+  });
+
+  const lastNameLabel = intl.formatMessage({
+    id: 'CUSTOMER_LAST_NAME_LABEL',
+    defaultMessage: 'Last name',
+  });
+
+  const emailLabel = intl.formatMessage({
+    id: 'CUSTOMER_EMAIL_LABEL',
+    defaultMessage: 'Last name',
+  });
+
+  const companyLabel = intl.formatMessage({
+    id: 'CUSTOMER_COMPANY_LABEL',
+    defaultMessage: 'Company',
+  });
+
+  const phoneLabel = intl.formatMessage({
+    id: 'CUSTOMER_PHONE_LABEL',
+    defaultMessage: 'Phone',
+  });
+
   return (
     <>
       {customerToSave.id && <input type="hidden" value={customerToSave.id} {...register('id')} />}
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'CUSTOMER_FIRST_NAME_LABEL',
-            defaultMessage: 'First name',
-          })}
+          label={firstNameLabel}
+          title={firstNameLabel}
+          aria-label={firstNameLabel}
           variant="outlined"
           defaultValue={customerToSave.firstName}
           InputLabelProps={{ shrink: true }}
@@ -39,10 +64,9 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'CUSTOMER_LAST_NAME_LABEL',
-            defaultMessage: 'Last name',
-          })}
+          label={lastNameLabel}
+          title={lastNameLabel}
+          aria-label={lastNameLabel}
           variant="outlined"
           defaultValue={customerToSave.lastName}
           InputLabelProps={{ shrink: true }}
@@ -54,10 +78,9 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'CUSTOMER_EMAIL_LABEL',
-            defaultMessage: 'Last name',
-          })}
+          label={emailLabel}
+          title={emailLabel}
+          aria-label={emailLabel}
           variant="outlined"
           defaultValue={customerToSave.email}
           InputLabelProps={{ shrink: true }}
@@ -69,10 +92,9 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'CUSTOMER_COMPANY_LABEL',
-            defaultMessage: 'Company',
-          })}
+          label={companyLabel}
+          title={companyLabel}
+          aria-label={companyLabel}
           variant="outlined"
           defaultValue={customerToSave.company}
           InputLabelProps={{ shrink: true }}
@@ -84,10 +106,9 @@ export const CustomerForm = ({
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'CUSTOMER_PHONE_LABEL',
-            defaultMessage: 'Phone',
-          })}
+          label={phoneLabel}
+          title={phoneLabel}
+          aria-label={phoneLabel}
           variant="outlined"
           defaultValue={customerToSave.phoneNumber}
           InputLabelProps={{ shrink: true }}

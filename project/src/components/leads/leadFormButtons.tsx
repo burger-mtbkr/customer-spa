@@ -1,33 +1,69 @@
-import { Button, Stack } from '@mui/material';
-
-import { FormattedMessage } from 'react-intl';
+import { Button } from '@material-ui/core';
+import CancelSharp from '@material-ui/icons/CancelSharp';
 import { Item } from '../common/stackItem';
-import { LEAD_LIST } from './../../routes/paths';
+import ResetSharpIcon from '@material-ui/icons/RestoreSharp';
+import SaveSharpIcon from '@material-ui/icons/SaveSharp';
+import { Stack } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 export const LeadFormButtons = (): JSX.Element => {
   const history = useHistory();
+  const intl = useIntl();
+
+  const cancelButtonLabel = intl.formatMessage({
+    id: 'BUTTON_CANCEL',
+    defaultMessage: 'Cancel',
+  });
+
+  const submitButtonLabel = intl.formatMessage({
+    id: 'BUTTON_SUBMIT',
+    defaultMessage: 'Submit',
+  });
+  const resetButtonLabel = intl.formatMessage({
+    id: 'BUTTON_RESET',
+    defaultMessage: 'Reset',
+  });
+
   return (
     <>
       <Stack direction="row" spacing={3} marginTop={2}>
         <Item>
-          <Button variant="contained" type="submit">
-            <FormattedMessage id={'BUTTON_SUBMIT'} defaultMessage={'Submit'} />
-          </Button>
-        </Item>
-        <Item>
-          <Button variant="contained" type="reset">
-            <FormattedMessage id={'BUTTON_RESET'} defaultMessage={'Reset'} />
+          <Button
+            startIcon={<SaveSharpIcon />}
+            aria-label={submitButtonLabel}
+            title={submitButtonLabel}
+            variant="contained"
+            type="submit"
+            color="primary"
+          >
+            {submitButtonLabel}
           </Button>
         </Item>
         <Item>
           <Button
+            startIcon={<ResetSharpIcon />}
+            aria-label={resetButtonLabel}
+            title={resetButtonLabel}
             variant="contained"
+            color="primary"
+            type="reset"
+          >
+            {resetButtonLabel}
+          </Button>
+        </Item>
+        <Item>
+          <Button
+            startIcon={<CancelSharp />}
+            variant="contained"
+            color="primary"
+            aria-label={cancelButtonLabel}
+            title={cancelButtonLabel}
             onClick={() => {
-              history.replace(LEAD_LIST);
+              history.goBack();
             }}
           >
-            <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
+            {cancelButtonLabel}
           </Button>
         </Item>
       </Stack>

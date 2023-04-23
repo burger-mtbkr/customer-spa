@@ -9,11 +9,11 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import Routes from './routes/router';
+import { appTheme } from './theme';
 import { messages } from './language';
-import { themeUtil } from './utils';
 
 const App = () => {
-  const theme = themeUtil.getTheme();
+  const theme = appTheme.getTheme();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

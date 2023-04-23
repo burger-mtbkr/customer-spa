@@ -21,7 +21,7 @@ export const fetchCustomerLeads = async (customerId: string): Promise<IFetchLead
     }
     return {
       isSuccessful: false,
-      error: new Error('An error has occured'),
+      error: new Error(`An error has occured ${response.statusText}`),
     };
   } catch (error) {
     return {

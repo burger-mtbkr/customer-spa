@@ -18,7 +18,7 @@ export const deleteCustomer = async (id: string): Promise<IDeleteCustomerRespons
     return {
       id,
       isSuccessful: false,
-      error: new Error('An error has occured'),
+      error: new Error(`An error has occured ${response.statusText}`),
     };
   } catch (error) {
     return {

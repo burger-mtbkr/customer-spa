@@ -1,5 +1,5 @@
 import { Alert, Grid } from '@mui/material';
-import { Avatar, Container, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Container, Paper, makeStyles } from '@material-ui/core';
 import { CustomerSchema, ICustomer } from '../models';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { getCustomerSaveResponse, getEditCustomer } from '../selectors';
@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { CustomerForm } from '../components/customers/customerForm';
 import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import EditIcon from '@mui/icons-material/EditSharp';
+import { FormTitle } from '../components/common/formTitle';
 import { ROOT } from '../routes/paths';
 import { saveCustomerAction } from '../actions';
 import { useHistory } from 'react-router-dom';
@@ -18,7 +19,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const useStyles = makeStyles(theme => ({
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
   },
   layout: {
     padding: theme.spacing(1),
@@ -72,12 +72,11 @@ export const CustomerEditForm = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <EditIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Edit customer
-        </Typography>
+        <FormTitle
+          icon={<EditIcon />}
+          titleId={'CUSTOMER_EDIT_TITLE'}
+          defaultMessage="Edit the customer"
+        />
         {customerToSave ? (
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container direction="column" justifyContent="center" spacing={1}>

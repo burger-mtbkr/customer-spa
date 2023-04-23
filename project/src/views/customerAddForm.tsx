@@ -1,24 +1,24 @@
-import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
+import { Alert, Container, Grid, Paper } from '@mui/material';
 import { CustomerSchema, ICustomer } from '../models';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import { CustomerForm } from '../components/customers/customerForm';
 import { CustomerFormButtons } from '../components/customers/customerFormButtons';
+import { FormTitle } from '../components/common/formTitle';
 import PersonAddIcon from '@material-ui/icons/PersonAddSharp';
 import { ROOT } from '../routes/paths';
 import { getCustomerSaveResponse } from '../selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { saveCustomerAction } from '../actions';
 import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.light,
   },
   layout: {
     padding: theme.spacing(1),
@@ -78,12 +78,11 @@ export const CustomerAddForm = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <PersonAddIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id="CUSTOMER_ADD_TITLE" defaultMessage="Add customer" />
-        </Typography>
+        <FormTitle
+          icon={<PersonAddIcon />}
+          titleId={'CUSTOMER_ADD_TITLE'}
+          defaultMessage="Add customer"
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>
             <CustomerForm customerToSave={customerToSave} register={register} errors={errors} />
