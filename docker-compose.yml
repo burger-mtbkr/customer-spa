@@ -3,13 +3,13 @@ version: '3'
 services:
   api:
     image: loanburger/customer-service:latest
-    container_name: my-api
+    container_name: customer-service
     ports:
-      - "5000:80"
+      - "5000:5000"
 
   spa:
     image: loanburger/customer-spa:latest
-    container_name: my-spa
+    container_name: customer-spa
     ports:
       - "3000:3000"
     depends_on:

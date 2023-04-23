@@ -2,7 +2,7 @@
   "name": "customer-spa",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://customer-service:5000",
   "author": {
     "name": "Lóan Burger",
     "url": "https://github.com/burger-mtbkr"
