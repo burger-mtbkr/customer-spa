@@ -1,5 +1,4 @@
 import { CircularProgress, Stack } from '@mui/material';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@material-ui/core';
 import CancelSharp from '@material-ui/icons/CancelSharp';
@@ -9,6 +8,7 @@ import ResetSharpIcon from '@material-ui/icons/RestoreSharp';
 import SignupIcon from '@material-ui/icons/AddSharp';
 import { signupInProgress } from './../../selectors';
 import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 const SignupButtons = (): JSX.Element => {

@@ -1,5 +1,4 @@
-import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { Alert, Container, Grid, Paper } from '@mui/material';
 import { ILead, LeadSchema } from './../models/lead.model';
 import { LEAD_LIST, ROOT } from '../routes/paths';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -15,6 +14,7 @@ import { getEditCustomer } from '../selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { saveLeadAction } from '../actions';
 import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
