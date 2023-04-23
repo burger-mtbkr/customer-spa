@@ -5,6 +5,7 @@ import { createReducer } from '@reduxjs/toolkit';
 
 export const signupInitialState: ISignupState = {
   signupInProgress: false,
+  signupResponse: undefined,
 };
 
 export default createReducer(signupInitialState, builder =>

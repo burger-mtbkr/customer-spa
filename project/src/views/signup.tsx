@@ -10,6 +10,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { ROOT } from './../routes/paths';
 import SignupButtons from '../components/signup/signUpButtons';
 import SignupForm from '../components/signup/signupForm';
+import { getLoginResponse } from './../selectors/session.selectors';
 import { getSignupError } from '../errors';
 import { getSignupResponse } from '../selectors/signup.selectors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,6 +37,7 @@ export const Signup = (): JSX.Element => {
   const history = useHistory();
   const classes = useStyles();
   const signupResponse = useSelector(getSignupResponse);
+  const loginResponse = useSelector(getLoginResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const signupModel: ISignup = {
     firstName: '',
@@ -60,12 +62,12 @@ export const Signup = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (signupResponse?.isSuccessful === true) {
-      history.replace(ROOT);
-    } else {
+    if (signupResponse?.error) {
       setError(getSignupError(signupResponse));
+    } else if (loginResponse?.isLoggedIn) {
+      history.replace(ROOT);
     }
-  }, [signupResponse, history]);
+  }, [signupResponse, loginResponse, history]);
 
   return (
     <Container maxWidth="sm">

@@ -33,7 +33,6 @@ export const SignupSchema: SchemaOf<ISignup> = yup
 
 export interface ISignupResponse {
   error?: AxiosError | Error;
-  isSuccessful?: boolean;
 }
 
 export interface ISignupState {

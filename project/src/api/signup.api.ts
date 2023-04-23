@@ -15,16 +15,14 @@ export const signUp = async (request: ISignupRequest): Promise<ISignupResponse> 
         storageUtil.setItem('t', `Bearer ${token}`, true);
       }
       return {
-        isSuccessful: true,
+        error: undefined,
       };
     }
     return {
-      isSuccessful: false,
       error: new Error(`An error has occured ${response.statusText}`),
     };
   } catch (error) {
     return {
-      isSuccessful: false,
       error: axios.isAxiosError(error) ? error : new Error('An error has occured'),
     };
   }
