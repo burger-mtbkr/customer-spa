@@ -1,20 +1,22 @@
-import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import AddLeadIcon from '@mui/icons-material/AddIcCallSharp';
-import { getLeadSaveResponse } from './../selectors/leads.selectors';
+import { Alert, Container, Grid, Paper } from '@mui/material';
 import { ILead, LeadSchema } from './../models/lead.model';
-import { saveLeadAction } from '../actions';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import AddLeadIcon from '@mui/icons-material/AddIcCallSharp';
+import { FormTitle } from '../components/common/formTitle';
+import { LEAD_LIST } from './../routes/paths';
 import { LeadForm } from '../components/leads/leadForm';
 import { LeadFormButtons } from '../components/leads/leadFormButtons';
 import { ROOT } from '../routes/paths';
 import { getEditCustomer } from './../selectors/customer.selectors';
-import { LEAD_LIST } from './../routes/paths';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { getLeadSaveResponse } from './../selectors/leads.selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { saveLeadAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -87,16 +89,12 @@ export const LeadAddForm = (): JSX.Element => {
   return selectedCustomer ? (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <AddLeadIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage
-            id={'LEAD_EDIT_TITLE'}
-            defaultMessage={'Edit customer lead for {customer}'}
-            values={{ customer: `${selectedCustomer?.firstName} ${selectedCustomer?.lastName}` }}
-          />
-        </Typography>
+        <FormTitle
+          icon={<AddLeadIcon />}
+          titleId={'LEAD_ADD_TITLE'}
+          defaultMessage={'Add a lead for {customer}'}
+          labelValues={{ customer: `${selectedCustomer.firstName} ${selectedCustomer.lastName}` }}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container direction="column" justifyContent="center" spacing={1}>
             <LeadForm leadToSave={leadModel} register={register} errors={errors} />

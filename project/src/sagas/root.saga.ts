@@ -1,11 +1,13 @@
 import { all } from 'redux-saga/effects';
+import { changePasswordSaga } from './changePassword.saga';
 import { deleteCustomerSaga } from './customerDelete.saga';
 import { fetchAllCustomersSaga } from './customersFetch.saga';
+import { fetchCustomerLeadsSaga } from './leadFetch.saga';
 import { loginSaga } from './login.saga';
 import { saveCustomerSaga } from './customerSave.saga';
-import { signupSaga } from './signup.saga';
-import { fetchCustomerLeadsSaga } from './leadFetch.saga';
 import { saveLeadSaga } from './leadSave.saga';
+import { signupSaga } from './signup.saga';
+
 export default function* rootSaga() {
   yield all([
     signupSaga(),
@@ -15,5 +17,6 @@ export default function* rootSaga() {
     deleteCustomerSaga(),
     fetchCustomerLeadsSaga(),
     saveLeadSaga(),
+    changePasswordSaga(),
   ]);
 }

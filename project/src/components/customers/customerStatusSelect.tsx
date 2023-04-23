@@ -1,9 +1,11 @@
-import { Select, MenuItem, InputLabel } from '@mui/material';
-import { UseFormRegister } from 'react-hook-form';
+import { InputLabel, MenuItem } from '@mui/material';
+
 import { ICustomer } from '../../models';
 import React from 'react';
+import { Select } from '@material-ui/core';
+import { UseFormRegister } from 'react-hook-form';
 import { customerStatusDictionary } from './customerStatus';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 interface ICustomerStatusSelectProps {
   model: ICustomer;
@@ -14,13 +16,22 @@ export const CustomerStatusSelect = ({
   model,
   register,
 }: ICustomerStatusSelectProps): JSX.Element => {
+  const intl = useIntl();
+
+  const statusLabel = intl.formatMessage({
+    id: 'CUSTOMER_STATUS_LABEL',
+    defaultMessage: 'Status',
+  });
+
   return (
     <>
-      <InputLabel id="status-label">
-        <FormattedMessage id={'CUSTOMER_STATUS_LABEL'} defaultMessage={'Status'} />
-      </InputLabel>
+      <InputLabel id="status-label">{statusLabel}</InputLabel>
       <Select
+        color="primary"
+        variant="outlined"
         defaultValue={model.status}
+        title={statusLabel}
+        aria-label={statusLabel}
         labelId="status-label"
         {...register('status', { required: true })}
       >

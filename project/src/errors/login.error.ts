@@ -1,5 +1,5 @@
-import { IntlShape } from 'react-intl';
 import { ILoginResponse } from '../models';
+import { IntlShape } from 'react-intl';
 
 export const getLoginError = (response: ILoginResponse | undefined, intl: IntlShape) => {
   if (response && response.error) {

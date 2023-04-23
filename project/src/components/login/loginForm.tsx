@@ -1,8 +1,8 @@
-import { FormikProps } from 'formik';
-import { Grid, TextField } from '@mui/material';
+import { Checkbox, TextField } from '@material-ui/core';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import { FormikProps } from 'formik';
+import { Grid } from '@mui/material';
 import { ILoginRequest } from '../../models';
 import { useIntl } from 'react-intl';
 
@@ -12,6 +12,21 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
   const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue('rememberLogin', event.target.checked);
   };
+
+  const emailLabel = intl.formatMessage({
+    id: 'LOGIN_EMAIL_LABEL',
+    defaultMessage: 'Email Address',
+  });
+
+  const passwordLabel = intl.formatMessage({
+    id: 'PASSWORD_LABEL',
+    defaultMessage: 'Password',
+  });
+
+  const rememberMeLabel = intl.formatMessage({
+    id: 'LOGIN_REMEMBER_ME_LABEL',
+    defaultMessage: 'Remember me',
+  });
 
   return (
     <Grid container direction="column" justifyContent="center" spacing={0}>
@@ -24,10 +39,11 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           required
           fullWidth
           id="email"
-          label={intl.formatMessage({
-            id: 'LOGIN_EMAIL_LABEL',
-            defaultMessage: 'Email Address',
-          })}
+          label={emailLabel}
+          inputProps={{
+            'aria-label': emailLabel,
+          }}
+          title={emailLabel}
           name="email"
           autoComplete="email"
           autoFocus
@@ -42,10 +58,11 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
           required
           fullWidth
           name={'password'}
-          label={intl.formatMessage({
-            id: 'PASSWORD_LABEL',
-            defaultMessage: 'Password',
-          })}
+          label={passwordLabel}
+          inputProps={{
+            'aria-label': passwordLabel,
+          }}
+          title={passwordLabel}
           type="password"
           id="password"
           autoComplete="current-password"
@@ -61,10 +78,7 @@ export const LoginForm = ({ setFieldValue, errors, handleChange }: FormikProps<I
               onChange={handleCheckChange}
             />
           }
-          label={intl.formatMessage({
-            id: 'LOGIN_REMEMBER_ME_LABEL',
-            defaultMessage: 'Remember me',
-          })}
+          label={rememberMeLabel}
         />
       </Grid>
     </Grid>

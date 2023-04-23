@@ -1,26 +1,36 @@
-import { axiosApi } from '../utils';
-import { AxiosResponse } from 'axios';
-import { IPasswordChangeRequest } from '../models/password.changerequest.model';
+import {
+  IPasswordChangeRequest,
+  IPasswordChangeResponse,
+} from '../models/password.changerequest.model';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
+import axios from 'axios';
 import { getHeaders } from './headers';
 import { userEndpoint } from './endpoints';
 
 export const changePassword = async (
   model: IPasswordChangeRequest,
-): Promise<boolean | undefined> => {
-  let response: AxiosResponse<unknown>;
-  const headers = getHeaders();
+): Promise<IPasswordChangeResponse> => {
+  try {
+    const headers = getHeaders();
+    const response = await axiosApi.patch(`${userEndpoint}/${model.userId}`, model, {
+      headers: headers,
+    });
 
-  if (model) {
-    response = await axiosApi.patch(`${userEndpoint}/${model.userId}`, model, { headers: headers });
-  } else {
-    throw new Error('Invalid password request');
-  }
-
-  if (response.status === 200 || response.status === 204) {
-    if (response.data) {
-      return response.data as boolean;
+    if (isSuccessfulResponse(response)) {
+      return {
+        isSuccessful: true,
+      };
     }
-    return undefined;
+
+    return {
+      isSuccessful: false,
+      error: new Error(`An error has occured ${response.statusText}`),
+    };
+  } catch (error) {
+    return {
+      error: axios.isAxiosError(error) ? error : new Error('An error has occured'),
+      isSuccessful: true,
+    };
   }
-  throw new Error(response.statusText);
 };

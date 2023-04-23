@@ -1,6 +1,7 @@
-import axios from 'axios';
 import { IFetchLeadsResponse, ILeadListItem } from '../models';
-import { isSuccessfulResponse, axiosApi } from '../utils';
+import { axiosApi, isSuccessfulResponse } from '../utils';
+
+import axios from 'axios';
 import { getHeaders } from './headers';
 
 export const fetchCustomerLeads = async (customerId: string): Promise<IFetchLeadsResponse> => {
@@ -20,7 +21,7 @@ export const fetchCustomerLeads = async (customerId: string): Promise<IFetchLead
     }
     return {
       isSuccessful: false,
-      error: new Error('An error has occured'),
+      error: new Error(`An error has occured ${response.statusText}`),
     };
   } catch (error) {
     return {

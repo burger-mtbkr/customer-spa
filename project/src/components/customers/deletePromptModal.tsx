@@ -1,35 +1,38 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { SxProps, Theme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Grid, } from '@mui/material';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { deleteCustomerAction, setDeleteModalOpenAction } from '../../actions';
-import { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
 import {
   getDeleteCustomerResponse,
-  getSelectedCustomers,
   getDeleteModalOpen,
+  getSelectedCustomers,
 } from '../../selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-const style: SxProps<Theme> = {
+import Box from '@mui/material/Box';
+import { Button } from '@material-ui/core';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
+const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: '#FFF',
-  border: '2px solid #114ebd',
+  border: '2px solid #FF0000',
   boxShadow: 24,
   p: 4,
 };
 
 const DeletePromptModal = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const isOpen = useSelector(getDeleteModalOpen);
   const selectedCustomers = useSelector(getSelectedCustomers);
   const deleteResponse = useSelector(getDeleteCustomerResponse);
+  const [error, setError] = useState<string | Error | undefined>();
 
   const onDeleteCustomers = () => {
     const { id } = selectedCustomers[0];
@@ -43,21 +46,21 @@ const DeletePromptModal = () => {
   };
 
   useEffect(() => {
-    if (deleteResponse?.isSuccessful === true) {
+    if (deleteResponse?.error) {
+      setError('Logout failed');
+    } else {
       dispatch(setDeleteModalOpenAction(false));
-    } else if (deleteResponse?.isSuccessful === false) {
-      alert(`Failed to delete`);
     }
   }, [deleteResponse, dispatch]);
 
   return (
-    <div>
-      <Modal
-        open={isOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
+    <Modal
+      open={isOpen}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Grid marginBottom={2}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <FormattedMessage id={'CUSTOMER_DELETE_TITLE'} defaultMessage={'Delete customer?'} />
           </Typography>
@@ -75,15 +78,37 @@ const DeletePromptModal = () => {
               defaultMessage={'This cannot be undone.'}
             />
           </Typography>
-          <Button onClick={onDeleteCustomers}>
+        </Grid>
+        <Grid marginBottom={2} spacing={2}>
+          <Button
+            style={{
+              border: '1px solid #FF0000',
+              marginRight: '2em',
+            }}
+            variant="outlined"
+            onClick={onDeleteCustomers}
+            aria-label={intl.formatMessage({
+              id: 'BUTTON_DELETE',
+              defaultMessage: 'Delete',
+            })}
+          >
             <FormattedMessage id={'BUTTON_DELETE'} defaultMessage={'Delete'} />
           </Button>
-          <Button onClick={handleClose}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleClose}
+            aria-label={intl.formatMessage({
+              id: 'BUTTON_CANCEL',
+              defaultMessage: 'Cancel',
+            })}
+          >
             <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
           </Button>
-        </Box>
-      </Modal>
-    </div>
+        </Grid>
+        {error && <Alert severity="error">{error}</Alert>}
+      </Box>
+    </Modal>
   );
 };
 

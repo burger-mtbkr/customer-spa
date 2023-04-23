@@ -4,12 +4,12 @@ export const customerStatusDictionary: StatusGroup[] = [
   {
     key: 0,
     value: 'Active',
-    colour: '#ff6f69',
+    colour: '#272c00',
   },
   {
     key: 1,
     value: 'Lead',
-    colour: '#88d8b0',
+    colour: '#ff4040',
   },
   {
     key: 2,

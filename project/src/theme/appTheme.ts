@@ -1,17 +1,19 @@
-import { createTheme, Theme } from '@material-ui/core/styles';
+import { Theme, createTheme } from '@material-ui/core/styles';
 
-export const primaryMainColor = '#114ebd';
-export const secondaryMainColor = '#114ebd';
+export const primaryMainColor = '#424A00';
+export const secondaryMainColor = '#424A00';
 
-export const primaryLightColor = '#5883d0';
-export const secondaryLightColor = '#5883d0';
+export const primaryLightColor = '#424A00';
+export const secondaryLightColor = '#424A00';
 
-export const primaryDarkColor = '#08275e';
-export const secondaryDarkColor = '#08275e';
+export const primaryDarkColor = '#424A00';
+export const secondaryDarkColor = '#424A00';
 
 export const contrastText = '#FFF';
 
-export const themeUtil = {
+export const selectionColor = '#d9dacc';
+
+export const appTheme = {
   getTheme(): Theme {
     const palletType = 'light';
 

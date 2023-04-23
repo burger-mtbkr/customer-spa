@@ -1,6 +1,6 @@
+import Copyright from './copyright';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Copyright from './copyright';
 
 const useStyles = makeStyles({
   root: {

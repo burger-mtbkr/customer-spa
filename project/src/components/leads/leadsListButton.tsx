@@ -1,7 +1,8 @@
 import { Fab, Tooltip, makeStyles } from '@material-ui/core';
+
+import { LEAD_LIST } from '../../routes/paths';
 import LeadsIcon from '@mui/icons-material/AddIcCallSharp';
 import { useHistory } from 'react-router-dom';
-import { LEAD_LIST } from '../../routes/paths';
 import { useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({

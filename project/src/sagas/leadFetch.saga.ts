@@ -1,17 +1,17 @@
-import { IFetchLeadsResponse } from '../models';
-import { SagaIterator } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-
-import { fetchCustomerLeads } from '../api';
-import { isLoadingAction } from '../actions';
 import {
   fetchAllLeadsAction,
   fetchAllLeadsDoneAction,
   setSaveLeadDoneAction,
   setSelectedLeadAction,
 } from '../actions/leads.actions';
+
 import { ICustomer } from './../models/customer.model';
+import { IFetchLeadsResponse } from '../models';
+import { SagaIterator } from 'redux-saga';
+import { fetchCustomerLeads } from '../api';
 import { getEditCustomer } from './../selectors/customer.selectors';
+import { isLoadingAction } from '../actions';
 
 export function* fetchCustomerLeadsAsync(): SagaIterator {
   let response: IFetchLeadsResponse = {};

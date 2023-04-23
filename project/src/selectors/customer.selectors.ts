@@ -1,5 +1,6 @@
+import { CustomerListItem, ICustomer, ICustomerResponse, IDeleteCustomerResponse } from '../models';
+
 import { ICustomerSearchRequest } from './../models/customer.model';
-import { IDeleteCustomerResponse, ICustomerResponse, ICustomer, CustomerListItem } from '../models';
 import { TStoreState } from '../reducers';
 
 export const getCustomersLoadingState = (state: TStoreState): boolean => state.customers.isLoading;

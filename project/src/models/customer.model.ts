@@ -1,7 +1,8 @@
 import * as yup from 'yup';
-import { SchemaOf } from 'yup';
+
 import { AxiosError } from 'axios';
 import { Order } from './order.model';
+import { SchemaOf } from 'yup';
 
 export interface ICustomer {
   id?: string;

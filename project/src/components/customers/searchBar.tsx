@@ -1,13 +1,14 @@
+import { FormattedMessage, useIntl } from 'react-intl';
+import { IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
 import { createRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCustomersSearchParams } from '../../selectors';
-import { setCustomerSearchRequestAction } from '../../actions';
-import { IconButton, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
+
 import ClearIcon from '@mui/icons-material/Clear';
 import { Grid } from '@mui/material';
 import React from 'react';
 import { customerStatusDictionary } from './customerStatus';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { getCustomersSearchParams } from '../../selectors';
+import { setCustomerSearchRequestAction } from '../../actions';
 
 export const CustomerSearchBar = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,21 @@ export const CustomerSearchBar = () => {
     setFilter(selectedFilter);
   };
 
+  const searchLabel = intl.formatMessage({
+    id: 'CUSTOMER_SEARCH_LABEL',
+    defaultMessage: 'Search customers',
+  });
+
+  const searchPlaceholder = intl.formatMessage({
+    id: 'CUSTOMER_SEARCH_PLACEHOLDER',
+    defaultMessage: 'Search...',
+  });
+
+  const clearSearchLabel = intl.formatMessage({
+    id: 'CUSTOMER_SEARCH_CLEAR',
+    defaultMessage: 'Clear search',
+  });
+
   return (
     <>
       <Grid
@@ -60,18 +76,13 @@ export const CustomerSearchBar = () => {
               ref={searchRef}
               value={searchText}
               type="text"
-              label={intl.formatMessage({
-                id: 'CUSTOMER_SEARCH_LABEL',
-                defaultMessage: 'Search customers',
-              })}
-              placeholder={intl.formatMessage({
-                id: 'CUSTOMER_SEARCH_PLACEHOLDER',
-                defaultMessage: 'Search...',
-              })}
+              aria-label={searchLabel}
+              label={searchLabel}
+              placeholder={searchPlaceholder}
               variant="outlined"
               onChange={onSearchChange}
             />
-            <Tooltip title="Clear search">
+            <Tooltip title={clearSearchLabel}>
               <IconButton onClick={clearSearch}>
                 <ClearIcon />
               </IconButton>

@@ -1,8 +1,10 @@
-import { TextField, Grid } from '@mui/material';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+
+import { Grid } from '@mui/material';
 import { ILead } from '../../models';
 import { LeadStatusSelect } from './leadsStatusSelect';
+import { TextField } from '@material-ui/core';
+import { useIntl } from 'react-intl';
 
 interface ILeadsFormProps {
   leadToSave: ILead;
@@ -12,6 +14,16 @@ interface ILeadsFormProps {
 
 export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX.Element => {
   const intl = useIntl();
+  const nameLabel = intl.formatMessage({
+    id: 'LEAD_NAME_LABEL',
+    defaultMessage: 'Name',
+  });
+
+  const sourceLabel = intl.formatMessage({
+    id: 'LEAD_SOURCE_LABEL',
+    defaultMessage: 'Source',
+  });
+
   return (
     <>
       {leadToSave.id && <input type="hidden" value={leadToSave.id} {...register('id')} />}
@@ -21,14 +33,9 @@ export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'LEAD_NAME_LABEL',
-            defaultMessage: 'Name',
-          })}
-          aria-label={intl.formatMessage({
-            id: 'LEAD_NAME_LABEL',
-            defaultMessage: 'Name',
-          })}
+          label={nameLabel}
+          aria-label={nameLabel}
+          title={nameLabel}
           variant="outlined"
           defaultValue={leadToSave.name}
           InputLabelProps={{ shrink: true }}
@@ -40,14 +47,9 @@ export const LeadForm = ({ leadToSave, register, errors }: ILeadsFormProps): JSX
       <Grid item xs={6} marginY={2}>
         <TextField
           type="text"
-          label={intl.formatMessage({
-            id: 'LEAD_SOURCE_LABEL',
-            defaultMessage: 'Source',
-          })}
-          aria-label={intl.formatMessage({
-            id: 'LEAD_SOURCE_LABEL',
-            defaultMessage: 'Source',
-          })}
+          label={sourceLabel}
+          aria-label={sourceLabel}
+          title={sourceLabel}
           variant="outlined"
           defaultValue={leadToSave.source}
           InputLabelProps={{ shrink: true }}

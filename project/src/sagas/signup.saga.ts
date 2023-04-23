@@ -1,9 +1,10 @@
+import { ISignupRequest, ISignupResponse } from './../models';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { setSignupDoneAction, signUpAction, signupInProgressAction } from '../actions';
+
+import { SagaIterator } from 'redux-saga';
 import { setLoginDoneAction } from './../actions';
 import { signUp } from './../api';
-import { ISignupRequest, ISignupResponse } from './../models';
-import { SagaIterator } from 'redux-saga';
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { signUpAction, setSignupDoneAction, signupInProgressAction } from '../actions';
 
 export function* signupAsync(action: { payload: ISignupRequest }): SagaIterator {
   let response: ISignupResponse = {};

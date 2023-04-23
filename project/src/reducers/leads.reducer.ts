@@ -1,4 +1,3 @@
-import { createReducer } from '@reduxjs/toolkit';
 import {
   fetchAllLeadsDoneAction,
   isLeadsLoadingAction,
@@ -6,7 +5,9 @@ import {
   setSaveLeadDoneAction,
   setSelectedLeadAction,
 } from '../actions';
+
 import { ILeadsState } from '../models';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const leadInitialState: ILeadsState = {
   isLoading: false,

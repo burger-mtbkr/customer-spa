@@ -1,7 +1,7 @@
 import { loginInProgressAction, setLoginDoneAction } from '../actions';
-import { createReducer } from '@reduxjs/toolkit';
 
 import { ILoginState } from '../models';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const sessionInitialState: ILoginState = {
   loginInProgress: false,

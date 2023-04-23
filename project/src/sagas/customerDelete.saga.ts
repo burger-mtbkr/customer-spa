@@ -1,14 +1,15 @@
-import {
-  fetchAllCustomersAction,
-  setSelectedCustomersAction,
-  setDeleteCustomerDoneAction,
-  deleteCustomerAction,
-} from '../actions/customers.actions';
-import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { isDeletingAction } from '../actions';
-import { deleteCustomer } from '../api';
+import {
+  deleteCustomerAction,
+  fetchAllCustomersAction,
+  setDeleteCustomerDoneAction,
+  setSelectedCustomersAction,
+} from '../actions/customers.actions';
+
 import { IDeleteCustomerResponse } from '../models';
+import { SagaIterator } from 'redux-saga';
+import { deleteCustomer } from '../api';
+import { isDeletingAction } from '../actions';
 
 export function* deleteCustomerAsync(action: { payload: string }): SagaIterator {
   let response: IDeleteCustomerResponse = {};

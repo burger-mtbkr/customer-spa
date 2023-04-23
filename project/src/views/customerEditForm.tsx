@@ -1,24 +1,24 @@
 import { Alert, Grid } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Container, makeStyles, Paper, Typography } from '@material-ui/core';
-import EditIcon from '@mui/icons-material/EditSharp';
-import { ICustomer, CustomerSchema } from '../models';
+import { Container, Paper, makeStyles } from '@material-ui/core';
+import { CustomerSchema, ICustomer } from '../models';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { getCustomerSaveResponse, getEditCustomer } from '../selectors';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { saveCustomerAction } from '../actions';
 
-import { CustomerFormButtons } from '../components/customers/customerFormButtons';
 import { CustomerForm } from '../components/customers/customerForm';
+import { CustomerFormButtons } from '../components/customers/customerFormButtons';
+import EditIcon from '@mui/icons-material/EditSharp';
+import { FormTitle } from '../components/common/formTitle';
 import { ROOT } from '../routes/paths';
+import { saveCustomerAction } from '../actions';
+import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
   },
   layout: {
     padding: theme.spacing(1),
@@ -37,6 +37,10 @@ export const CustomerEditForm = (): JSX.Element => {
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const customerToSave = useSelector(getEditCustomer);
   const saveResponse = useSelector(getCustomerSaveResponse);
+
+  useEffect(() => {
+    if (!customerToSave) history.replace(ROOT);
+  }, [customerToSave, history]);
 
   const {
     register,
@@ -68,19 +72,20 @@ export const CustomerEditForm = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <EditIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Edit customer
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container direction="column" justifyContent="center" spacing={1}>
-            <CustomerForm customerToSave={customerToSave!} register={register} errors={errors} />
-            <CustomerFormButtons />
-            {error && <Alert severity="error">{error}</Alert>}
-          </Grid>
-        </form>
+        <FormTitle
+          icon={<EditIcon />}
+          titleId={'CUSTOMER_EDIT_TITLE'}
+          defaultMessage="Edit the customer"
+        />
+        {customerToSave ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" justifyContent="center" spacing={1}>
+              <CustomerForm customerToSave={customerToSave!} register={register} errors={errors} />
+              <CustomerFormButtons />
+              {error && <Alert severity="error">{error}</Alert>}
+            </Grid>
+          </form>
+        ) : null}
       </Paper>
     </Container>
   );

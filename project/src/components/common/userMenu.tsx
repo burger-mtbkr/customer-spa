@@ -1,15 +1,16 @@
-import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { setLogoutModalOpenAction, setUserMenuOpenAction } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { loggedIn } from '../../selectors';
+
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import React from 'react';
 import { Typography } from '@material-ui/core';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { loggedIn } from '../../selectors';
+import { makeStyles } from '@material-ui/core/styles';
 
 const userMenuStyle = makeStyles(theme => ({
   iconButton: {

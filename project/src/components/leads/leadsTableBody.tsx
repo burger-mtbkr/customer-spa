@@ -1,13 +1,15 @@
+import { Checkbox, Typography } from '@material-ui/core';
+import { getLeadStatusStyle, leadsStatusDictionary } from './leadStatus';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ILeadListItem } from '../../models';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedLeadAction } from '../../actions';
-import { getLeadStatusStyle, leadsStatusDictionary } from './leadStatus';
-import { ILeadListItem } from '../../models';
 import { getSelectedLead } from './../../selectors/leads.selectors';
-import { Typography } from '@material-ui/core';
+import { selectionColor } from '../../theme';
+import { setSelectedLeadAction } from '../../actions';
+import { useIntl } from 'react-intl';
 
 interface ITableBodyProps {
   leadsList: ILeadListItem[];
@@ -18,6 +20,7 @@ interface ITableBodyProps {
 
 const LeadsTableBody = (props: ITableBodyProps) => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const { leadsList, page, dense, rowsPerPage } = props;
   const selectedLead = useSelector(getSelectedLead);
 
@@ -41,11 +44,21 @@ const LeadsTableBody = (props: ITableBodyProps) => {
     <TableBody>
       {leadsList.map((item: ILeadListItem, index: number) => {
         const isItemSelected = isSelected(item);
-        const labelId = `enhanced-table-checkbox-${index}`;
+
+        const selectLabel = intl.formatMessage(
+          {
+            id: 'SELECT_ROW_TOOLTIP',
+            defaultMessage: 'Select the {index} row',
+          },
+          { index: index },
+        );
 
         return (
           <TableRow
             hover
+            style={{
+              backgroundColor: isItemSelected ? selectionColor : '#FFF',
+            }}
             onClick={() => handleClick(item)}
             role="checkbox"
             aria-checked={isItemSelected}
@@ -57,8 +70,9 @@ const LeadsTableBody = (props: ITableBodyProps) => {
               <Checkbox
                 color="primary"
                 checked={isItemSelected}
+                title={selectLabel}
                 inputProps={{
-                  'aria-labelledby': labelId,
+                  'aria-labelledby': selectLabel,
                 }}
               />
             </TableCell>

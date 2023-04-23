@@ -1,14 +1,15 @@
-import { Button } from '@mui/material';
+import { Button } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Item } from '../common/stackItem';
+import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
+import { SIGNUP } from './../../routes/paths';
+import SignupIcon from '@material-ui/icons/AddSharp';
 import Stack from '@mui/joy/Stack';
+import { loginInProgress } from '../../selectors';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import LockOpenSharp from '@material-ui/icons/LockOpenSharp';
+import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { loginInProgress } from '../../selectors';
-import { Item } from '../common/stackItem';
-import { SIGNUP } from './../../routes/paths';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 const useStyles = makeStyles(theme => ({
   submit: {
@@ -22,15 +23,23 @@ export const LoginButtons = () => {
   const intl = useIntl();
   const inProgress = useSelector(loginInProgress);
 
+  const loginButtonLabel = intl.formatMessage({
+    id: 'BUTTON_LOGIN',
+    defaultMessage: 'Login',
+  });
+
+  const signUpButtonLabel = intl.formatMessage({
+    id: 'BUTTON_SIGNUP',
+    defaultMessage: 'Signup',
+  });
+
   return (
     <>
       <Stack direction="row" spacing={3}>
         <Item>
           <Button
-            aria-label={intl.formatMessage({
-              id: 'BUTTON_LOGIN',
-              defaultMessage: 'Login',
-            })}
+            aria-label={loginButtonLabel}
+            title={loginButtonLabel}
             disabled={inProgress}
             startIcon={<LockOpenSharp />}
             type="submit"
@@ -39,21 +48,21 @@ export const LoginButtons = () => {
             color="primary"
             className={classes.submit}
           >
-            <FormattedMessage id={'BUTTON_LOGIN'} defaultMessage={'Login'} />
+            {loginButtonLabel}
           </Button>
         </Item>
         <Item>
           <Button
-            aria-label={intl.formatMessage({
-              id: 'BUTTON_SIGNUP',
-              defaultMessage: 'Signup',
-            })}
+            startIcon={<SignupIcon />}
+            aria-label={signUpButtonLabel}
+            title={signUpButtonLabel}
             variant="contained"
+            color="primary"
             onClick={() => {
               history.push(SIGNUP);
             }}
           >
-            <FormattedMessage id={'BUTTON_SIGNUP'} defaultMessage={'Signup'} />
+            {signUpButtonLabel}
           </Button>
         </Item>
       </Stack>

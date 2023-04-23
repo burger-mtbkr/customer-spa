@@ -1,171 +1,99 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { Formik, FormikProps, FormikHelpers } from 'formik';
-import { Typography, Grid, Button, Container, Paper } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import Tune from '@material-ui/icons/Tune';
-import { makeStyles, CircularProgress } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import CancelSharp from '@material-ui/icons/CancelSharp';
+import { Container, Paper } from '@material-ui/core';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import { IPasswordChangeRequest, PasswordChangeSchema } from '../models';
-import { sessionUtil } from '../utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import { Alert } from '@mui/material';
+import { ChangePasswordControls } from '../components/changePassword/ChangePasswordButtons';
+import { ChangePasswordForm } from '../components/changePassword/ChangePaswordForm';
+import { FormTitle } from '../components/common/formTitle';
+import Tune from '@material-ui/icons/Tune';
 import { changePassword } from '../api';
-import { FormattedMessage } from 'react-intl';
+import { changePasswordAction } from '../actions';
+import { getChangePasswordResponse } from './../selectors/passwordChange.selector';
+import { makeStyles } from '@material-ui/core';
+import { sessionUtil } from '../utils';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(1),
-    marginTop: theme.spacing(3),
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
-    textAlign: 'center',
   },
   layout: {
-    width: '100%',
+    padding: theme.spacing(1),
+    width: '100%', // Fix IE 11 issue.
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    alignContent: 'center',
   },
   submit: {
     margin: theme.spacing(0, 0, 2),
-  },
-  fieldSet: {
-    marginTop: theme.spacing(3),
-    paddingBottom: theme.spacing(2),
   },
   textField: {
     margin: theme.spacing(2),
     width: 180,
   },
-  buttonGrid: {
-    marginTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-  },
 }));
 
 export const PasswordChange = (): JSX.Element => {
   const jwtInfo = sessionUtil.getInfo();
+  const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const [saving, setSaving] = useState(false);
+  const changePasswordResponse = useSelector(getChangePasswordResponse);
+  const [error, setError] = useState<string | Error | undefined>(undefined);
   const model = PasswordChangeSchema.default({}) as IPasswordChangeRequest;
 
   useEffect(() => {
     if (jwtInfo?.USER_ID) model.userId = jwtInfo?.USER_ID;
   }, [jwtInfo, model]);
 
+  useEffect(() => {
+    if (changePasswordResponse) {
+      changePasswordResponse.error
+        ? setError('Failed to change the password.  Please try again')
+        : history.goBack();
+    }
+  }, [history, changePasswordResponse]);
+
   const onSubmit = async (
     model: IPasswordChangeRequest,
     actions: FormikHelpers<IPasswordChangeRequest>,
   ) => {
-    setSaving(true);
+    dispatch(changePasswordAction(model));
+
     const result = await changePassword(model);
     actions.setSubmitting(false);
-    setSaving(false);
+
     result ? history.goBack() : alert('Failed to update password');
   };
 
-  const detailContent = (props: FormikProps<IPasswordChangeRequest>): JSX.Element => {
-    return (
-      <div className={classes.fieldSet}>
-        <TextField
-          onChange={props.handleChange}
-          error={props.errors.oldPassword != null}
-          helperText={props.errors.oldPassword}
-          name="oldPassword"
-          id="oldPassword"
-          label="Old password"
-          variant="outlined"
-          type="password"
-          value={props.values.oldPassword}
-          className={classes.textField}
-        />
-
-        <TextField
-          error={props.errors.newPassword != null}
-          helperText={props.errors.newPassword}
-          name="newPassword"
-          id="newPassword"
-          label="New password"
-          variant="outlined"
-          type="password"
-          value={props.values.newPassword}
-          onChange={props.handleChange}
-          className={classes.textField}
-        />
-
-        <TextField
-          error={props.errors.confirmNewPassword != null}
-          helperText={props.errors.confirmNewPassword}
-          name="confirmNewPassword"
-          id="confirmNewPassword"
-          label="Confirm password"
-          variant="outlined"
-          type="password"
-          value={props.values.confirmNewPassword}
-          onChange={props.handleChange}
-          className={classes.textField}
-        />
-      </div>
-    );
-  };
-
-  const formControls = (
-    <Grid container className={classes.buttonGrid}>
-      <Grid item xs>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          startIcon={<SaveIcon />}
-          disabled={saving}
-        >
-          <FormattedMessage id={'BUTTON_SUBMIT'} defaultMessage={'Submit'} />
-          {saving && <CircularProgress size={24} />}
-        </Button>
-      </Grid>
-      <Grid item xs>
-        <Link to="/">
-          <Button disabled={saving} variant="contained" color="primary" startIcon={<CancelSharp />}>
-            <FormattedMessage id={'BUTTON_CANCEL'} defaultMessage={'Cancel'} />
-          </Button>
-        </Link>
-      </Grid>
-      {saving && <LinearProgress />}
-    </Grid>
-  );
-
   return (
     <Container maxWidth="sm">
-      <Paper className={classes.paper}>
-        <div className={classes.layout}>
-          <Typography component="h5" variant="h5">
-            <FormattedMessage
-              id={'CHANGE_PASSWORD_TITLE'}
-              defaultMessage={'Change your password'}
-            />
-          </Typography>
-          <Avatar className={classes.avatar}>
-            <Tune />
-          </Avatar>
-          <Formik<IPasswordChangeRequest>
-            onSubmit={onSubmit}
-            initialValues={model}
-            validationSchema={PasswordChangeSchema}
-          >
-            {(props: FormikProps<IPasswordChangeRequest>): JSX.Element => (
+      <Paper className={classes.layout}>
+        <FormTitle
+          icon={<Tune />}
+          titleId={'CHANGE_PASSWORD_TITLE'}
+          defaultMessage="Change your password"
+        />
+        <Formik<IPasswordChangeRequest>
+          onSubmit={onSubmit}
+          initialValues={model}
+          validationSchema={PasswordChangeSchema}
+        >
+          {(props: FormikProps<IPasswordChangeRequest>): JSX.Element => (
+            <>
               <form onSubmit={props.handleSubmit} onReset={props.handleReset}>
-                {detailContent(props)}
-                {formControls}
+                <ChangePasswordForm {...props} />
+                <ChangePasswordControls />
               </form>
-            )}
-          </Formik>
-        </div>
+              {error && <Alert severity="error">{error}</Alert>}
+            </>
+          )}
+        </Formik>
       </Paper>
     </Container>
   );

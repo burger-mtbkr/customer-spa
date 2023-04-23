@@ -1,18 +1,21 @@
-import { Alert, Avatar, Container, Grid, Paper, Typography } from '@mui/material';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import EditIcon from '@mui/icons-material/EditSharp';
-import { getLeadSaveResponse, getSelectedLead } from './../selectors/leads.selectors';
+import { Alert, Container, Grid, Paper } from '@mui/material';
 import { ILead, LeadSchema } from './../models/lead.model';
-import { saveLeadAction } from '../actions';
+import { LEAD_LIST, ROOT } from '../routes/paths';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { getLeadSaveResponse, getSelectedLead } from './../selectors/leads.selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import EditIcon from '@mui/icons-material/EditSharp';
+import { FormTitle } from '../components/common/formTitle';
 import { LeadForm } from '../components/leads/leadForm';
 import { LeadFormButtons } from '../components/leads/leadFormButtons';
-import { LEAD_LIST } from '../routes/paths';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { getEditCustomer } from '../selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { saveLeadAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -33,9 +36,20 @@ export const LeadEditForm = (): JSX.Element => {
   const history = useHistory();
   const classes = useStyles();
   const intl = useIntl();
+  const selectedCustomer = useSelector(getEditCustomer);
   const saveResponse = useSelector(getLeadSaveResponse);
   const [error, setError] = useState<string | Error | undefined>(undefined);
   const leadToSave = useSelector(getSelectedLead);
+
+  useEffect(() => {
+    if (!leadToSave) {
+      if (selectedCustomer) {
+        history.replace(LEAD_LIST);
+      } else {
+        history.replace(ROOT);
+      }
+    }
+  }, [leadToSave, history, selectedCustomer]);
 
   const {
     register,
@@ -66,19 +80,21 @@ export const LeadEditForm = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <EditIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id="LEAD_EDIT_TITLE" defaultMessage="Edit customer lead" />
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container direction="column" justifyContent="center" spacing={1}>
-            <LeadForm leadToSave={leadToSave!} register={register} errors={errors} />
-            <LeadFormButtons />
-            {error && <Alert severity="error">{error}</Alert>}
-          </Grid>
-        </form>
+        <FormTitle
+          icon={<EditIcon />}
+          titleId={'LEAD_EDIT_TITLE'}
+          defaultMessage={'Edit the lead for {customer}'}
+          labelValues={{ customer: `${selectedCustomer!.firstName} ${selectedCustomer!.lastName}` }}
+        />
+        {leadToSave ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" justifyContent="center" spacing={1}>
+              <LeadForm leadToSave={leadToSave!} register={register} errors={errors} />
+              <LeadFormButtons />
+              {error && <Alert severity="error">{error}</Alert>}
+            </Grid>
+          </form>
+        ) : null}
       </Paper>
     </Container>
   );

@@ -1,11 +1,11 @@
-import { alpha } from '@mui/material/styles';
+import { FormattedMessage } from 'react-intl';
+import { LeadsMenuButtons } from './leadsMenuButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
-import { LeadsMenuButtons } from './leadsMenuButton';
-import { getSelectedLead } from './../../selectors/leads.selectors';
 import { getEditCustomer } from '../../selectors';
-import { FormattedMessage } from 'react-intl';
+import { getSelectedLead } from './../../selectors/leads.selectors';
+import { selectionColor } from '../../theme';
+import { useSelector } from 'react-redux';
 
 const LeadsTableToolbar = () => {
   const selectedLead = useSelector(getSelectedLead);
@@ -18,9 +18,7 @@ const LeadsTableToolbar = () => {
           pl: { sm: 2 },
           pr: { xs: 2, sm: 2 },
           ...(selectedLead && {
-            bgcolor: (theme: {
-              palette: { primary: { main: string }; action: { activatedOpacity: number } };
-            }) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            bgcolor: selectionColor,
           }),
         }}
       >

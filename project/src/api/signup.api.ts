@@ -1,6 +1,7 @@
 import { ISignupRequest, ISignupResponse } from './../models';
+import { axiosApi, isSuccessfulResponse, storageUtil } from '../utils';
+
 import axios from 'axios';
-import { isSuccessfulResponse, axiosApi, storageUtil } from '../utils';
 import { getHeaders } from './headers';
 
 export const signUp = async (request: ISignupRequest): Promise<ISignupResponse> => {
@@ -19,7 +20,7 @@ export const signUp = async (request: ISignupRequest): Promise<ISignupResponse> 
     }
     return {
       isSuccessful: false,
-      error: new Error('An error has occured'),
+      error: new Error(`An error has occured ${response.statusText}`),
     };
   } catch (error) {
     return {

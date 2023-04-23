@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { SchemaOf } from 'yup';
+
 import { AxiosError } from 'axios';
+import { SchemaOf } from 'yup';
 
 export interface ISignupRequest {
   firstName: string;

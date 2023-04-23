@@ -1,16 +1,17 @@
-import { createReducer } from '@reduxjs/toolkit';
 import {
   fetchAllCustomersDoneAction,
   isDeletingAction,
   isLoadingAction,
   isSavingAction,
-  setDeleteModalOpenAction,
+  setCustomerSearchRequestAction,
   setDeleteCustomerDoneAction,
+  setDeleteModalOpenAction,
   setSaveCustomerDoneAction,
   setSelectedCustomersAction,
-  setCustomerSearchRequestAction,
 } from '../actions';
+
 import { ICustomerState } from '../models';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const customerInitialState: ICustomerState = {
   deleteModalOpen: false,

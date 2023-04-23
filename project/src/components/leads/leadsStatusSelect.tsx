@@ -1,9 +1,11 @@
-import { Select, MenuItem, InputLabel } from '@mui/material';
-import { UseFormRegister } from 'react-hook-form';
+import { InputLabel, MenuItem } from '@mui/material';
+
 import { ILead } from '../../models';
 import React from 'react';
+import { Select } from '@material-ui/core';
+import { UseFormRegister } from 'react-hook-form';
 import { leadsStatusDictionary } from './leadStatus';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 interface ILeadStatusSelectProps {
   model: ILead;
@@ -11,13 +13,22 @@ interface ILeadStatusSelectProps {
 }
 
 export const LeadStatusSelect = ({ model, register }: ILeadStatusSelectProps): JSX.Element => {
+  const intl = useIntl();
+
+  const statusLabel = intl.formatMessage({
+    id: 'CUSTOMER_STATUS_LABEL',
+    defaultMessage: 'Status',
+  });
+
   return (
     <>
-      <InputLabel id="status-label">
-        <FormattedMessage id={'LEAD_STATUS_LABEL'} defaultMessage={'Status'} />
-      </InputLabel>
+      <InputLabel id="status-label">{statusLabel}</InputLabel>
       <Select
+        color="primary"
+        variant="outlined"
         defaultValue={model.status}
+        title={statusLabel}
+        aria-label={statusLabel}
         labelId="status-label"
         {...register('status', { required: true })}
       >

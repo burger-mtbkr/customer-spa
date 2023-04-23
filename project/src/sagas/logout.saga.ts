@@ -1,8 +1,9 @@
-import { loginAction, loginInProgressAction, setLoginDoneAction } from '../actions';
-import { logoutRequest } from '../api';
-import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { loginAction, loginInProgressAction, setLoginDoneAction } from '../actions';
+
 import { ILoginRequest } from '../models';
+import { SagaIterator } from 'redux-saga';
+import { logoutRequest } from '../api';
 import { sessionUtil } from '../utils';
 
 export function* logoutAsync(action: { payload: ILoginRequest }): SagaIterator {

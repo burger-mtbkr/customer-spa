@@ -1,4 +1,6 @@
 import * as yup from 'yup';
+
+import { AxiosError } from 'axios';
 import { SchemaOf } from 'yup';
 
 export interface IPasswordChangeRequest {
@@ -36,3 +38,12 @@ export const PasswordChangeSchema: SchemaOf<IPasswordChangeRequest> = yup
     confirmNewPassword: '',
     newPassword: '',
   });
+
+export interface IPasswordChangeResponse {
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface IPasswordChangeState {
+  passwordChangeResponse?: IPasswordChangeResponse;
+}

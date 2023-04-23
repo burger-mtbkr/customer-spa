@@ -1,20 +1,21 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { ISignup, SignupSchema } from '../models';
-import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { signUpAction } from '../actions';
-import { getSignupResponse } from '../selectors/signup.selectors';
-import SignupForm from '../components/signup/signupForm';
-import SignupButtons from '../components/signup/signUpButtons';
-import { Avatar, Container, Paper, Typography } from '@material-ui/core';
-import { ROOT } from './../routes/paths';
 import { Alert, Stack } from '@mui/material';
+import { Container, Paper } from '@material-ui/core';
+import { ISignup, SignupSchema } from '../models';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+import { FormTitle } from '../components/common/formTitle';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { ROOT } from './../routes/paths';
+import SignupButtons from '../components/signup/signUpButtons';
+import SignupForm from '../components/signup/signupForm';
 import { getSignupError } from '../errors';
-import { FormattedMessage } from 'react-intl';
+import { getSignupResponse } from '../selectors/signup.selectors';
+import { makeStyles } from '@material-ui/core/styles';
+import { signUpAction } from '../actions';
+import { useHistory } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -69,12 +70,11 @@ export const Signup = (): JSX.Element => {
   return (
     <Container maxWidth="sm">
       <Paper className={classes.layout}>
-        <Avatar className={classes.avatar}>
-          <PersonAddIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          <FormattedMessage id={'SIGN_UP_TITLE'} defaultMessage={'  Welcome please signup'} />
-        </Typography>
+        <FormTitle
+          icon={<PersonAddIcon />}
+          titleId={'SIGN_UP_TITLE'}
+          defaultMessage="Welcome please signup"
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack direction="column" spacing={2} marginBottom={2}>
             <SignupForm errors={errors} register={register} model={signupModel} />

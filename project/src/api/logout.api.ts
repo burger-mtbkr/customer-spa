@@ -1,5 +1,6 @@
-import { AxiosResponse } from 'axios';
 import { axiosApi, isSuccessfulResponse } from '../utils';
+
+import { AxiosResponse } from 'axios';
 import { getHeaders } from './headers';
 
 export const logoutRequest = async (): Promise<boolean> => {
