@@ -2,17 +2,42 @@
 
 This is the React SPA for the Customer Service. This SPA runs on Node 16 and requires the [Customer Service API](https://github.com/burger-mtbkr/customer-service/tree/main) to work.
 
-### Running this app: 🏃
+### Cloning the repositories: 🏃
 
 - Clone the [Customer Service API](https://github.com/burger-mtbkr/customer-service/tree/main) follow the [instructions](https://github.com/burger-mtbkr/customer-service/tree/main#1-how-to-test-the-api) in that repo to get it up and running.
 - Clone this repository
+
+### Preparing the app to run it locally:
+
+CORS can be an issue if the api and spa are running on separate ports and not being proxied an das such the app will not be able to make requests to the api due to CORS. You can follow the Options below to decide what works best for you. The fastest way is to install the [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) extension.
+
+**Option 1: Browser plugin**
+
+- Install a browser plugin like [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) and use that to ignore CORS on the SPA.
+
+**Option 2: Proxy to spa**
+
+1.  Open your React app's package.json file.
+2.  Add a proxy field to the file, with the value set to the URL of your API, like this matching that of the api port:
+
+        "proxy": "http://localhost:5000"
+
+3.  Save the file.
+4.  With this configuration, The SPA makes an API request to a URL that starts with `/`
+5.  The request will be forwarded to the API running on `localhost:5000`. For example, if our SPA app makes a request to /api/login, the request will be forwarded to http://localhost:5000/api/login.
+6.  If you take this approach **you will need to change the endpoint in the [axios.util.ts](../project//src//utils/axios.util.ts) file** by setting it to `/api`. and ignore the environmental variable.
+
+### Run the SPA locally:
+
 - Open the workspace [file](./project//project.code-workspace) in visual studio code.
+- Now there is this [environmental variable file](./project/.env) I left in there to use to reference where the customer-service api is running. Change this url to be the same as the on you started the API project on.
+
+- If your using the proxy then ignore this flile and just make sure the [axios.util.ts](../project//src//utils/axios.util.ts) file does not reference the env variable. It will jin this case just be set to `/api`.
+- If your using the browser plugin: then the [environmental variable file](./project/.env) url needs to match your api url.
+
 - Run the following:
   - Install the package: `yarn install`
   - Build the project: `yarn build`
-
-Now there is this [environmental variable file](./project/.env) I left in there to use to reference where the api is running. Change this url to be the same as the on you started the API project on.
-
 - Now run `yarn start`.
 
 ### Application flow: 🌊
@@ -26,28 +51,9 @@ Now there is this [environmental variable file](./project/.env) I left in there 
 - Signup
 - Login
 - Customer list
-- Add, Edit and delete customers.
-- Add and edit Leads for a customer.
-- If you delete a customer then the leads for that customer will also be deleted.
+- Add, Edit and Delete customers. (If you delete a customer then the leads for that customer will also be deleted.)
+- Add and edit leads for a customer.
 
 ### If you have troubles getting the app started: ⚠️
 
-CORS can be an issue if the api and spa are running on separate ports. You have a few options.
-
-**Option 1:**
-
-- Install a browser plugin like [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) and use that to ignore CORS on the SPA.
-
-**Option 2:**
-
-- Docker. Both the Customer API and the Customer SPA are deployed to docker hub. The repositories are:
-- [Customer-service](https://hub.docker.com/layers/loanburger/customer-service/latest/images/sha256-2f81ce37ae463cee5ce99f39dd20545b3060354e0629b530d7e5a1cedf4944e7?context=repo)
-- [Customer-spa](https://hub.docker.com/layers/loanburger/customer-spa/latest/images/sha256-be1716e41f3aad8ae6d557035f594ed89d2715b94100f560c20c49dd6d8e5080?context=repo)
-
-- You could add a docker-compose file and pull down these two images and run them.
-- Add a proxy property to the package.json file and point that to the api url.
-- If you take this approach you will need to change the endpoint in the [axios.util.ts](../project//src//utils/axios.util.ts) file by setting it to `/api`. and ignore the environmental variable.
-
-_Full disclosure I have tried this and sometimes it worked and other times not but im not a docker guru so may have missed something obvious_
-
-- Worst case - call me. :phone:
+- Call me :phone: or I can deploy it to Azure or AWS 😄.
