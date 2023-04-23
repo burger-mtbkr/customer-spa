@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  api:
+    image: loanburger/customer-service:latest
+    ports:
+      - "32780:80"
+
+  spa:
+    image: loanburger/customer-spa:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
