@@ -1,7 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 
+const customerServiceUrl = `${process.env.REACT_APP_API_ENDPOINT}/api`;
+
 export const axiosApi: AxiosInstance = axios.create({
-  baseURL: `/api`,
+  baseURL: customerServiceUrl,
 });
 
 axiosApi.interceptors.request.use(
