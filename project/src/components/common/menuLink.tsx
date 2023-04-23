@@ -88,7 +88,7 @@ export const MenuLinks = () => {
           <LinkIcon className={classes.iconColor} />
         </ListItemIcon>
         <a
-          href="http://customerservice-dev.eba-rm6agvep.ap-southeast-2.elasticbeanstalk.com/swagger/index.html"
+          href="https://github.com/burger-mtbkr/customer-service/tree/main"
           target="_blank"
           rel="noopener noreferrer"
           className={classes.menuLink}
