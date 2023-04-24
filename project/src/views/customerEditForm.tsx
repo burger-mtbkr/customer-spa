@@ -62,7 +62,7 @@ export const CustomerEditForm = (): JSX.Element => {
     } else if (saveResponse?.isSuccessful === false) {
       setError(
         intl.formatMessage({
-          id: 'CUSTOMER_LIST_TITLE',
+          id: 'CUSTOMER_SAVE_ERROR',
           defaultMessage: 'Failed to save. Please try again.',
         }),
       );

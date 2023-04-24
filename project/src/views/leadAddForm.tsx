@@ -79,7 +79,7 @@ export const LeadAddForm = (): JSX.Element => {
     } else if (saveResponse?.isSuccessful === false) {
       setError(
         intl.formatMessage({
-          id: 'CUSTOMER_LIST_TITLE',
+          id: 'LEAD_SAVE_ERROR',
           defaultMessage: 'Failed to save. Please try again.',
         }),
       );

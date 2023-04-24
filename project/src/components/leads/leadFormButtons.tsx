@@ -27,7 +27,7 @@ export const LeadFormButtons = (): JSX.Element => {
 
   return (
     <>
-      <Stack direction="row" spacing={3} marginTop={2}>
+      <Stack direction="row" spacing={3} marginTop={2} marginBottom={2}>
         <Item>
           <Button
             startIcon={<SaveSharpIcon />}
