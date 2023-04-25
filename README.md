@@ -18,14 +18,13 @@ CORS can be an issue if the api and spa are running on separate ports and not be
 **Option 2: Proxy to spa**
 
 1.  Open your React app's package.json file.
-2.  Add a proxy field to the file, with the value set to the URL of your API, like this matching that of the api port:
+2.  Add a proxy field to the file, with the value set to the URL of your API (for example 5000), like this matching that of the api port:
 
         "proxy": "http://localhost:5000"
 
 3.  Save the file.
-4.  With this configuration, The SPA makes an API request to a URL that starts with `/`
-5.  The request will be forwarded to the API running on `localhost:5000`. For example, if our SPA app makes a request to /api/login, the request will be forwarded to http://localhost:5000/api/login.
-6.  If you take this approach **you will need to change the endpoint in the [axios.util.ts](../project//src//utils/axios.util.ts) file** by setting it to `/api`. and ignore the environmental variable.
+4.  Set the `REACT_APP_USE_PROXY` environmental to **true**.
+6.  The request will be forwarded to the API running on `localhost:5000`. For example, if our SPA app makes a request to /api/login, the request will be forwarded to http://localhost:5000/api/login.
 
 ### Run the SPA locally:
 
