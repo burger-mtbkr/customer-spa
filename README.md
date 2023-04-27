@@ -11,11 +11,20 @@ This is the React SPA for the Customer Service. This SPA runs on Node 16 and req
 
 CORS can be an issue if the api and spa are running on separate ports and not being proxied an das such the app will not be able to make requests to the api due to CORS. You can follow the Options below to decide what works best for you. The fastest way is to install the [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) extension.
 
-**Option 1: Browser plugin**
+**Option 1: Docker compose**
+
+- App is currently configured to run using docker compose.  There is a docker compose file [here](https://github.com/burger-mtbkr/customer-spa/blob/main/project/docker-compose.yml), which will pull down the images for this customer-spa and the  [customer-service api](https://github.com/burger-mtbkr/customer-service) and launch.  
+
+- Navigate to the project folder of thsi repository
+- Run `docker-compose up`
+- Browse the app at thsi url: http://localhost:3000
+
+
+**Option 2: Browser plugin**
 
 - Install a browser plugin like [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) and use that to ignore CORS on the SPA.
 
-**Option 2: Proxy to spa**
+**Option 3: Proxy to service locally**
 
 1.  Open your React app's package.json file.
 2.  Add a proxy field to the file, with the value set to the URL of your API (for example 5000), like this matching that of the api port:
